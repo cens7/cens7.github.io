@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+        Lambda基本使用 - mavic&#39;s blog
+      </title>
+    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  
+  <meta name="theme-color" content="#000000" />
+  
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <meta name="description" content="lambda基本使用 1.将List转成Map&amp;lt;Id,Person&amp;gt; Map&amp;lt;Id,Person&amp;gt; map = list.parallelStream(). collect(Collectors.toMap(Person::getId, p -&amp;gt; p)); 2.将List按照sex分组 Map&amp;lt;String,Person&amp;gt; map = list.parallelStream(). collect(Collectors.groupingBy(Person::getSex)); 3.取出" />
+  <meta name="generator" content="Hugo 0.60.1 with theme pure" />
+  <title>Lambda基本使用 - mavic&#39;s blog</title>
+  
+  
+  <link rel="stylesheet" href="https://cens7.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
+  
+  <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+  <meta property="og:title" content="Lambda基本使用" />
+<meta property="og:description" content="lambda基本使用 1.将List转成Map&lt;Id,Person&gt; Map&lt;Id,Person&gt; map = list.parallelStream(). collect(Collectors.toMap(Person::getId, p -&gt; p)); 2.将List按照sex分组 Map&lt;String,Person&gt; map = list.parallelStream(). collect(Collectors.groupingBy(Person::getSex)); 3.取出" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://cens7.github.io/2017/04/lambda%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" />
+<meta property="article:published_time" content="2017-04-30T10:18:58+08:00" />
+<meta property="article:modified_time" content="2017-04-30T10:18:58+08:00" />
+<meta itemprop="name" content="Lambda基本使用">
+<meta itemprop="description" content="lambda基本使用 1.将List转成Map&lt;Id,Person&gt; Map&lt;Id,Person&gt; map = list.parallelStream(). collect(Collectors.toMap(Person::getId, p -&gt; p)); 2.将List按照sex分组 Map&lt;String,Person&gt; map = list.parallelStream(). collect(Collectors.groupingBy(Person::getSex)); 3.取出">
+<meta itemprop="datePublished" content="2017-04-30T10:18:58&#43;08:00" />
+<meta itemprop="dateModified" content="2017-04-30T10:18:58&#43;08:00" />
+<meta itemprop="wordCount" content="506">
+
+
+
+<meta itemprop="keywords" content="Java,lambda," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Lambda基本使用"/>
+<meta name="twitter:description" content="lambda基本使用 1.将List转成Map&lt;Id,Person&gt; Map&lt;Id,Person&gt; map = list.parallelStream(). collect(Collectors.toMap(Person::getId, p -&gt; p)); 2.将List按照sex分组 Map&lt;String,Person&gt; map = list.parallelStream(). collect(Collectors.groupingBy(Person::getSex)); 3.取出"/>
+
+  <!--[if lte IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+    <![endif]-->
+
+  <!--[if lt IE 9]>
+      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/cens7/" target="_blank">
+            <img class="img-circle img-rotate" src="https://cens7.github.io/5_avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">mavic</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>HangZhou, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="https://cens7.github.io/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">Home</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="https://cens7.github.io/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">Archives</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="https://cens7.github.io/tags/">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">Tags</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p><font>我们仰望头顶的星辰,并脚踏实地</font></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/docker/" class="tag-list-link">docker</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/dubbo/" class="tag-list-link">dubbo</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/idea/" class="tag-list-link">idea</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/java/" class="tag-list-link">java</a><span
+                    class="tag-list-count">7</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/lambda/" class="tag-list-link">lambda</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/redis/" class="tag-list-link">redis</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/springcloud/" class="tag-list-link">springcloud</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/xss/" class="tag-list-link">xss</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E5%AE%89%E5%85%A8/" class="tag-list-link">安全</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E6%9E%B6%E6%9E%84/" class="tag-list-link">架构</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E9%97%AE%E9%A2%98/" class="tag-list-link">问题</a><span
+                    class="tag-list-count">2</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://cens7.github.io/2019/12/docker%E4%BD%BF%E7%94%A8/" class="title">docker使用</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2019-12-14 10:56:13 &#43;0800 CST" itemprop="datePublished">2019-12-14</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://cens7.github.io/2019/12/dubbo%E5%90%AF%E5%8A%A8%E5%A4%AA%E6%85%A2/" class="title">Dubbo启动太慢</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2019-12-13 22:47:09 &#43;0000 UTC" itemprop="datePublished">2019-12-13</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://cens7.github.io/2019/11/%E9%98%B2xss%E6%94%BB%E5%87%BB/" class="title">防xss攻击</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2019-11-22 00:00:00 &#43;0000 UTC" itemprop="datePublished">2019-11-22</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://cens7.github.io/2019/11/%E4%BD%BF%E7%94%A8redisson%E5%81%9A%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" class="title">使用redisson做分布式锁</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2019-11-15 21:43:00 &#43;0800 CST" itemprop="datePublished">2019-11-15</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://cens7.github.io/2018/06/springcloud%E4%B8%ADrabbitmq%E8%A2%AB%E6%B6%88%E8%B4%B9%E5%A4%9A%E6%AC%A1/" class="title">SpringCloud中rabbitmq被消费多次</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2018-06-12 00:00:00 &#43;0000 UTC" itemprop="datePublished">2018-06-12</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="https://cens7.github.io/2017/04/lambda%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"
+    >Lambda基本使用</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://cens7.github.io/2017/04/lambda%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" class="article-date">
+  <time datetime="2017-04-30 10:18:58 &#43;0800 CST" itemprop="datePublished">2017-04-30</time>
+</a>
+</span>
+  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="https://cens7.github.io/tags/java/"> Java </a>
+    <a class="article-tag-link" href="https://cens7.github.io/tags/lambda/"> lambda </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="https://cens7.github.io/2017/04/lambda%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 506字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h3 id="lambda">lambda基本使用</h3>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h4 id="1listpersonmapidperson">1.将List<!-- raw HTML omitted -->转成Map&lt;Id,Person&gt;</h4>
+<blockquote>
+<p>Map&lt;Id,Person&gt; map = list.parallelStream().
+collect(Collectors.toMap(Person::getId, p -&gt; p));</p>
+</blockquote>
+<h4 id="2listpersonsex">2.将List<!-- raw HTML omitted -->按照sex分组</h4>
+<blockquote>
+<p>Map&lt;String,Person&gt; map = list.parallelStream().
+collect(Collectors.groupingBy(Person::getSex));</p>
+</blockquote>
+<h4 id="3listpersonscore">3.取出List<!-- raw HTML omitted -->的平均score</h4>
+<blockquote>
+<p>dobble avg = list.parallelStream().
+mapToDouble(p -&gt; p.getScore()).average().getAsDouble();</p>
+</blockquote>
+<h4 id="4listpersonid10">4.取出List<!-- raw HTML omitted -->中id为10的学生</h4>
+<blockquote>
+<p>Optional<!-- raw HTML omitted --> op = list.parallelStream().filter(p -&gt; p.getId().equals(10)).findFirst();
+Person p = op.get();</p>
+</blockquote>
+<h4 id="5listpersonid">5.取出List<!-- raw HTML omitted -->中所有的id</h4>
+<blockquote>
+<p>List<!-- raw HTML omitted --> ids = list.parallelSream().map(Person::getId).collect(Collectors.toList());</p>
+</blockquote>
+<h4 id="6score100-">6.根据score,取前100名 （降序）</h4>
+<blockquote>
+<p>List<!-- raw HTML omitted --> persons =list.parallelStream().
+sorted(Comparator.comparing(Person::getScore()).reversed()).
+limit(100).collect(Collectors.toList());<!-- raw HTML omitted -->
+//使用guava <!-- raw HTML omitted -->
+List<!-- raw HTML omitted --> peopleList1 = Ordering.natural().onResultOf(People::getId).sortedCopy(peopleList);</p>
+</blockquote>
+<h4 id="7">7.取出分数最高的学生信息</h4>
+<blockquote>
+<p>Person person = list.parallelStream().max(Comparator.comparing(Person::getScore()).get();</p>
+<p>// 只能取出最小的ID 不能取出整个对象</p>
+<p>Integer min = Ordering.natural().reverse().min(Iterables.transform(peopleList, People::getId));</p>
+</blockquote>
+<h4 id="8">8.算所有学生的分数</h4>
+<blockquote>
+<p>Long sum = list.parallelStream().map(Person::getScore).reduce((x1,x2) -&gt; x1+x2).get();</p>
+</blockquote>
+<h4 id="9">9.求所有金钱总和</h4>
+<blockquote>
+<p>BigDecimal money = list.parallelStream().map(Person::getMoney).reduce(BigDecimal::add).get();</p>
+</blockquote>
+<h4 id="10listid">10.取出两个不同List对象中相等的Id</h4>
+<blockquote>
+<p><img src="https://cens7.github.io/images/2017-04-30/p1.png" alt=""></p>
+</blockquote>
+<h4 id="11listperson-">11.剔除List<!-- raw HTML omitted --> 中金钱一样的对象</h4>
+<blockquote>
+<ol>
+<li>Collection<!-- raw HTML omitted --> values = list.parallelStream().
+collect(Collectors.toMap(Person::getMoney, p -&gt; p , (p,q) -&gt; p)).values();</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="2">
+<li><img src="https://cens7.github.io/images/2017-04-30/p2.png" alt=""> <!-- raw HTML omitted --><!-- raw HTML omitted -->
+<img src="https://cens7.github.io/images/2017-04-30/p3.png" alt=""></li>
+</ol>
+</blockquote>
+<h4 id="12listpersonmaplonglistperson">12.将List<!-- raw HTML omitted -->转成Map&lt;Long,List<!-- raw HTML omitted -->&gt;。</h4>
+<p>(如果需要，可以转成Map&lt;String,List<!-- raw HTML omitted -->&gt;等等)</p>
+<blockquote>
+<p>Map&lt;Long, List<!-- raw HTML omitted -->&gt; result =
+listHello.stream().collect(Collectors.groupingBy(Person::getId));</p>
+</blockquote>
+<h4 id="13completablefuturelambda">13.CompletableFuture结合lambda异步执行并汇总</h4>
+<blockquote>
+<p><img src="https://cens7.github.io/images/2017-04-30/p4.png" alt=""></p>
+</blockquote>
+<h4 id="14map">14.对象转map</h4>
+<blockquote>
+<p>Map&lt;String, String&gt; collect = privilegeObjList.stream().collect(Collectors.toMap(PlatformPrivilegeF::getModuleNo, PlatformPrivilegeF::getPrivilege));</p>
+</blockquote>
+<h4 id="15modulenomapkeyprivilegemapvalue-list">15.把对象的moduleNo当Map的key，privilege当map的value List集合元素。</h4>
+<blockquote>
+<p>Map&lt;String, List<!-- raw HTML omitted -->&gt; map = privilegeObjList.stream().collect(
+Collectors.groupingBy(PlatformPrivilegeF::getModuleNo,
+Collectors.mapping(PlatformPrivilegeF::getPrivilege, Collectors.toList())));</p>
+</blockquote>
+
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://cens7.github.io/2017/04/lambda%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" title="Lambda基本使用" target="_blank" rel="external">https://cens7.github.io/2017/04/lambda%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/cens7/" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://cens7.github.io/5_avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/cens7/" target="_blank"><span class="text-dark">mavic</span><small class="ml-1x"></small></a></h3>
+        <div>记录我的成长</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://cens7.github.io/about/" title="关于我"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://cens7.github.io/2018/06/springcloud%E4%B8%ADrabbitmq%E8%A2%AB%E6%B6%88%E8%B4%B9%E5%A4%9A%E6%AC%A1/"
+                    title="SpringCloud中rabbitmq被消费多次"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/cens7/" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2016  -
+    2020
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/java.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/golang.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://cens7.github.io/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://cens7.github.io/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/cens7.github.io\/',
+            CONTENT_URL: 'https:\/\/cens7.github.io\/\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://cens7.github.io/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+  </body>
+</html>

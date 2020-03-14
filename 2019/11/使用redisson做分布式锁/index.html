@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+        使用redisson做分布式锁 - mavic&#39;s blog
+      </title>
+    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  
+  <meta name="theme-color" content="#000000" />
+  
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <meta name="description" content="使用redisson 1.pom依赖 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.redisson&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;redisson&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;${version}&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; 2.配置对应redisson @Configuration public class RedissonConfig { @Autowired(required = false) RedissonProperties redissonProperties; @Bean(destroyMethod = &amp;quot;shutdown&amp;quot;) @ConditionalOnMissingBean(RedissonClient.class) public RedissonClient redissonClient() { if (Objects.nonNull(redissonProperties)) { Config config = new Config(); String[] nodes = redissonProperties.getSentinelNodes().split(&amp;quot;,&amp;quot;); SentinelServersConfig sentinelServersConfig = config.useSentinelServers()" />
+  <meta name="generator" content="Hugo 0.60.1 with theme pure" />
+  <title>使用redisson做分布式锁 - mavic&#39;s blog</title>
+  
+  
+  <link rel="stylesheet" href="https://cens7.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
+  
+  <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+  <meta property="og:title" content="使用redisson做分布式锁" />
+<meta property="og:description" content="使用redisson 1.pom依赖 &lt;dependency&gt; &lt;groupId&gt;org.redisson&lt;/groupId&gt; &lt;artifactId&gt;redisson&lt;/artifactId&gt; &lt;version&gt;${version}&lt;/version&gt; &lt;/dependency&gt; 2.配置对应redisson @Configuration public class RedissonConfig { @Autowired(required = false) RedissonProperties redissonProperties; @Bean(destroyMethod = &quot;shutdown&quot;) @ConditionalOnMissingBean(RedissonClient.class) public RedissonClient redissonClient() { if (Objects.nonNull(redissonProperties)) { Config config = new Config(); String[] nodes = redissonProperties.getSentinelNodes().split(&quot;,&quot;); SentinelServersConfig sentinelServersConfig = config.useSentinelServers()" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://cens7.github.io/2019/11/%E4%BD%BF%E7%94%A8redisson%E5%81%9A%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" />
+<meta property="article:published_time" content="2019-11-15T21:43:00+08:00" />
+<meta property="article:modified_time" content="2019-11-15T21:43:00+08:00" />
+<meta itemprop="name" content="使用redisson做分布式锁">
+<meta itemprop="description" content="使用redisson 1.pom依赖 &lt;dependency&gt; &lt;groupId&gt;org.redisson&lt;/groupId&gt; &lt;artifactId&gt;redisson&lt;/artifactId&gt; &lt;version&gt;${version}&lt;/version&gt; &lt;/dependency&gt; 2.配置对应redisson @Configuration public class RedissonConfig { @Autowired(required = false) RedissonProperties redissonProperties; @Bean(destroyMethod = &quot;shutdown&quot;) @ConditionalOnMissingBean(RedissonClient.class) public RedissonClient redissonClient() { if (Objects.nonNull(redissonProperties)) { Config config = new Config(); String[] nodes = redissonProperties.getSentinelNodes().split(&quot;,&quot;); SentinelServersConfig sentinelServersConfig = config.useSentinelServers()">
+<meta itemprop="datePublished" content="2019-11-15T21:43:00&#43;08:00" />
+<meta itemprop="dateModified" content="2019-11-15T21:43:00&#43;08:00" />
+<meta itemprop="wordCount" content="1464">
+
+
+
+<meta itemprop="keywords" content="Java,redis," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用redisson做分布式锁"/>
+<meta name="twitter:description" content="使用redisson 1.pom依赖 &lt;dependency&gt; &lt;groupId&gt;org.redisson&lt;/groupId&gt; &lt;artifactId&gt;redisson&lt;/artifactId&gt; &lt;version&gt;${version}&lt;/version&gt; &lt;/dependency&gt; 2.配置对应redisson @Configuration public class RedissonConfig { @Autowired(required = false) RedissonProperties redissonProperties; @Bean(destroyMethod = &quot;shutdown&quot;) @ConditionalOnMissingBean(RedissonClient.class) public RedissonClient redissonClient() { if (Objects.nonNull(redissonProperties)) { Config config = new Config(); String[] nodes = redissonProperties.getSentinelNodes().split(&quot;,&quot;); SentinelServersConfig sentinelServersConfig = config.useSentinelServers()"/>
+
+  <!--[if lte IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+    <![endif]-->
+
+  <!--[if lt IE 9]>
+      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/cens7/" target="_blank">
+            <img class="img-circle img-rotate" src="https://cens7.github.io/5_avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">mavic</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>HangZhou, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="https://cens7.github.io/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">Home</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="https://cens7.github.io/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">Archives</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="https://cens7.github.io/tags/">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">Tags</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p><font>我们仰望头顶的星辰,并脚踏实地</font></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/docker/" class="tag-list-link">docker</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/dubbo/" class="tag-list-link">dubbo</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/idea/" class="tag-list-link">idea</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/java/" class="tag-list-link">java</a><span
+                    class="tag-list-count">7</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/lambda/" class="tag-list-link">lambda</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/redis/" class="tag-list-link">redis</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/springcloud/" class="tag-list-link">springcloud</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/xss/" class="tag-list-link">xss</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E5%AE%89%E5%85%A8/" class="tag-list-link">安全</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E6%9E%B6%E6%9E%84/" class="tag-list-link">架构</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E9%97%AE%E9%A2%98/" class="tag-list-link">问题</a><span
+                    class="tag-list-count">2</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://cens7.github.io/2019/12/docker%E4%BD%BF%E7%94%A8/" class="title">docker使用</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2019-12-14 10:56:13 &#43;0800 CST" itemprop="datePublished">2019-12-14</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://cens7.github.io/2019/12/dubbo%E5%90%AF%E5%8A%A8%E5%A4%AA%E6%85%A2/" class="title">Dubbo启动太慢</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2019-12-13 22:47:09 &#43;0000 UTC" itemprop="datePublished">2019-12-13</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://cens7.github.io/2019/11/%E9%98%B2xss%E6%94%BB%E5%87%BB/" class="title">防xss攻击</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2019-11-22 00:00:00 &#43;0000 UTC" itemprop="datePublished">2019-11-22</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://cens7.github.io/2019/11/%E4%BD%BF%E7%94%A8redisson%E5%81%9A%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" class="title">使用redisson做分布式锁</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2019-11-15 21:43:00 &#43;0800 CST" itemprop="datePublished">2019-11-15</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://cens7.github.io/2018/06/springcloud%E4%B8%ADrabbitmq%E8%A2%AB%E6%B6%88%E8%B4%B9%E5%A4%9A%E6%AC%A1/" class="title">SpringCloud中rabbitmq被消费多次</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2018-06-12 00:00:00 &#43;0000 UTC" itemprop="datePublished">2018-06-12</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="https://cens7.github.io/2019/11/%E4%BD%BF%E7%94%A8redisson%E5%81%9A%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/"
+    >使用redisson做分布式锁</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://cens7.github.io/2019/11/%E4%BD%BF%E7%94%A8redisson%E5%81%9A%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" class="article-date">
+  <time datetime="2019-11-15 21:43:00 &#43;0800 CST" itemprop="datePublished">2019-11-15</time>
+</a>
+</span>
+  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="https://cens7.github.io/tags/java/"> Java </a>
+    <a class="article-tag-link" href="https://cens7.github.io/tags/redis/"> redis </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="https://cens7.github.io/2019/11/%E4%BD%BF%E7%94%A8redisson%E5%81%9A%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1464字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h3 id="redisson">使用redisson</h3>
+<h4 id="1pom">1.pom依赖</h4>
+<blockquote>
+<pre><code>&lt;dependency&gt;
+   &lt;groupId&gt;org.redisson&lt;/groupId&gt;
+   &lt;artifactId&gt;redisson&lt;/artifactId&gt;
+   &lt;version&gt;${version}&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+</blockquote>
+<h4 id="2redisson">2.配置对应redisson</h4>
+<pre><code class="language-java">@Configuration
+public class RedissonConfig {
+ 
+    @Autowired(required = false)
+    RedissonProperties redissonProperties;
+ 
+    @Bean(destroyMethod = &quot;shutdown&quot;)
+    @ConditionalOnMissingBean(RedissonClient.class)
+    public RedissonClient redissonClient() {
+        if (Objects.nonNull(redissonProperties)) {
+ 
+            Config config = new Config();
+            String[] nodes = redissonProperties.getSentinelNodes().split(&quot;,&quot;);
+            SentinelServersConfig sentinelServersConfig = config.useSentinelServers()
+                    .setMasterName(redissonProperties.getMasterName())
+                    .setDatabase(redissonProperties.getDatabase())
+                    .setConnectTimeout(redissonProperties.getConnectTimeout())
+                    .setPassword(redissonProperties.getPassword());
+            for (String node : nodes) {
+                sentinelServersConfig = sentinelServersConfig.addSentinelAddress(&quot;redis://&quot; + node);
+            }
+ 
+            return Redisson.create(config);
+        } else {
+            return null;
+        }
+    }
+}
+</code></pre>
+<h4 id="3">3.使用</h4>
+<p>这里是<a href="https://github.com/redisson/redisson/wiki/8.-%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%92%8C%E5%90%8C%E6%AD%A5%E5%99%A8">官方文档</a></p>
+<h5 id="1-">1) 使用普通锁(可重入锁)</h5>
+<p>注意：可重入锁lock()几次，就要对应的unlock()几次</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h5 id="2-">2) 使用公平锁</h5>
+<p>公平锁秉持先到先得原则，先请求获取锁的线程先获取到锁，后来的线程等待。</p>
+<pre><code class="language-java">@Autowired
+private RedissonClient redisson;
+ 
+public void demo() {
+ 
+    RLock lock = redisson.getLock(&quot;lock&quot;);
+    lock.lock(2, TimeUnit.SECONDS);
+ 
+    Thread t = new Thread(() -&gt; {
+        RLock lock1 = redisson.getLock(&quot;lock&quot;);
+        lock1.lock();
+        lock1.unlock();
+    });
+    t.start();
+    t.join();
+    lock.unlock();
+}
+</code></pre>
+<h5 id="3-">3) 使用读写锁</h5>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h5 id="4-">4) 使用红锁</h5>
+<p>使用redlock需要多个redissonClient，多个redissonClient需要多个互相独立的哨兵，我们的项目里目前只有一个哨兵，所以暂不推荐使用红锁</p>
+<p>上面是4种比较常用的分布式锁机制，我们针对不同业务作出不同选型。</p>
+<blockquote>
+<p>redisson将各种锁的概念与java的各种锁完美的结合在一起，封装做的非常巧妙，甚至对于CountDownLatch、Semaphore、Atomic等等也有很多精妙绝伦的封装，感兴趣的同学可以研究一下官方文档。</p>
+</blockquote>
+<pre><code>注意：1. 不管使用哪一种锁，都需要设置锁的过期时间。
+     2. 使用lock()、tryLock()时，一定要放在try{}catch(){}中，且unlock一定要放在finally{}里
+     3. 所有需要使用分布式锁场景的锁名，都要使用枚举、常量统一管理
+</code></pre>
+<h3 id="redisson1">redisson锁原理</h3>
+<h4 id="1--trylocktruefalsetrylock">1)  tryLock()表示尝试加锁，加锁成功返回true，加锁失败返回false。使用tryLock()加锁，线程没有获取到锁不会阻塞。</h4>
+<p>使用tryLock()加锁流程： <!-- raw HTML omitted -->
+<img src="https://cens7.github.io/images/2019-11-15/p1.png" alt=""></p>
+<h4 id="2--lock-lock">2)  lock() 加锁，此锁已被持有则等待，没有被持有则获取这把锁。使用lock()加锁，线程没有获取到锁会一直阻塞直到获取到锁。</h4>
+<p>使用lock()加锁流程：  <!-- raw HTML omitted -->
+<img src="https://cens7.github.io/images/2019-11-15/p2.png" alt=""></p>
+<h4 id="3--lua">3)  使用可重入锁、公平锁、读写锁时，执行的lua脚本各不相同。</h4>
+<table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="center">加锁lua</th>
+<th align="center">解锁lua</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">可重入锁 红锁</td>
+<td align="center"><img src="https://cens7.github.io/images/2019-11-15/pa1.png" alt=""></td>
+<td align="center"><img src="https://cens7.github.io/images/2019-11-15/pa2.png" alt=""></td>
+</tr>
+<tr>
+<td align="center">公平锁</td>
+<td align="center"><img src="https://cens7.github.io/images/2019-11-15/pb1.png" alt=""></td>
+<td align="center"><img src="https://cens7.github.io/images/2019-11-15/pb2.png" alt=""></td>
+</tr>
+<tr>
+<td align="center">读锁</td>
+<td align="center"><img src="https://cens7.github.io/images/2019-11-15/pc1.png" alt=""></td>
+<td align="center"><img src="https://cens7.github.io/images/2019-11-15/pc2.png" alt=""></td>
+</tr>
+<tr>
+<td align="center">写锁</td>
+<td align="center"><img src="https://cens7.github.io/images/2019-11-15/pd1.png" alt=""></td>
+<td align="center"><img src="https://cens7.github.io/images/2019-11-15/pd2.png" alt=""></td>
+</tr>
+</tbody>
+</table>
+<h4 id="4trylocklock">4）tryLock()与lock()的使用场景</h4>
+<ul>
+<li>场景一： 库存抢占。有效库存只有100，多个应用来抢占这100个库存总数。这时使用：lock()</li>
+<li>场景二： 退款申请。网络卡顿或其他原因同时段提交多次退款申请，实际只生成一条退款单。这时使用：tryLock()</li>
+</ul>
+<h4 id="5trylocklcok">5）tryLock()与lcok()使用的注意事项</h4>
+<ul>
+<li>tryLock() 尝试获取锁,不等待，返回获取结果。<!-- raw HTML omitted --></li>
+<li>tryLock(long waitTime, TimeUnit timeUnit) 尝试获取锁，并等待waitTime个时间单位，之后返回获取结果。<!-- raw HTML omitted --></li>
+<li>tryLock(long waitTime, long leaseTime, TimeUnit timeUnit) 尝试获取锁，并等待waitTIme个时间单位，并将此锁持有leaseTime个时间单位，之后返回获取结果。<!-- raw HTML omitted --></li>
+<li>lock() 获取锁，线程阻塞，直到获取到锁为止，锁不过期，直到解锁或者被内部机制释放。<!-- raw HTML omitted --></li>
+<li>lock(long leaseTime, TimeUnit timeUnit) 获取锁，直到获取到锁为止，持有锁leaseTime个时间单位，之后自动释放锁，也可以提前手动释放。</li>
+</ul>
+<h4 id="6">6）公平锁、可重入锁、读写锁、红锁的使用场景</h4>
+<ul>
+<li>
+<p>场景一： 门票只有100张。先到先得。这时使用公平锁<!-- raw HTML omitted --></p>
+</li>
+<li>
+<p>场景二： 1. 门票只有100张，需要抢票。2. 需要把下一张门票修改成vip票。 (可重入锁是在一个线程中多次获取同一把锁。一个线程在执行一个带锁的方法时，该方法中又调用了另一个需要相同锁的方法，则该线程可以直接执行调用的方法，而无需重新获得锁)<!-- raw HTML omitted --></p>
+</li>
+<li>
+<p>场景三： 所有人都能看到库存信息，但同时只有一个人来修改库存。所有的人都能看到库存信息，使用读锁。同时只有一个人来修改库存，使用写锁。多个读锁不互斥，读锁与写锁互斥<!-- raw HTML omitted --></p>
+</li>
+<li>
+<p>场景四： 当需要超级高可用锁的场景时，使用红锁。</p>
+<p>综上所述，使用tryLock还是lock，使用公平锁还是读写锁都是看具体的业务和场景而言。</p>
+</li>
+</ul>
+
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://cens7.github.io/2019/11/%E4%BD%BF%E7%94%A8redisson%E5%81%9A%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" title="使用redisson做分布式锁" target="_blank" rel="external">https://cens7.github.io/2019/11/%E4%BD%BF%E7%94%A8redisson%E5%81%9A%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/cens7/" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://cens7.github.io/5_avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/cens7/" target="_blank"><span class="text-dark">mavic</span><small class="ml-1x"></small></a></h3>
+        <div>记录我的成长</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://cens7.github.io/2018/06/springcloud%E4%B8%ADrabbitmq%E8%A2%AB%E6%B6%88%E8%B4%B9%E5%A4%9A%E6%AC%A1/" title="SpringCloud中rabbitmq被消费多次"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://cens7.github.io/2019/11/%E9%98%B2xss%E6%94%BB%E5%87%BB/"
+                    title="防xss攻击"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/cens7/" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2016  -
+    2020
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/java.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/golang.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://cens7.github.io/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://cens7.github.io/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/cens7.github.io\/',
+            CONTENT_URL: 'https:\/\/cens7.github.io\/\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://cens7.github.io/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+  </body>
+</html>
