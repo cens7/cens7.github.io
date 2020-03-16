@@ -100,5 +100,14 @@
       <description>左移运算（&amp;laquo;） value &amp;lt;&amp;lt; num num 指定要移位值；value 移动的位数。 将左操作数（value）转为二进制数后向左边移动 num 位，并且在低位补 0，</description>
     </item>
     
+    <item>
+      <title>数据结构学习笔记_1</title>
+      <link>https://cens7.github.io/2015/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_1/</link>
+      <pubDate>Mon, 30 Nov 2015 17:39:39 +0800</pubDate>
+      
+      <guid>https://cens7.github.io/2015/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_1/</guid>
+      <description>广义表： L=(a,b) L长度为2，深度为1 L=(x,(a,b)）长度为2，深度为2 L=(x,(a,b,c),y) 长度为3，深度为6 L=(a,a,a,(a,&amp;hellip;))长度为</description>
+    </item>
+    
   </channel>
 </rss>

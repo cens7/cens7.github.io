@@ -4,7 +4,8 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>
-        mavic&#39;s blog</title>
+        数据结构学习笔记_1 - mavic&#39;s blog
+      </title>
     <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -22,25 +23,32 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  
+  <meta name="description" content="广义表： L=(a,b) L长度为2，深度为1 L=(x,(a,b)）长度为2，深度为2 L=(x,(a,b,c),y) 长度为3，深度为6 L=(a,a,a,(a,&amp;hellip;))长度为" />
   <meta name="generator" content="Hugo 0.60.1 with theme pure" />
-  <title>mavic&#39;s blog</title>
+  <title>数据结构学习笔记_1 - mavic&#39;s blog</title>
   
-  <link rel="alternate" type="application/rss+xml" href="https://cens7.github.io/index.xml" title="mavic's blog" />
   
   <link rel="stylesheet" href="https://cens7.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
   
   <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
-  <meta property="og:title" content="mavic&#39;s blog" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://cens7.github.io/" />
-<meta property="og:updated_time" content="2019-12-14T10:56:13+08:00" />
-<meta itemprop="name" content="mavic&#39;s blog">
-<meta itemprop="description" content=""><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="mavic&#39;s blog"/>
-<meta name="twitter:description" content=""/>
+  <meta property="og:title" content="数据结构学习笔记_1" />
+<meta property="og:description" content="广义表： L=(a,b) L长度为2，深度为1 L=(x,(a,b)）长度为2，深度为2 L=(x,(a,b,c),y) 长度为3，深度为6 L=(a,a,a,(a,&hellip;))长度为" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://cens7.github.io/2015/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_1/" />
+<meta property="article:published_time" content="2015-11-30T17:39:39+08:00" />
+<meta property="article:modified_time" content="2015-11-30T17:39:39+08:00" />
+<meta itemprop="name" content="数据结构学习笔记_1">
+<meta itemprop="description" content="广义表： L=(a,b) L长度为2，深度为1 L=(x,(a,b)）长度为2，深度为2 L=(x,(a,b,c),y) 长度为3，深度为6 L=(a,a,a,(a,&hellip;))长度为">
+<meta itemprop="datePublished" content="2015-11-30T17:39:39&#43;08:00" />
+<meta itemprop="dateModified" content="2015-11-30T17:39:39&#43;08:00" />
+<meta itemprop="wordCount" content="1057">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="数据结构学习笔记_1"/>
+<meta name="twitter:description" content="广义表： L=(a,b) L长度为2，深度为1 L=(x,(a,b)）长度为2，深度为2 L=(x,(a,b,c),y) 长度为3，深度为6 L=(a,a,a,(a,&hellip;))长度为"/>
 
   <!--[if lte IE 9]>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -57,7 +65,7 @@
   
   
 
-  <body class="main-center theme-black main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
     <div class="slimContent">
       <div class="navbar-header">
         <div class="profile-block text-center">
@@ -260,88 +268,20 @@
 
     
     
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
 
-<main class="main" role="main">
-  
-  <div class="content article-list">
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
     
-    
-    
-    <article
-      class="article article-type-page"
-      itemscope
-      itemtype="http://schema.org/BlogPosting"
-    >
-      <div class="article-header">
-        <h1 itemprop="name">
-  <a
-    class="article-title"
-    href="https://cens7.github.io/2016/02/java%E4%BD%8D%E8%BF%90%E7%AE%972_%E4%BD%8D%E8%BF%90%E7%AE%97/"
-    >Java位运算2_位运算</a
-  >
-</h1>
-
-      </div>
-      <div class="article-entry text-muted" itemprop="description">位逻辑运算符 与运算（&amp;） 与运算：两个运算数比较位都是 1，则结果为 1，否则为 0。例如：5 &amp; 3 = 1 0000 0000 0000 0000 0000 0000 0000 0101 5 转换为二进制 0000 0000 0000 0000</div>
-      <p class="article-meta">
-<span class="article-date">
-  <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://cens7.github.io/2016/02/java%E4%BD%8D%E8%BF%90%E7%AE%972_%E4%BD%8D%E8%BF%90%E7%AE%97/" class="">
-  <time datetime="2016-02-13 18:18:52 &#43;0800 CST" itemprop="datePublished">2016-02-13</time>
-</a>
-</span>
-  
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>&nbsp;
-    <a class="article-tag-link" href="https://cens7.github.io/tags/java/"> Java </a>
-  </span>
-
-        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="https://cens7.github.io/2016/02/java%E4%BD%8D%E8%BF%90%E7%AE%972_%E4%BD%8D%E8%BF%90%E7%AE%97/#comments" class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 780字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2分 </span>
-      </p>
-    </article>
-    <article
-      class="article article-type-page"
-      itemscope
-      itemtype="http://schema.org/BlogPosting"
-    >
-      <div class="article-header">
-        <h1 itemprop="name">
-  <a
-    class="article-title"
-    href="https://cens7.github.io/2016/02/java%E4%BD%8D%E8%BF%90%E7%AE%971_%E5%B7%A6%E7%A7%BB%E5%8F%B3%E7%A7%BB/"
-    >Java位运算1_左移、右移</a
-  >
-</h1>
-
-      </div>
-      <div class="article-entry text-muted" itemprop="description">左移运算（&laquo;） value &lt;&lt; num num 指定要移位值；value 移动的位数。 将左操作数（value）转为二进制数后向左边移动 num 位，并且在低位补 0，</div>
-      <p class="article-meta">
-<span class="article-date">
-  <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://cens7.github.io/2016/02/java%E4%BD%8D%E8%BF%90%E7%AE%971_%E5%B7%A6%E7%A7%BB%E5%8F%B3%E7%A7%BB/" class="">
-  <time datetime="2016-02-12 21:35:10 &#43;0800 CST" itemprop="datePublished">2016-02-12</time>
-</a>
-</span>
-  
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>&nbsp;
-    <a class="article-tag-link" href="https://cens7.github.io/tags/java/"> Java </a>
-  </span>
-
-        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="https://cens7.github.io/2016/02/java%E4%BD%8D%E8%BF%90%E7%AE%971_%E5%B7%A6%E7%A7%BB%E5%8F%B3%E7%A7%BB/#comments" class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1196字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3分 </span>
-      </p>
-    </article>
-    <article
-      class="article article-type-page"
-      itemscope
-      itemtype="http://schema.org/BlogPosting"
-    >
-      <div class="article-header">
-        <h1 itemprop="name">
+    <div class="article-header">
+      <h1 itemprop="name">
   <a
     class="article-title"
     href="https://cens7.github.io/2015/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_1/"
@@ -349,36 +289,219 @@
   >
 </h1>
 
-      </div>
-      <div class="article-entry text-muted" itemprop="description">广义表： L=(a,b) L长度为2，深度为1 L=(x,(a,b)）长度为2，深度为2 L=(x,(a,b,c),y) 长度为3，深度为6 L=(a,a,a,(a,&hellip;))长度为</div>
-      <p class="article-meta">
+      <div class="article-meta">
+        
 <span class="article-date">
   <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://cens7.github.io/2015/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_1/" class="">
+<a href="https://cens7.github.io/2015/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_1/" class="article-date">
   <time datetime="2015-11-30 17:39:39 &#43;0800 CST" itemprop="datePublished">2015-11-30</time>
 </a>
 </span>
 
 
-        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="https://cens7.github.io/2015/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_1/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="https://cens7.github.io/2015/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_1/#comments"
+            class="article-comment-link">评论</a></span>
 		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1057字</span>
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3分 </span>
-      </p>
-    </article></div>
-  
-<nav class="bar bar-footer clearfix" data-stick-bottom>
-  <div class="bar-inner">
-    <ul class="pager pull-left"><li class="prev">
-        <a href="https://cens7.github.io/">
-          <i class="icon icon-angle-left"></i>
-          
-        </a>
-      </li>
-    </ul>
-    <div class="total-article bar-right">
-      Page:2/2
+      </div>
     </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h5 id="heading">广义表：</h5>
+<blockquote>
+<p>L=(a,b)  L长度为2，深度为1</p>
+<p>L=(x,(a,b)）长度为2，深度为2</p>
+<p>L=(x,(a,b,c),y) 长度为3，深度为6</p>
+<p>L=(a,a,a,(a,&hellip;))长度为4，深度为无穷大</p>
+</blockquote>
+<p><img src="https://cens7.github.io/images/2015-11-30/p1.png" alt=""><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->无向图G5的邻接矩阵是：<!-- raw HTML omitted --></p>
+<blockquote>
+<p>A1 ={0，1，1，1}</p>
+<p>{1，0，1，1}</p>
+<p>{1，1，0，0}</p>
+<p>{1，1，0，0}</p>
+</blockquote>
+<!-- raw HTML omitted -->
+<p><img src="https://cens7.github.io/images/2015-11-30/p2.png" alt=""><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->有向图G6的邻接矩阵是：</p>
+<blockquote>
+<p>A2 = {0，1，0，0，0}</p>
+<p>{1，0，0，0，1}</p>
+<p>{0，1，0，1，0}</p>
+<p>{1，0，0，0，0}</p>
+<p>{0，0，0，1，0}</p>
+</blockquote>
+<ul>
+<li>排序：内部排序：排序时不涉及数据的内、外存交换。适用于记录个数不很多的小文件。包括：插入排序、选择排序、交换排序、归并排序和分配排序。</li>
+<li>外部排序：过程中要进行数据的内、外存交换。适用于记录个数太多，不能一次放到内存的大文件。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">算法名</th>
+<th align="center">类别</th>
+<th align="center">平均</th>
+<th align="center">最好</th>
+<th align="center">最坏</th>
+<th align="center">辅助</th>
+<th align="center">稳定性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">直接插入排序</td>
+<td align="center">插入排序</td>
+<td align="center">O(n²)</td>
+<td align="center">O(n)</td>
+<td align="center">O(n²)</td>
+<td align="center">O(1)</td>
+<td align="center">稳定</td>
+</tr>
+<tr>
+<td align="center">希尔排序</td>
+<td align="center">插入排序</td>
+<td align="center">O(n^1.5)</td>
+<td align="center">O(n)</td>
+<td align="center">O(n²)</td>
+<td align="center">O(1)</td>
+<td align="center">不稳定</td>
+</tr>
+<tr>
+<td align="center">简单选择排序</td>
+<td align="center">选择排序</td>
+<td align="center">O(n²)</td>
+<td align="center">O(n²)</td>
+<td align="center">O(n²)</td>
+<td align="center">O(1)</td>
+<td align="center">不稳定</td>
+</tr>
+<tr>
+<td align="center">堆排序</td>
+<td align="center">选择排序</td>
+<td align="center">O(n㏒2n)</td>
+<td align="center">O(n㏒2n)</td>
+<td align="center">O(n㏒2n)</td>
+<td align="center">O(1)</td>
+<td align="center">不稳定</td>
+</tr>
+<tr>
+<td align="center">冒泡排序</td>
+<td align="center">交换排序</td>
+<td align="center">O(n²)</td>
+<td align="center">O(n)</td>
+<td align="center">O(n²)</td>
+<td align="center">O(1)</td>
+<td align="center">稳定</td>
+</tr>
+<tr>
+<td align="center">快速排序</td>
+<td align="center">交换排序</td>
+<td align="center">O(n㏒2n)</td>
+<td align="center">O(n㏒2n)</td>
+<td align="center">O(n²)</td>
+<td align="center">O(n㏒2n)</td>
+<td align="center">不稳定</td>
+</tr>
+<tr>
+<td align="center">归并排序</td>
+<td align="center">归并排序</td>
+<td align="center">O(n㏒2n)</td>
+<td align="center">O(n㏒2n)</td>
+<td align="center">O(n㏒2n)</td>
+<td align="center">O(1)</td>
+<td align="center">稳定</td>
+</tr>
+<tr>
+<td align="center">基数排序</td>
+<td align="center">基数排序</td>
+<td align="center">O(d(r+n))</td>
+<td align="center">O(d(rd+n))</td>
+<td align="center">O(d(r+n))</td>
+<td align="center">O(rd+n)</td>
+<td align="center">稳定</td>
+</tr>
+</tbody>
+</table>
+<p><img src="https://cens7.github.io/images/2015-11-30/p3.png" alt=""><!-- raw HTML omitted -->
+<img src="https://cens7.github.io/images/2015-11-30/p4.png" alt=""><!-- raw HTML omitted -->
+<img src="https://cens7.github.io/images/2015-11-30/p5.png" alt=""><!-- raw HTML omitted -->
+<img src="https://cens7.github.io/images/2015-11-30/p6.png" alt=""><!-- raw HTML omitted -->
+<img src="https://cens7.github.io/images/2015-11-30/p7.png" alt=""><!-- raw HTML omitted -->
+<img src="https://cens7.github.io/images/2015-11-30/p8.png" alt=""><!-- raw HTML omitted --></p>
+<ol>
+<li>二叉树节点的度指父节点对应的下面孩子节点个数，最大为2。</li>
+<li>BFS（Breadth-first Search）宽度优先搜索。先从根节点开始，搜索根节点左侧V1；搜索根节点右侧V2；搜索V1左侧V11；搜索V2右侧，当V2节点已经被V1搜索过，则V2停止。</li>
+<li>DFS（Depth-first Search）深度优先搜索。先从根节点开始，搜索根节点左侧V1下面所有节点；搜索完再搜索根节点右侧V2所有节点。当V2节点已经被V1搜索过，则V2停止。</li>
+<li>二路归并排序是把数组分成 n/2 +1个子数组，子数组内排序完成，在一直两两归并排序下去成一个数组。</li>
+<li>图的广度优先遍历(BFS)类似于树的层次遍历。</li>
+<li>图的深度优先遍历(DFS)类似于树的前序遍历。</li>
+<li>直接插入排序后，可能未能选出一个元素放到其最终位置上。</li>
+<li>快速排序、冒泡排序、希尔排序、堆排序原理。</li>
+<li>二叉树等改路情况下平均查找长度等于= （∑(节点数量×节点个数)）÷所有节点个数。</li>
+<li>堆排序是一种树形选择排序。</li>
+<li>设线性表的长度为n，则顺序查找成功时的平均查找长度为 (n+1)/2。</li>
+<li>抽象数据类型是指抽象数据的组织和与之相关的操作。</li>
+<li>当三交矩阵的常数为0时，n阶三角矩阵的非零元素个数为n(n+1)/2。</li>
+<li>有向图中的极大连通子图称作有向图的强连接分量。</li>
+</ol>
+
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://cens7.github.io/2015/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_1/" title="数据结构学习笔记_1" target="_blank" rel="external">https://cens7.github.io/2015/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_1/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/cens7/" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://cens7.github.io/5_avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/cens7/" target="_blank"><span class="text-dark">mavic</span><small class="ml-1x"></small></a></h3>
+        <div>记录我的成长</div>
+      </div>
+    </figure>
   </div>
+</div>
+    </div>
+  </article>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="next">
+                <a href="https://cens7.github.io/2016/02/java%E4%BD%8D%E8%BF%90%E7%AE%971_%E5%B7%A6%E7%A7%BB%E5%8F%B3%E7%A7%BB/"
+                    title="Java位运算1_左移、右移"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
 </nav>
 
 </main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -455,6 +578,7 @@
         hasInnerContainers: true,
     });
 </script>
+
 
   </body>
 </html>
