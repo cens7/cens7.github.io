@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on mavic&#39;s blog</title>
-    <link>https://cens7.github.io/categories/</link>
-    <description>Recent content in Categories on mavic&#39;s blog</description>
+    <title>数据结构 on mavic&#39;s blog</title>
+    <link>https://cens7.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
+    <description>Recent content in 数据结构 on mavic&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 13 Feb 2016 18:18:52 +0800</lastBuildDate>
     
-        <atom:link href="https://cens7.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://cens7.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
