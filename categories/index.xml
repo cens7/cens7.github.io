@@ -24,7 +24,7 @@
       <pubDate>Thu, 02 Jan 2020 12:34:44 +0800</pubDate>
       
       <guid>https://cens7.github.io/2020/01/%E4%BD%BF%E7%94%A8kotlin%E5%86%99springboot%E7%9A%84%E5%9D%91/</guid>
-      <description>背景 听说kotlin跟Java生态无缝集成，尝试一下用kotlin写springBoot应用。 启动springboot: 遇到的坑 1. sprin</description>
+      <description>背景 听说kotlin跟Java生态无缝集成，尝试一下用kotlin写springBoot应用。 启动springboot: @SpringBootApplication @EnableScheduling open class NotifyApplication fun main(args: Array&amp;lt;String&amp;gt;) { val</description>
     </item>
     
     <item>

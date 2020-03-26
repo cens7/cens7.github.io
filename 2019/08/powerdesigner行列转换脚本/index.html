@@ -42,7 +42,7 @@
 <meta itemprop="description" content="从数据库工具（比如：navicat）中导出表结构sql。 将sql导入到powerDesigner里。 File → Reverse Engineer → Database选中导出的表结">
 <meta itemprop="datePublished" content="2019-08-05T22:03:57&#43;08:00" />
 <meta itemprop="dateModified" content="2019-08-05T22:03:57&#43;08:00" />
-<meta itemprop="wordCount" content="144">
+<meta itemprop="wordCount" content="403">
 
 
 
@@ -321,7 +321,7 @@
 
         <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="https://cens7.github.io/2019/08/powerdesigner%E8%A1%8C%E5%88%97%E8%BD%AC%E6%8D%A2%E8%84%9A%E6%9C%AC/#comments"
             class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 144字</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 403字</span>
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1分 </span>
       </div>
     </div>
@@ -344,13 +344,85 @@ Tools → Execute Commonds → Edit/Run Script <!-- raw HTML omitted -->
 <ul>
 <li>写入代码点run，然后close弹窗：<!-- raw HTML omitted --></li>
 </ul>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<pre><code>Option Explicit 
+ValidationMode = True 
+InteractiveMode = im_Batch 
+Dim mdl 'the current model 
+'get the current active model 
+Set mdl = ActiveModel 
+If (mdl Is Nothing) Then 
+MsgBox &quot;There is no current Model&quot; 
+ElseIf Not mdl.IsKindOf(PdPDM.cls_Model) Then 
+MsgBox &quot;The current model is not an Physical Data model.&quot; 
+Else 
+ProcessFolder mdl 
+End If
+'This routine copy name into code for each table, each column and each view 
+'of the current folder 
+Private sub ProcessFolder(folder) 
+Dim Tab 'running table 
+for each Tab in folder.tables 
+if not tab.isShortcut then 
+if len(tab.comment) &lt;&gt; 0 then 
+tab.name = tab.comment 
+end if 
+On Error Resume Next 
+Dim col 'running column 
+for each col in tab.columns 
+if len(col.comment) &lt;&gt;0 then 
+col.name =col.comment 
+end if 
+On Error Resume Next 
+next 
+end if 
+next
+end sub
+</code></pre>
 <ul>
 <li>把code驼峰转为下划线<!-- raw HTML omitted --></li>
 </ul>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<pre><code>Option Explicit
+ValidationMode = True
+InteractiveMode = im_Batch
+Dim mdl 'the current model
+Set mdl = ActiveModel
+If (mdl Is Nothing) Then
+MsgBox &quot;There is no current Model&quot;
+ElseIf Not mdl.IsKindOf(PdPDM.cls_Model) Then
+MsgBox &quot;The current model is not an Physical Data model.&quot;
+Else
+ProcessFolder mdl
+End If
+Private sub ProcessFolder(folder)
+Dim Tab
+for each Tab in folder.tables
+Dim col
+for each col in tab.columns
+Dim ch
+Dim exaStr
+exaStr = &quot;&quot;
+Dim intCounter
+Dim intLen
+Dim arrChars
+intLen = Len(col.code)-1
+redim arrChars(intLen)
+For intCounter = 0 to intLen
+arrChars(intCounter) = Mid(col.code, intCounter + 1,1)
+Next
+for each ch in arrChars
+Dim tmpCh
+tmpCh = LCase(ch)
+If StrComp(ch, tmpCh)=0 Then
+exaStr = exaStr + ch
+Else
+exaStr = exaStr + &quot;_&quot; + tmpCh
+End If
+next
+col.code = exaStr
+next
+next
+end sub
+</code></pre>
 <p>搞定</p>
 
 

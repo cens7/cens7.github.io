@@ -42,7 +42,7 @@
 <meta itemprop="description" content="Netty-Socketio使用 1.添加依赖 &lt;dependency&gt; &lt;groupId&gt;com.corundumstudio.socketio&lt;/groupId&gt; &lt;artifactId&gt;netty-socketio&lt;/artifactId&gt; &lt;version&gt;1.7.18&lt;/version&gt; &lt;/dependency&gt; 2.配置 2.1 配置 redisson 略，前面有redisson的博文，我介绍过。 2.2 配置socketio的C">
 <meta itemprop="datePublished" content="2020-03-26T16:28:21&#43;08:00" />
 <meta itemprop="dateModified" content="2020-03-26T16:28:21&#43;08:00" />
-<meta itemprop="wordCount" content="168">
+<meta itemprop="wordCount" content="385">
 
 
 
@@ -322,7 +322,7 @@
 
         <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="https://cens7.github.io/2020/03/netty-socketio%E4%BD%BF%E7%94%A8/#comments"
             class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 168字</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 385字</span>
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1分 </span>
       </div>
     </div>
@@ -339,12 +339,46 @@
 <h5 id="21--redisson">2.1 配置 redisson</h5>
 <p>略，前面有redisson的博文，我介绍过。</p>
 <h5 id="22-socketioconfiguration">2.2 配置socketio的Configuration</h5>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<pre><code>public Configuration getConfig(){
+    Configuration config = new Configuration();
+    config.setHostname(&quot;localhost&quot;);
+    config.setPort(9092);
+    InputStream ssl = WebSocketServer.class.getResourceAsStream(jksPath);//证书地址
+    config.setPort.setKeyStore(ssl);
+    final SocketIOServer server = new SocketIOServer(config);
+}
+</code></pre>
 <h5 id="23-">2.3 注册监听器</h5>
 <p>注册连接监听器与断开监听器</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<pre><code>void addListener() {
+        socketServer.addConnectListener(new ConnectListener() {
+            @Override
+            public void onConnect(SocketIOClient socketIOClient) {
+                connectThreadPool.submit(new Runnable() {
+                    @Override
+                    public void run() {
+                        HandshakeData handshakeData = socketIOClient.getHandshakeData();
+                        // 消息接收方
+                        String system = handshakeData.getSingleUrlParam(HandshakeParamsDTO.FROM);
+                        socketIOClient.joinRoom(system);
+                        // 将用户信息存到缓存
+                    }
+                });
+            }
+        });
+        socketServer.addDisconnectListener(new DisconnectListener() {
+            @Override
+            public void onDisconnect(SocketIOClient socketIOClient) {
+                disconnectThreadPool.submit(new Runnable() {
+                    @Override
+                    public void run() {
+                        //从缓存删除用户信息
+                    }
+                });
+            }
+        });
+}
+</code></pre>
 <h5 id="24-">2.4 启动/断开服务</h5>
 <ul>
 <li>启动socketServer.start();</li>
@@ -352,11 +386,28 @@
 </ul>
 <h5 id="25-">2.5 发消息</h5>
 <p>单个发送：</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<pre><code>public void sendMessageToUser(WebSocketDataDTO message) {
+        Packet packet = new Packet(PacketType.MESSAGE);
+        packet.setData(message.getMessage());
+        String sessionId = redisHelper.getSessionIdOfUser(message); // 从缓存取出用户信息
+        if(!StringUtils.isBlank(sessionId)) {
+            socketServer.getClient(UUID.fromString(sessionId)).send(packet, new AckCallback&lt;AckResult&gt;(AckResult.class) {
+                @Override
+                public void onSuccess(AckResult result) {
+                }
+            });
+        }
+}
+</code></pre>
 <p>广播发送：</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<pre><code>public void sendRoomMessage(WebSocketDataDTO message) {
+        if(StringUtils.isBlank(message.getTo())) {
+            Packet packet = new Packet(PacketType.MESSAGE);
+            packet.setData(message.getMessage());
+            socketServer.getRoomOperations(message.getTo()).send(packet);
+        }
+}
+</code></pre>
 
 
     </div>

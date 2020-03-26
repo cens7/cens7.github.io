@@ -42,7 +42,7 @@
 <meta itemprop="description" content="IO,NIO,AIO 学习与总结 Java 中的 BIO、NIO和 AIO 理解为是 Java 语言对操作系统的各种 IO 模型的封装。程序员在使用这些 API 的时候，不需要关心操作系统层面的知识，也不">
 <meta itemprop="datePublished" content="2019-05-05T13:52:26&#43;08:00" />
 <meta itemprop="dateModified" content="2019-05-05T13:52:26&#43;08:00" />
-<meta itemprop="wordCount" content="4247">
+<meta itemprop="wordCount" content="4889">
 
 
 
@@ -321,8 +321,8 @@
 
         <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="https://cens7.github.io/2019/05/nio_aio_bio%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%80%BB%E7%BB%93/#comments"
             class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 4247字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 9分 </span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 4889字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 10分 </span>
       </div>
     </div>
     <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
@@ -368,11 +368,56 @@
 <p>下面代码中演示了BIO通信（一请求一应答）模型。我们会在客户端创建多个线程依次连接服务端并向其发送&quot;当前时间+:hello world&rdquo;，服务端会为每个客户端线程创建一个线程来处理。代码原地址如下：<!-- raw HTML omitted -->
 <a href="https://www.jianshu.com/p/a4e03835921a"><a href="https://www.jianshu.com/p/a4e03835921a">https://www.jianshu.com/p/a4e03835921a</a></a>
 <!-- raw HTML omitted -->客户端<!-- raw HTML omitted --></p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<pre><code>public class IOClient {
+  public static void main(String[] args) {
+    // TODO 创建多个线程，模拟多个客户端连接服务端
+    new Thread(() -&gt; {
+      try {
+        Socket socket = new Socket(&quot;127.0.0.1&quot;, 3333);
+        while (true) {
+          try {
+            socket.getOutputStream().write((new Date() + &quot;: hello world&quot;).getBytes());
+            Thread.sleep(2000);
+          } catch (Exception e) {
+          }
+        }
+      } catch (IOException e) {
+      }
+    }).start();
+  }
+}
+</code></pre>
 <p><!-- raw HTML omitted -->服务端<!-- raw HTML omitted --></p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<pre><code>public class IOServer {
+  public static void main(String[] args) throws IOException {
+    // TODO 服务端处理客户端连接请求
+    ServerSocket serverSocket = new ServerSocket(3333);
+    // 接收到客户端连接请求之后为每个客户端创建一个新的线程进行链路处理
+    new Thread(() -&gt; {
+      while (true) {
+        try {
+          // 阻塞方法获取新的连接
+          Socket socket = serverSocket.accept();
+          // 每一个新的连接都创建一个线程，负责读取数据
+          new Thread(() -&gt; {
+            try {
+              int len;
+              byte[] data = new byte[1024];
+              InputStream inputStream = socket.getInputStream();
+              // 按字节流方式读取数据
+              while ((len = inputStream.read(data)) != -1) {
+                System.out.println(new String(data, 0, len));
+              }
+            } catch (IOException e) {
+            }
+          }).start();
+        } catch (IOException e) {
+        }
+      }
+    }).start();
+  }
+}
+</code></pre>
 <h4 id="14-">1.4 总结</h4>
 <p>在活动连接数不是特别高（小于单机1000）的情况下，这种模型是比较不错的，可以让每一个连接专注于自己的 I/O 并且编程模型简单，也不用过多考虑系统的过载、限流等问题。线程池本身就是一个天然的漏斗，可以缓冲一些系统处理不了的连接或请求。但是，当面对十万甚至百万级连接的时候，传统的 BIO 模型是无能为力的。因此，我们需要一种更高效的 I/O 处理模型来应对更高的并发量。</p>
 <h3 id="2-nio-new-io">2. NIO (New I/O)</h3>
@@ -415,8 +460,84 @@
 </ul>
 <p>整个NIO体系包含的类远远不止这三个，只能说这三个是NIO体系的“核心API”。</p>
 <h4 id="25-">2.5 代码示例</h4>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<pre><code>public class NIOServer {
+  public static void main(String[] args) throws IOException {
+    // 1. serverSelector负责轮询是否有新的连接，服务端监测到新的连接之后，不再创建一个新的线程，
+    // 而是直接将新连接绑定到clientSelector上，这样就不用 IO 模型中 1w 个 while 循环在死等
+    Selector serverSelector = Selector.open();
+    // 2. clientSelector负责轮询连接是否有数据可读
+    Selector clientSelector = Selector.open();
+
+    new Thread(() -&gt; {
+      try {
+        // 对应IO编程中服务端启动
+        ServerSocketChannel listenerChannel = ServerSocketChannel.open();
+        listenerChannel.socket().bind(new InetSocketAddress(3333));
+        listenerChannel.configureBlocking(false);
+        listenerChannel.register(serverSelector, SelectionKey.OP_ACCEPT);
+
+        while (true) {
+          // 监测是否有新的连接，这里的1指的是阻塞的时间为 1ms
+          if (serverSelector.select(1) &gt; 0) {
+            Set&lt;SelectionKey&gt; set = serverSelector.selectedKeys();
+            Iterator&lt;SelectionKey&gt; keyIterator = set.iterator();
+
+            while (keyIterator.hasNext()) {
+              SelectionKey key = keyIterator.next();
+
+              if (key.isAcceptable()) {
+                try {
+                  // (1) 每来一个新连接，不需要创建一个线程，而是直接注册到clientSelector
+                  SocketChannel clientChannel = ((ServerSocketChannel) key.channel()).accept();
+                  clientChannel.configureBlocking(false);
+                  clientChannel.register(clientSelector, SelectionKey.OP_READ);
+                } finally {
+                  keyIterator.remove();
+                }
+              }
+
+            }
+          }
+        }
+      } catch (IOException ignored) {
+      }
+    }).start();
+    new Thread(() -&gt; {
+      try {
+        while (true) {
+          // (2) 批量轮询是否有哪些连接有数据可读，这里的1指的是阻塞的时间为 1ms
+          if (clientSelector.select(1) &gt; 0) {
+            Set&lt;SelectionKey&gt; set = clientSelector.selectedKeys();
+            Iterator&lt;SelectionKey&gt; keyIterator = set.iterator();
+
+            while (keyIterator.hasNext()) {
+              SelectionKey key = keyIterator.next();
+
+              if (key.isReadable()) {
+                try {
+                  SocketChannel clientChannel = (SocketChannel) key.channel();
+                  ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+                  // (3) 面向 Buffer
+                  clientChannel.read(byteBuffer);
+                  byteBuffer.flip();
+                  System.out.println(
+                      Charset.defaultCharset().newDecoder().decode(byteBuffer).toString());
+                } finally {
+                  keyIterator.remove();
+                  key.interestOps(SelectionKey.OP_READ);
+                }
+              }
+
+            }
+          }
+        }
+      } catch (IOException ignored) {
+      }
+    }).start();
+
+  }
+}
+</code></pre>
 <p>为什么大家都不愿意用 JDK 原生 NIO 进行开发呢？从上面的代码中大家都可以看出来，是真的难用！除了编程复杂、编程模型难之外，它还有以下让人诟病的问题：</p>
 <ul>
 <li>JDK 的 NIO 底层由 epoll 实现，该实现饱受诟病的空轮询 bug 会导致 cpu 飙升 100%</li>

@@ -23,7 +23,7 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <meta name="description" content="背景 听说kotlin跟Java生态无缝集成，尝试一下用kotlin写springBoot应用。 启动springboot: 遇到的坑 1. sprin" />
+  <meta name="description" content="背景 听说kotlin跟Java生态无缝集成，尝试一下用kotlin写springBoot应用。 启动springboot: @SpringBootApplication @EnableScheduling open class NotifyApplication fun main(args: Array&amp;lt;String&amp;gt;) { val" />
   <meta name="generator" content="Hugo 0.60.1 with theme pure" />
   <title>使用Kotlin写SpringBoot的坑 - mavic&#39;s blog</title>
   
@@ -33,22 +33,22 @@
   <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
   <meta property="og:title" content="使用Kotlin写SpringBoot的坑" />
-<meta property="og:description" content="背景 听说kotlin跟Java生态无缝集成，尝试一下用kotlin写springBoot应用。 启动springboot: 遇到的坑 1. sprin" />
+<meta property="og:description" content="背景 听说kotlin跟Java生态无缝集成，尝试一下用kotlin写springBoot应用。 启动springboot: @SpringBootApplication @EnableScheduling open class NotifyApplication fun main(args: Array&lt;String&gt;) { val" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://cens7.github.io/2020/01/%E4%BD%BF%E7%94%A8kotlin%E5%86%99springboot%E7%9A%84%E5%9D%91/" />
 <meta property="article:published_time" content="2020-01-02T12:34:44+08:00" />
 <meta property="article:modified_time" content="2020-01-02T12:34:44+08:00" />
 <meta itemprop="name" content="使用Kotlin写SpringBoot的坑">
-<meta itemprop="description" content="背景 听说kotlin跟Java生态无缝集成，尝试一下用kotlin写springBoot应用。 启动springboot: 遇到的坑 1. sprin">
+<meta itemprop="description" content="背景 听说kotlin跟Java生态无缝集成，尝试一下用kotlin写springBoot应用。 启动springboot: @SpringBootApplication @EnableScheduling open class NotifyApplication fun main(args: Array&lt;String&gt;) { val">
 <meta itemprop="datePublished" content="2020-01-02T12:34:44&#43;08:00" />
 <meta itemprop="dateModified" content="2020-01-02T12:34:44&#43;08:00" />
-<meta itemprop="wordCount" content="429">
+<meta itemprop="wordCount" content="444">
 
 
 
 <meta itemprop="keywords" content="Java,Kotlin," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="使用Kotlin写SpringBoot的坑"/>
-<meta name="twitter:description" content="背景 听说kotlin跟Java生态无缝集成，尝试一下用kotlin写springBoot应用。 启动springboot: 遇到的坑 1. sprin"/>
+<meta name="twitter:description" content="背景 听说kotlin跟Java生态无缝集成，尝试一下用kotlin写springBoot应用。 启动springboot: @SpringBootApplication @EnableScheduling open class NotifyApplication fun main(args: Array&lt;String&gt;) { val"/>
 
   <!--[if lte IE 9]>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -309,7 +309,7 @@
         
 <span class="article-date">
   <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://cens7.github.io/2020/01/%E4%BD%BF%E7%94%A8kotlin%E5%86%99springboot%E7%9A%84%E5%9D%91/" class="article-date">
+<a href="https://cens7.github.io/2020/01/%E4%BD%BF%E7%94%A8kotlin%E5%86%99springboot%E7%9A%84%E5%9D%91/" class="article-title">
   <time datetime="2020-01-02 12:34:44 &#43;0800 CST" itemprop="datePublished">2020-01-02</time>
 </a>
 </span>
@@ -322,7 +322,7 @@
 
         <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="https://cens7.github.io/2020/01/%E4%BD%BF%E7%94%A8kotlin%E5%86%99springboot%E7%9A%84%E5%9D%91/#comments"
             class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 429字</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 444字</span>
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1分 </span>
       </div>
     </div>
@@ -332,8 +332,13 @@
 <p>听说kotlin跟Java生态无缝集成，尝试一下用kotlin写springBoot应用。</p>
 </blockquote>
 <p>启动springboot:</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<pre><code>@SpringBootApplication
+@EnableScheduling
+open class NotifyApplication
+fun main(args: Array&lt;String&gt;) {
+    val app = SpringApplication.run(NotifyApplication::class.java, *args)
+}
+</code></pre>
 <h3 id="heading1">遇到的坑</h3>
 <h4 id="1-springkotlin-bean">1. spring无法托管kotlin bean</h4>
 <p>原因：spring托管bean使用的是aop代理，在默认情况下，使用jdk动态代理与字节码代理组合的模式；而kotlin的clas默认是final class</p>
