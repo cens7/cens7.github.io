@@ -15,7 +15,7 @@
       <pubDate>Thu, 26 Mar 2020 16:28:21 +0800</pubDate>
       
       <guid>https://cens7.github.io/2020/03/netty-socketio%E4%BD%BF%E7%94%A8/</guid>
-      <description>Netty-Socketio使用 1.添加依赖 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.corundumstudio.socketio&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;netty-socketio&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.7.18&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; 2.配置</description>
+      <description>Netty-Socketio使用 1.添加依赖 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.corundumstudio.socketio&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;netty-socketio&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.7.18&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; 2.配置 2.1 配置 redisson 略，前面有redisson的博文，我介绍过。 2.2 配置socketio的C</description>
     </item>
     
     <item>

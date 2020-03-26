@@ -23,7 +23,7 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <meta name="description" content="Netty-Socketio使用 1.添加依赖 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.corundumstudio.socketio&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;netty-socketio&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.7.18&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; 2.配置" />
+  <meta name="description" content="Netty-Socketio使用 1.添加依赖 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.corundumstudio.socketio&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;netty-socketio&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.7.18&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; 2.配置 2.1 配置 redisson 略，前面有redisson的博文，我介绍过。 2.2 配置socketio的C" />
   <meta name="generator" content="Hugo 0.60.1 with theme pure" />
   <title>Netty Socketio使用 - mavic&#39;s blog</title>
   
@@ -33,22 +33,22 @@
   <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
   <meta property="og:title" content="Netty Socketio使用" />
-<meta property="og:description" content="Netty-Socketio使用 1.添加依赖 &lt;dependency&gt; &lt;groupId&gt;com.corundumstudio.socketio&lt;/groupId&gt; &lt;artifactId&gt;netty-socketio&lt;/artifactId&gt; &lt;version&gt;1.7.18&lt;/version&gt; &lt;/dependency&gt; 2.配置" />
+<meta property="og:description" content="Netty-Socketio使用 1.添加依赖 &lt;dependency&gt; &lt;groupId&gt;com.corundumstudio.socketio&lt;/groupId&gt; &lt;artifactId&gt;netty-socketio&lt;/artifactId&gt; &lt;version&gt;1.7.18&lt;/version&gt; &lt;/dependency&gt; 2.配置 2.1 配置 redisson 略，前面有redisson的博文，我介绍过。 2.2 配置socketio的C" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://cens7.github.io/2020/03/netty-socketio%E4%BD%BF%E7%94%A8/" />
 <meta property="article:published_time" content="2020-03-26T16:28:21+08:00" />
 <meta property="article:modified_time" content="2020-03-26T16:28:21+08:00" />
 <meta itemprop="name" content="Netty Socketio使用">
-<meta itemprop="description" content="Netty-Socketio使用 1.添加依赖 &lt;dependency&gt; &lt;groupId&gt;com.corundumstudio.socketio&lt;/groupId&gt; &lt;artifactId&gt;netty-socketio&lt;/artifactId&gt; &lt;version&gt;1.7.18&lt;/version&gt; &lt;/dependency&gt; 2.配置">
+<meta itemprop="description" content="Netty-Socketio使用 1.添加依赖 &lt;dependency&gt; &lt;groupId&gt;com.corundumstudio.socketio&lt;/groupId&gt; &lt;artifactId&gt;netty-socketio&lt;/artifactId&gt; &lt;version&gt;1.7.18&lt;/version&gt; &lt;/dependency&gt; 2.配置 2.1 配置 redisson 略，前面有redisson的博文，我介绍过。 2.2 配置socketio的C">
 <meta itemprop="datePublished" content="2020-03-26T16:28:21&#43;08:00" />
 <meta itemprop="dateModified" content="2020-03-26T16:28:21&#43;08:00" />
-<meta itemprop="wordCount" content="31">
+<meta itemprop="wordCount" content="168">
 
 
 
 <meta itemprop="keywords" content="webSocket,Java," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Netty Socketio使用"/>
-<meta name="twitter:description" content="Netty-Socketio使用 1.添加依赖 &lt;dependency&gt; &lt;groupId&gt;com.corundumstudio.socketio&lt;/groupId&gt; &lt;artifactId&gt;netty-socketio&lt;/artifactId&gt; &lt;version&gt;1.7.18&lt;/version&gt; &lt;/dependency&gt; 2.配置"/>
+<meta name="twitter:description" content="Netty-Socketio使用 1.添加依赖 &lt;dependency&gt; &lt;groupId&gt;com.corundumstudio.socketio&lt;/groupId&gt; &lt;artifactId&gt;netty-socketio&lt;/artifactId&gt; &lt;version&gt;1.7.18&lt;/version&gt; &lt;/dependency&gt; 2.配置 2.1 配置 redisson 略，前面有redisson的博文，我介绍过。 2.2 配置socketio的C"/>
 
   <!--[if lte IE 9]>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -322,7 +322,7 @@
 
         <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="https://cens7.github.io/2020/03/netty-socketio%E4%BD%BF%E7%94%A8/#comments"
             class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 31字</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 168字</span>
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1分 </span>
       </div>
     </div>
@@ -336,6 +336,27 @@
 &lt;/dependency&gt;
 </code></pre>
 <h4 id="2">2.配置</h4>
+<h5 id="21--redisson">2.1 配置 redisson</h5>
+<p>略，前面有redisson的博文，我介绍过。</p>
+<h5 id="22-socketioconfiguration">2.2 配置socketio的Configuration</h5>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h5 id="23-">2.3 注册监听器</h5>
+<p>注册连接监听器与断开监听器</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h5 id="24-">2.4 启动/断开服务</h5>
+<ul>
+<li>启动socketServer.start();</li>
+<li>断开socketServer.stop();</li>
+</ul>
+<h5 id="25-">2.5 发消息</h5>
+<p>单个发送：</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>广播发送：</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
 
 
     </div>
