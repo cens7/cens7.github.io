@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>协程 on mavic&#39;s blog</title>
+    <link>https://cens7.github.io/tags/%E5%8D%8F%E7%A8%8B/</link>
+    <description>Recent content in 协程 on mavic&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 31 Mar 2020 20:59:39 +0800</lastBuildDate>
+    
+        <atom:link href="https://cens7.github.io/tags/%E5%8D%8F%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ProjectLoom学习心得</title>
+      <link>https://cens7.github.io/2020/03/projectloom%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/</link>
+      <pubDate>Tue, 31 Mar 2020 20:59:39 +0800</pubDate>
+      
+      <guid>https://cens7.github.io/2020/03/projectloom%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Netty Socketio使用</title>
+      <link>https://cens7.github.io/2020/03/netty-socketio%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Thu, 26 Mar 2020 16:28:21 +0800</pubDate>
+      
+      <guid>https://cens7.github.io/2020/03/netty-socketio%E4%BD%BF%E7%94%A8/</guid>
+      <description>Netty-Socketio使用 1.添加依赖 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.corundumstudio.socketio&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;netty-socketio&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.7.18&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; 2.配置 2.1 配置 redisson 略，前面有redisson的博文，我介绍过。 2.2 配置socketio的C</description>
+    </item>
+    
+    <item>
+      <title>单元测试Mockito使用心得</title>
+      <link>https://cens7.github.io/2020/02/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95mockito%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97/</link>
+      <pubDate>Sat, 01 Feb 2020 16:35:45 +0800</pubDate>
+      
+      <guid>https://cens7.github.io/2020/02/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95mockito%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97/</guid>
+      <description>背景 团队推行单元测试，需要对主要逻辑serice层做单元测试，但是有些service会有外部接口调用或上游接口调用，而因为环境问题，这部分接</description>
+    </item>
+    
+    <item>
+      <title>使用Kotlin写SpringBoot的坑</title>
+      <link>https://cens7.github.io/2020/01/%E4%BD%BF%E7%94%A8kotlin%E5%86%99springboot%E7%9A%84%E5%9D%91/</link>
+      <pubDate>Thu, 02 Jan 2020 12:34:44 +0800</pubDate>
+      
+      <guid>https://cens7.github.io/2020/01/%E4%BD%BF%E7%94%A8kotlin%E5%86%99springboot%E7%9A%84%E5%9D%91/</guid>
+      <description>背景 听说kotlin跟Java生态无缝集成，尝试一下用kotlin写springBoot应用。 启动springboot: @SpringBootApplication @EnableScheduling open class NotifyApplication fun main(args: Array&amp;lt;String&amp;gt;) { val</description>
+    </item>
+    
+    <item>
+      <title>docker使用</title>
+      <link>https://cens7.github.io/2019/12/docker%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Sat, 14 Dec 2019 10:56:13 +0800</pubDate>
+      
+      <guid>https://cens7.github.io/2019/12/docker%E4%BD%BF%E7%94%A8/</guid>
+      <description>常用命令 命令 描述 docker login 登陆 docker logout 登出 docker search [xxx] 搜索镜像 docker pull [xxx] 拉取指定名字的镜像 docker rm [container_id] 根据容器id删除 docker rmi [image_id] 根据镜像id删除 docker ps 查看所有正在运行的容器</description>
+    </item>
+    
+    <item>
+      <title>Dubbo启动太慢</title>
+      <link>https://cens7.github.io/2019/12/dubbo%E5%90%AF%E5%8A%A8%E5%A4%AA%E6%85%A2/</link>
+      <pubDate>Fri, 13 Dec 2019 22:47:09 +0000</pubDate>
+      
+      <guid>https://cens7.github.io/2019/12/dubbo%E5%90%AF%E5%8A%A8%E5%A4%AA%E6%85%A2/</guid>
+      <description>问题 同样的dubbo应用，同事启动只要10秒不到，我启动要2分钟，遂不服。万能的stackoverflow告诉我，我需要设置hosts。 配置</description>
+    </item>
+    
+    <item>
+      <title>防xss攻击</title>
+      <link>https://cens7.github.io/2019/11/%E9%98%B2xss%E6%94%BB%E5%87%BB/</link>
+      <pubDate>Fri, 22 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://cens7.github.io/2019/11/%E9%98%B2xss%E6%94%BB%E5%87%BB/</guid>
+      <description>一、背景 介绍：XSS(Cross Site Scripting)指的是用户注入恶意的代码，浏览器和服务器没有对用户的输入进行过滤，导致用户注入的脚本嵌</description>
+    </item>
+    
+    <item>
+      <title>使用redisson做分布式锁</title>
+      <link>https://cens7.github.io/2019/11/%E4%BD%BF%E7%94%A8redisson%E5%81%9A%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/</link>
+      <pubDate>Fri, 15 Nov 2019 21:43:00 +0800</pubDate>
+      
+      <guid>https://cens7.github.io/2019/11/%E4%BD%BF%E7%94%A8redisson%E5%81%9A%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/</guid>
+      <description>使用redisson 1.pom依赖 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.redisson&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;redisson&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;${version}&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; 2.配置对应redisson @Configuration public class RedissonConfig { @Autowired(required = false) RedissonProperties redissonProperties; @Bean(destroyMethod = &amp;quot;shutdown&amp;quot;) @ConditionalOnMissingBean(RedissonClient.class) public RedissonClient redissonClient() { if (Objects.nonNull(redissonProperties)) { Config config = new Config(); String[] nodes = redissonProperties.getSentinelNodes().split(&amp;quot;,&amp;quot;); SentinelServersConfig sentinelServersConfig = config.useSentinelServers()</description>
+    </item>
+    
+    <item>
+      <title>PowerDesigner行列转换脚本</title>
+      <link>https://cens7.github.io/2019/08/powerdesigner%E8%A1%8C%E5%88%97%E8%BD%AC%E6%8D%A2%E8%84%9A%E6%9C%AC/</link>
+      <pubDate>Mon, 05 Aug 2019 22:03:57 +0800</pubDate>
+      
+      <guid>https://cens7.github.io/2019/08/powerdesigner%E8%A1%8C%E5%88%97%E8%BD%AC%E6%8D%A2%E8%84%9A%E6%9C%AC/</guid>
+      <description>从数据库工具（比如：navicat）中导出表结构sql。 将sql导入到powerDesigner里。 File → Reverse Engineer → Database选中导出的表结</description>
+    </item>
+    
+    <item>
+      <title>ShardingSphere使用心得</title>
+      <link>https://cens7.github.io/2019/07/shardingsphere%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97/</link>
+      <pubDate>Wed, 31 Jul 2019 20:09:07 +0800</pubDate>
+      
+      <guid>https://cens7.github.io/2019/07/shardingsphere%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97/</guid>
+      <description>背景 随着业务发展，订单线上数据已到达每日200万+，需要提前对订单做分库分表。结合市面上解决方案，决定采用sharding。sharding</description>
+    </item>
+    
+    <item>
+      <title>NIO_AIO_BIO学习与总结</title>
+      <link>https://cens7.github.io/2019/05/nio_aio_bio%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Sun, 05 May 2019 13:52:26 +0800</pubDate>
+      
+      <guid>https://cens7.github.io/2019/05/nio_aio_bio%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%80%BB%E7%BB%93/</guid>
+      <description>IO,NIO,AIO 学习与总结 Java 中的 BIO、NIO和 AIO 理解为是 Java 语言对操作系统的各种 IO 模型的封装。程序员在使用这些 API 的时候，不需要关心操作系统层面的知识，也不</description>
+    </item>
+    
+    <item>
+      <title>SpringCloud中rabbitmq被消费多次</title>
+      <link>https://cens7.github.io/2018/06/springcloud%E4%B8%ADrabbitmq%E8%A2%AB%E6%B6%88%E8%B4%B9%E5%A4%9A%E6%AC%A1/</link>
+      <pubDate>Tue, 12 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://cens7.github.io/2018/06/springcloud%E4%B8%ADrabbitmq%E8%A2%AB%E6%B6%88%E8%B4%B9%E5%A4%9A%E6%AC%A1/</guid>
+      <description>问题 pringCloud整合的rabbitmq， 在消费端设置了group，通常情况消费端只消费了一次，偶尔碰到一次 mq被消费两次。 解决 添加g</description>
+    </item>
+    
+    <item>
+      <title>Lambda基本使用</title>
+      <link>https://cens7.github.io/2017/04/lambda%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Sun, 30 Apr 2017 10:18:58 +0800</pubDate>
+      
+      <guid>https://cens7.github.io/2017/04/lambda%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</guid>
+      <description>lambda基本使用 1.将List转成Map&amp;lt;Id,Person&amp;gt; Map&amp;lt;Id,Person&amp;gt; map = list.parallelStream(). collect(Collectors.toMap(Person::getId, p -&amp;gt; p)); 2.将List按照sex分组 Map&amp;lt;String,Person&amp;gt; map = list.parallelStream(). collect(Collectors.groupingBy(Person::getSex)); 3.取出</description>
+    </item>
+    
+    <item>
+      <title>关于我</title>
+      <link>https://cens7.github.io/about/</link>
+      <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://cens7.github.io/about/</guid>
+      <description>Hello world</description>
+    </item>
+    
+    <item>
+      <title>idea基本设置</title>
+      <link>https://cens7.github.io/2016/12/idea%E5%9F%BA%E6%9C%AC%E8%AE%BE%E7%BD%AE/</link>
+      <pubDate>Thu, 01 Dec 2016 09:51:02 +0800</pubDate>
+      
+      <guid>https://cens7.github.io/2016/12/idea%E5%9F%BA%E6%9C%AC%E8%AE%BE%E7%BD%AE/</guid>
+      <description>基本设置 关闭默认打开工程：关闭大小写敏感：换行显示10个文件选项卡：常用插件 lombok 注解 mybatis plugin maven helper String Manipulation 字符串处理 Translation 翻译</description>
+    </item>
+    
+    <item>
+      <title>Java位运算2_位运算</title>
+      <link>https://cens7.github.io/2016/02/java%E4%BD%8D%E8%BF%90%E7%AE%972_%E4%BD%8D%E8%BF%90%E7%AE%97/</link>
+      <pubDate>Sat, 13 Feb 2016 18:18:52 +0800</pubDate>
+      
+      <guid>https://cens7.github.io/2016/02/java%E4%BD%8D%E8%BF%90%E7%AE%972_%E4%BD%8D%E8%BF%90%E7%AE%97/</guid>
+      <description>位逻辑运算符 与运算（&amp;amp;） 与运算：两个运算数比较位都是 1，则结果为 1，否则为 0。例如：5 &amp;amp; 3 = 1 0000 0000 0000 0000 0000 0000 0000 0101 5 转换为二进制 0000 0000 0000 0000</description>
+    </item>
+    
+    <item>
+      <title>Java位运算1_左移、右移</title>
+      <link>https://cens7.github.io/2016/02/java%E4%BD%8D%E8%BF%90%E7%AE%971_%E5%B7%A6%E7%A7%BB%E5%8F%B3%E7%A7%BB/</link>
+      <pubDate>Fri, 12 Feb 2016 21:35:10 +0800</pubDate>
+      
+      <guid>https://cens7.github.io/2016/02/java%E4%BD%8D%E8%BF%90%E7%AE%971_%E5%B7%A6%E7%A7%BB%E5%8F%B3%E7%A7%BB/</guid>
+      <description>左移运算（&amp;laquo;） value &amp;lt;&amp;lt; num num 指定要移位值；value 移动的位数。 将左操作数（value）转为二进制数后向左边移动 num 位，并且在低位补 0，</description>
+    </item>
+    
+    <item>
+      <title>数据结构学习笔记_1</title>
+      <link>https://cens7.github.io/2015/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_1/</link>
+      <pubDate>Mon, 30 Nov 2015 17:39:39 +0800</pubDate>
+      
+      <guid>https://cens7.github.io/2015/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_1/</guid>
+      <description>广义表： L=(a,b) L长度为2，深度为1 L=(x,(a,b)）长度为2，深度为2 L=(x,(a,b,c),y) 长度为3，深度为6 L=(a,a,a,(a,&amp;hellip;))长度为</description>
+    </item>
+    
+  </channel>
+</rss>
