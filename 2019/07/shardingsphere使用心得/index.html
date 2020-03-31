@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+        ShardingSphere使用心得 - mavic&#39;s blog
+      </title>
+    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  
+  <meta name="theme-color" content="#000000" />
+  
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <meta name="description" content="背景 随着业务发展，订单线上数据已到达每日200万&#43;，需要提前对订单做分库分表。结合市面上解决方案，决定采用sharding。sharding" />
+  <meta name="generator" content="Hugo 0.60.1 with theme pure" />
+  <title>ShardingSphere使用心得 - mavic&#39;s blog</title>
+  
+  
+  <link rel="stylesheet" href="https://cens7.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
+  
+  <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+  <meta property="og:title" content="ShardingSphere使用心得" />
+<meta property="og:description" content="背景 随着业务发展，订单线上数据已到达每日200万&#43;，需要提前对订单做分库分表。结合市面上解决方案，决定采用sharding。sharding" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://cens7.github.io/2019/07/shardingsphere%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97/" />
+<meta property="article:published_time" content="2019-07-31T20:09:07+08:00" />
+<meta property="article:modified_time" content="2019-07-31T20:09:07+08:00" />
+<meta itemprop="name" content="ShardingSphere使用心得">
+<meta itemprop="description" content="背景 随着业务发展，订单线上数据已到达每日200万&#43;，需要提前对订单做分库分表。结合市面上解决方案，决定采用sharding。sharding">
+<meta itemprop="datePublished" content="2019-07-31T20:09:07&#43;08:00" />
+<meta itemprop="dateModified" content="2019-07-31T20:09:07&#43;08:00" />
+<meta itemprop="wordCount" content="950">
+
+
+
+<meta itemprop="keywords" content="Java,数据库,分库分表," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ShardingSphere使用心得"/>
+<meta name="twitter:description" content="背景 随着业务发展，订单线上数据已到达每日200万&#43;，需要提前对订单做分库分表。结合市面上解决方案，决定采用sharding。sharding"/>
+
+  <!--[if lte IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+    <![endif]-->
+
+  <!--[if lt IE 9]>
+      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/cens7/" target="_blank">
+            <img class="img-circle img-rotate" src="https://cens7.github.io/5_avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">mavic</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>HangZhou, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="https://cens7.github.io/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">Home</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="https://cens7.github.io/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">Archives</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="https://cens7.github.io/tags/">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">Tags</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p><font>我们仰望头顶的星辰,并脚踏实地</font></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/docker/" class="tag-list-link">docker</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/dubbo/" class="tag-list-link">dubbo</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/idea/" class="tag-list-link">idea</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/java/" class="tag-list-link">java</a><span
+                    class="tag-list-count">10</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/kotlin/" class="tag-list-link">kotlin</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/lambda/" class="tag-list-link">lambda</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/redis/" class="tag-list-link">redis</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/springcloud/" class="tag-list-link">springcloud</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/websocket/" class="tag-list-link">websocket</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/xss/" class="tag-list-link">xss</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/" class="tag-list-link">分库分表</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E5%AE%89%E5%85%A8/" class="tag-list-link">安全</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E5%B7%A5%E5%85%B7/" class="tag-list-link">工具</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="tag-list-link">数据库</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="tag-list-link">数据结构</a><span
+                    class="tag-list-count">3</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E6%9E%B6%E6%9E%84/" class="tag-list-link">架构</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E6%B5%8B%E8%AF%95/" class="tag-list-link">测试</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E9%97%AE%E9%A2%98/" class="tag-list-link">问题</a><span
+                    class="tag-list-count">2</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://cens7.github.io/2020/03/netty-socketio%E4%BD%BF%E7%94%A8/" class="title">Netty Socketio使用</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-03-26 16:28:21 &#43;0800 CST" itemprop="datePublished">2020-03-26</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://cens7.github.io/2020/02/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95mockito%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97/" class="title">单元测试Mockito使用心得</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-02-01 16:35:45 &#43;0800 CST" itemprop="datePublished">2020-02-01</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://cens7.github.io/2020/01/%E4%BD%BF%E7%94%A8kotlin%E5%86%99springboot%E7%9A%84%E5%9D%91/" class="title">使用Kotlin写SpringBoot的坑</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-01-02 12:34:44 &#43;0800 CST" itemprop="datePublished">2020-01-02</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://cens7.github.io/2019/12/docker%E4%BD%BF%E7%94%A8/" class="title">docker使用</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2019-12-14 10:56:13 &#43;0800 CST" itemprop="datePublished">2019-12-14</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://cens7.github.io/2019/12/dubbo%E5%90%AF%E5%8A%A8%E5%A4%AA%E6%85%A2/" class="title">Dubbo启动太慢</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2019-12-13 22:47:09 &#43;0000 UTC" itemprop="datePublished">2019-12-13</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="https://cens7.github.io/2019/07/shardingsphere%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97/"
+    >ShardingSphere使用心得</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://cens7.github.io/2019/07/shardingsphere%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97/" class="article-date">
+  <time datetime="2019-07-31 20:09:07 &#43;0800 CST" itemprop="datePublished">2019-07-31</time>
+</a>
+</span>
+  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="https://cens7.github.io/tags/java/"> Java </a>
+    <a class="article-tag-link" href="https://cens7.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"> 数据库 </a>
+    <a class="article-tag-link" href="https://cens7.github.io/tags/%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/"> 分库分表 </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="https://cens7.github.io/2019/07/shardingsphere%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 950字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h3 id="heading">背景</h3>
+<p>随着业务发展，订单线上数据已到达每日200万+，需要提前对订单做分库分表。结合市面上解决方案，决定采用sharding。sharding支持只分库，只分表，分库并分表。针对订单业务，我采用的是分库并分表。</p>
+<h3 id="heading1">使用</h3>
+<blockquote>
+<p><a href="https://shardingsphere.apache.org/document/current/cn/quick-start/sharding-jdbc-quick-start/">sharding官网</a>有很清晰的教程，本文是对使用过程中问题的一个记录。</p>
+</blockquote>
+<p>我是用的是javaBean的配置形式，也支持yaml与properties，因人而异。</p>
+<h4 id="1-">1. 配置分库算法</h4>
+<pre><code>public class OrderDatabaseAlgorithm implements PreciseShardingAlgorithm&lt;String&gt; {
+
+    @Override
+    public String doSharding(Collection&lt;String&gt; databaseNames, PreciseShardingValue&lt;String&gt; shardingValue) {
+
+        String value = shardingValue.getValue();
+	  // 将数据库分为order_0 ~ order_15 15个数据库
+        String key = String.valueOf(value.hashCode() &amp; 15);
+        String dsName = &quot;&quot;;
+
+        for (String each : databaseNames) {
+            if (each.endsWith(key)) {
+                dsName = each;
+                break;
+            }
+        }
+        return dsName;
+    }
+}
+</code></pre>
+<h4 id="2-">2. 配置分表算法</h4>
+<pre><code>public class OrderTableAlgorithm implements PreciseShardingAlgorithm&lt;String&gt; {
+
+    @Override
+    public String doSharding(Collection&lt;String&gt; availableTargetNames, PreciseShardingValue&lt;String&gt; preciseShardingValue) {
+
+        String value = preciseShardingValue.getValue();
+        // 将order表分为order_0 ~ order_127 128张表
+        String key = String.valueOf(value.hashCode() &amp; 127);
+
+        return preciseShardingValue.getLogicTableName() + &quot;_&quot; + key;
+
+    }
+}
+</code></pre>
+<p>我将订单根据分片键分为128张表，16个库。 128*16=2048张表</p>
+<h4 id="3-">3. 数据库配置类</h4>
+<pre><code>@Data
+public class ShardingSliceProperties {
+
+    private String driverClassName;
+
+    private String jdbcUrl;
+
+    private String username;
+
+    private String password;
+
+    // 分片数据库
+    private String sliceDatabase;
+
+    // 分片表
+    private String sliceTable;
+
+    // 数据库分片键
+    private String sliceDatabaseKey;
+
+    // 表分片键
+    private String sliceTableKey;
+}
+</code></pre>
+<h4 id="4-">4. 配置分库分表规则，并注入数据源</h4>
+<pre><code>@Configuration
+public class ShardingConfig {
+
+    @Bean
+    public DataSource getShardingDataSource(ShardingSliceProperties shardingSliceProperties) throws SQLException {
+
+        ShardingRuleConfiguration shardingRuleConfig = new ShardingRuleConfiguration();
+
+        TableRuleConfiguration tableRuleConfiguration = new TableRuleConfiguration(shardingSliceProperties.getSliceTable(),
+                shardingSliceProperties.getSliceDatabase() + &quot;_${0..15}.&quot; + shardingSliceProperties.getSliceTable() + &quot;_${0..127}&quot;);
+
+        // 设置表规则
+        shardingRuleConfig.getTableRuleConfigs().add(tableRuleConfiguration);
+
+        // 设置分库规则
+        shardingRuleConfig.setDefaultDatabaseShardingStrategyConfig(new StandardShardingStrategyConfiguration(
+                shardingSliceProperties.getSliceDatabaseKey(), new OrderDatabaseAlgorithm()));
+
+        // 设置分表规则
+        shardingRuleConfig.setDefaultTableShardingStrategyConfig(new StandardShardingStrategyConfiguration(
+                shardingSliceProperties.getSliceTableKey(), new OrderTableAlgorithm()));
+
+        // 配置数据源
+        Map&lt;String, DataSource&gt; dataSourceMap = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; 16; i++) {
+            HikariConfig hikariConfig = new HikariConfig();
+            hikariConfig.setDriverClassName(shardingSliceProperties.getDriverClassName());
+            hikariConfig.setJdbcUrl(shardingSliceProperties.getJdbcUrl() + &quot;/&quot; + shardingSliceProperties.getSliceDatabase() + &quot;_&quot; + i);
+            hikariConfig.setUsername(shardingSliceProperties.getUsername());
+            hikariConfig.setPassword(shardingSliceProperties.getPassword());
+            hikariConfig.setMaximumPoolSize(25);
+            hikariConfig.setMinimumIdle(5);
+            HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
+            dataSourceMap.put(shardingSliceProperties.getSliceDatabase() + &quot;_&quot; + i, hikariDataSource);
+        }
+
+        Properties props = new Properties();
+
+        // 设置显示sql
+        props.put(ShardingPropertiesConstant.SQL_SHOW.getKey(), String.valueOf(Boolean.TRUE));
+
+        return ShardingDataSourceFactory.createDataSource(dataSourceMap, shardingRuleConfig, props);
+    }
+
+}
+</code></pre>
+<p>启动一下：</p>
+<pre><code>2019-07-31 20:23:43.153 INFO o.a.c.core.StandardService log:173  Starting service [Tomcat]
+
+2019-07-31 20:23:43.153 INFO o.a.catalina.core.StandardEngine log:173  Starting Servlet engine: [Apache Tomcat/9.0.21]
+
+2019-07-31 20:23:43.269 INFO o.a.c.c.C.[.[localhost].[/] log:173  Initializing Spring embedded WebApplicationContext
+
+2019-07-31 20:23:43.269 INFO o.s.web.context.ContextLoader prepareWebApplicationContext:283  Root WebApplicationContext: initialization completed in 2531 ms
+
+2019-07-31 20:23:43.710 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:80  HikariPool-1 - Starting...
+
+2019-07-31 20:23:43.867 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:82  HikariPool-1 - Start completed.
+
+2019-07-31 20:23:43.868 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:80  HikariPool-2 - Starting...
+
+2019-07-31 20:23:43.916 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:82  HikariPool-2 - Start completed.
+
+2019-07-31 20:23:43.917 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:80  HikariPool-3 - Starting...
+
+2019-07-31 20:23:43.939 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:82  HikariPool-3 - Start completed.
+
+2019-07-31 20:23:43.939 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:80  HikariPool-4 - Starting...
+
+2019-07-31 20:23:44.166 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:82  HikariPool-4 - Start completed.
+
+2019-07-31 20:23:44.166 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:80  HikariPool-5 - Starting...
+
+2019-07-31 20:23:44.192 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:82  HikariPool-5 - Start completed.
+
+2019-07-31 20:23:44.193 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:80  HikariPool-6 - Starting...
+
+2019-07-31 20:23:44.216 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:82  HikariPool-6 - Start completed.
+
+2019-07-31 20:23:44.217 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:80  HikariPool-7 - Starting...
+
+2019-07-31 20:23:44.239 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:82  HikariPool-7 - Start completed.
+
+2019-07-31 20:23:44.239 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:80  HikariPool-8 - Starting...
+
+2019-07-31 20:23:44.262 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:82  HikariPool-8 - Start completed.
+
+2019-07-31 20:23:44.262 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:80  HikariPool-9 - Starting...
+
+2019-07-31 20:23:44.284 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:82  HikariPool-9 - Start completed.
+
+2019-07-31 20:23:44.285 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:80  HikariPool-10 - Starting...
+
+2019-07-31 20:23:44.304 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:82  HikariPool-10 - Start completed.
+
+2019-07-31 20:23:44.305 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:80  HikariPool-11 - Starting...
+
+2019-07-31 20:23:44.330 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:82  HikariPool-11 - Start completed.
+
+2019-07-31 20:23:44.330 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:80  HikariPool-12 - Starting...
+
+2019-07-31 20:23:44.349 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:82  HikariPool-12 - Start completed.
+
+2019-07-31 20:23:44.350 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:80  HikariPool-13 - Starting...
+
+2019-07-31 20:23:44.377 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:82  HikariPool-13 - Start completed.
+
+2019-07-31 20:23:44.377 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:80  HikariPool-14 - Starting...
+
+2019-07-31 20:23:44.400 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:82  HikariPool-14 - Start completed.
+
+2019-07-31 20:23:44.401 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:80  HikariPool-15 - Starting...
+
+2019-07-31 20:23:44.424 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:82  HikariPool-15 - Start completed.
+
+2019-07-31 20:23:44.425 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:80  HikariPool-16 - Starting...
+
+2019-07-31 20:23:44.448 INFO c.zaxxer.hikari.HikariDataSource &lt;init&gt;:82  HikariPool-16 - Start completed.
+
+2019-07-31 20:23:44.792 INFO o.a.s.c.c.l.ConfigurationLogger log:134  ShardingRuleConfiguration
+defaultDatabaseStrategy:
+  standard:
+    preciseAlgorithmClassName: com.aduer.pay.order.config.OrderDatabaseAlgorithm
+    shardingColumn: merchant_no
+defaultTableStrategy:
+  standard:
+    preciseAlgorithmClassName: com.aduer.pay.order.config.OrderTableAlgorithm
+    shardingColumn: merchant_no
+tables:
+  order:
+    actualDataNodes: pay-order_${0..15}.order_${0..127}
+    logicTable: order
+
+
+2019-07-31 20:23:44.793 INFO o.a.s.c.c.l.ConfigurationLogger log:134  Properties
+sql.show: 'true'
+
+
+</code></pre>
+<p>看日志，正确加载了数据源与数据表，测试一下，正常并通过。搞定。</p>
+<p>以上。</p>
+
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://cens7.github.io/2019/07/shardingsphere%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97/" title="ShardingSphere使用心得" target="_blank" rel="external">https://cens7.github.io/2019/07/shardingsphere%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/cens7/" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://cens7.github.io/5_avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/cens7/" target="_blank"><span class="text-dark">mavic</span><small class="ml-1x"></small></a></h3>
+        <div>记录我的成长</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://cens7.github.io/2019/05/nio_aio_bio%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%80%BB%E7%BB%93/" title="NIO_AIO_BIO学习与总结"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://cens7.github.io/2019/08/powerdesigner%E8%A1%8C%E5%88%97%E8%BD%AC%E6%8D%A2%E8%84%9A%E6%9C%AC/"
+                    title="PowerDesigner行列转换脚本"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/cens7/" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2016  -
+    2020
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/java.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/golang.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://cens7.github.io/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://cens7.github.io/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/cens7.github.io\/',
+            CONTENT_URL: 'https:\/\/cens7.github.io\/\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://cens7.github.io/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+  </body>
+</html>

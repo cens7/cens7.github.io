@@ -20,6 +20,15 @@
     </item>
     
     <item>
+      <title>单元测试Mockito使用心得</title>
+      <link>https://cens7.github.io/2020/02/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95mockito%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97/</link>
+      <pubDate>Sat, 01 Feb 2020 16:35:45 +0800</pubDate>
+      
+      <guid>https://cens7.github.io/2020/02/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95mockito%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97/</guid>
+      <description>背景 团队推行单元测试，需要对主要逻辑serice层做单元测试，但是有些service会有外部接口调用或上游接口调用，而因为环境问题，这部分接</description>
+    </item>
+    
+    <item>
       <title>使用Kotlin写SpringBoot的坑</title>
       <link>https://cens7.github.io/2020/01/%E4%BD%BF%E7%94%A8kotlin%E5%86%99springboot%E7%9A%84%E5%9D%91/</link>
       <pubDate>Thu, 02 Jan 2020 12:34:44 +0800</pubDate>
@@ -71,6 +80,15 @@
       
       <guid>https://cens7.github.io/2019/08/powerdesigner%E8%A1%8C%E5%88%97%E8%BD%AC%E6%8D%A2%E8%84%9A%E6%9C%AC/</guid>
       <description>从数据库工具（比如：navicat）中导出表结构sql。 将sql导入到powerDesigner里。 File → Reverse Engineer → Database选中导出的表结</description>
+    </item>
+    
+    <item>
+      <title>ShardingSphere使用心得</title>
+      <link>https://cens7.github.io/2019/07/shardingsphere%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97/</link>
+      <pubDate>Wed, 31 Jul 2019 20:09:07 +0800</pubDate>
+      
+      <guid>https://cens7.github.io/2019/07/shardingsphere%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97/</guid>
+      <description>背景 随着业务发展，订单线上数据已到达每日200万+，需要提前对订单做分库分表。结合市面上解决方案，决定采用sharding。sharding</description>
     </item>
     
     <item>
