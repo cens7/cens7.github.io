@@ -4,7 +4,8 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>
-        mavic&#39;s blog</title>
+        SpringBoot配置多数据源 - mavic&#39;s blog
+      </title>
     <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -22,25 +23,32 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  
+  <meta name="description" content="背景 随着业务的发展，在开发过程中，需要在一个工程里连接多个数据库，并兼容springBoot原本的与mybatis整合。 思路 看源码，过程大体" />
   <meta name="generator" content="Hugo 0.60.1 with theme pure" />
-  <title>mavic&#39;s blog</title>
+  <title>SpringBoot配置多数据源 - mavic&#39;s blog</title>
   
-  <link rel="alternate" type="application/rss+xml" href="https://cens7.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.xml" title="mavic's blog" />
   
   <link rel="stylesheet" href="https://cens7.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
   
   <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
-  <meta property="og:title" content="数据结构" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://cens7.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" />
-<meta property="og:updated_time" content="2016-02-13T18:18:52+08:00" />
-<meta itemprop="name" content="数据结构">
-<meta itemprop="description" content=""><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="数据结构"/>
-<meta name="twitter:description" content=""/>
+  <meta property="og:title" content="SpringBoot配置多数据源" />
+<meta property="og:description" content="背景 随着业务的发展，在开发过程中，需要在一个工程里连接多个数据库，并兼容springBoot原本的与mybatis整合。 思路 看源码，过程大体" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://cens7.github.io/2020/05/springboot%E9%85%8D%E7%BD%AE%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90/" />
+<meta property="article:published_time" content="2020-05-11T19:18:49+08:00" />
+<meta property="article:modified_time" content="2020-05-11T19:18:49+08:00" />
+<meta itemprop="name" content="SpringBoot配置多数据源">
+<meta itemprop="description" content="背景 随着业务的发展，在开发过程中，需要在一个工程里连接多个数据库，并兼容springBoot原本的与mybatis整合。 思路 看源码，过程大体">
+<meta itemprop="datePublished" content="2020-05-11T19:18:49&#43;08:00" />
+<meta itemprop="dateModified" content="2020-05-11T19:18:49&#43;08:00" />
+<meta itemprop="wordCount" content="914">
+
+
+
+<meta itemprop="keywords" content="springBoot,数据库,分库分表," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="SpringBoot配置多数据源"/>
+<meta name="twitter:description" content="背景 随着业务的发展，在开发过程中，需要在一个工程里连接多个数据库，并兼容springBoot原本的与mybatis整合。 思路 看源码，过程大体"/>
 
   <!--[if lte IE 9]>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -292,85 +300,253 @@
 
     
     
-<main class="main" role="main">
-    <article class="content article article-tags post-type-list" itemscope="">
-        <header class="article-header">
-            <h1 itemprop="name" class="hidden-xs">数据结构</h1>
-            <p class="text-muted hidden-xs">共 19 个标签</p>
-            <nav role="navigation" id="nav-main" class="okayNav">
-                <ul>
-                    <li><a href="https://cens7.github.io/tags">All</a></li>
-                    <li><a href="https://cens7.github.io/tags/docker/">docker</a></li>
-                    <li><a href="https://cens7.github.io/tags/dubbo/">Dubbo</a></li>
-                    <li><a href="https://cens7.github.io/tags/idea/">idea</a></li>
-                    <li><a href="https://cens7.github.io/tags/java/">Java</a></li>
-                    <li><a href="https://cens7.github.io/tags/kotlin/">Kotlin</a></li>
-                    <li><a href="https://cens7.github.io/tags/lambda/">lambda</a></li>
-                    <li><a href="https://cens7.github.io/tags/redis/">redis</a></li>
-                    <li><a href="https://cens7.github.io/tags/springboot/">springBoot</a></li>
-                    <li><a href="https://cens7.github.io/tags/springcloud/">SpringCloud</a></li>
-                    <li><a href="https://cens7.github.io/tags/websocket/">webSocket</a></li>
-                    <li><a href="https://cens7.github.io/tags/xss/">xss</a></li>
-                    <li><a href="https://cens7.github.io/tags/%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/">分库分表</a></li>
-                    <li><a href="https://cens7.github.io/tags/%E5%AE%89%E5%85%A8/">安全</a></li>
-                    <li><a href="https://cens7.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a></li>
-                    <li><a href="https://cens7.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li>
-                    <li><a href="https://cens7.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></li>
-                    <li><a href="https://cens7.github.io/tags/%E6%9E%B6%E6%9E%84/">架构</a></li>
-                    <li><a href="https://cens7.github.io/tags/%E6%B5%8B%E8%AF%95/">测试</a></li>
-                    <li><a href="https://cens7.github.io/tags/%E9%97%AE%E9%A2%98/">问题</a></li>
-                </ul>
-            </nav>
-        </header>
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="https://cens7.github.io/2020/05/springboot%E9%85%8D%E7%BD%AE%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90/"
+    >SpringBoot配置多数据源</a
+  >
+</h1>
+
+      <div class="article-meta">
         
-        <div class="article-body">
-            <div class="col-md-6"><article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-    <div class="panel-body">
-        <div class="article-meta">
-            <time datetime="2016-02-13 18:18:52 &#43;0800 CST"
-                itemprop="datePublished">2016-02-13</time>
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://cens7.github.io/2020/05/springboot%E9%85%8D%E7%BD%AE%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90/" class="article-date">
+  <time datetime="2020-05-11 19:18:49 &#43;0800 CST" itemprop="datePublished">2020-05-11</time>
+</a>
+</span>
+  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="https://cens7.github.io/tags/springboot/"> springBoot </a>
+    <a class="article-tag-link" href="https://cens7.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"> 数据库 </a>
+    <a class="article-tag-link" href="https://cens7.github.io/tags/%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/"> 分库分表 </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="https://cens7.github.io/2020/05/springboot%E9%85%8D%E7%BD%AE%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 914字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h2 id="heading">背景</h2>
+<p>随着业务的发展，在开发过程中，需要在一个工程里连接多个数据库，并兼容springBoot原本的与mybatis整合。</p>
+<h2 id="heading1">思路</h2>
+<p>看源码，过程大体是: 创建DataSource  — 根据DataSource创建SqlSessionFactory — 根据SqlSessionFactory创建SqlSessionTemplate</p>
+<p>这里，我将多个数据库作为多个数据源创建出来，并根据@MapperScan扫描多个包的机制，将不同的SqlSessionTemplate创建出来。</p>
+<h2 id="heading2">过程</h2>
+<p>创建第一个数据源:</p>
+<pre><code>@Configuration
+@MapperScan(basePackages = &quot;com.business.db1.mapper&quot;, sqlSessionFactoryRef = &quot;db1SqlSessionFactory&quot;)
+public class Db1DataSourceConfig {
+    @Bean(name = &quot;db1DataSource&quot;)
+    @Primary
+    @ConfigurationProperties(prefix = &quot;spring.datasource.db1&quot;)
+    public DataSource getDateSource() {
+        DataSource dataSource = DataSourceBuilder.create().build();
+        return dataSource;
+   }
+    @Bean(name = &quot;db1SqlSessionFactory&quot;)
+    @Primary
+    public SqlSessionFactory memberSqlSessionFactory(@Qualifier(&quot;db1DataSource&quot;) DataSource datasource)throws Exception {
+        SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
+        bean.setDataSource(datasource);
+        bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(&quot;classpath*:com.business.db1/*.xml&quot;));
+        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
+        configuration.setMapUnderscoreToCamelCase(true);
+        bean.setConfiguration(configuration);
+        return bean.getObject();
+    }
+    @Bean(&quot;db1SqlSessionTemplate&quot;)
+    @Primary
+    public SqlSessionTemplate memberSqlSessionTemplate(@Qualifier(&quot;db1SqlSessionFactory&quot;) SqlSessionFactory sessionFactory) {
+        return new SqlSessionTemplate(sessionFactory);
+    }
+}
+</code></pre>
+<p>创建第二个数据源:</p>
+<pre><code>@Configuration
+@MapperScan(basePackages = &quot;com.business.db2.mapper&quot;, sqlSessionFactoryRef = &quot;db2SqlSessionFactory&quot;)
+public class Db2DataSourceConfig {
+    @Bean(name = &quot;db2DataSource&quot;)
+    @ConfigurationProperties(prefix = &quot;spring.datasource.db2&quot;)
+    public DataSource getDateSource() {
+        return DataSourceBuilder.create().build();
+    }
+    @Bean(name = &quot;db2SqlSessionFactory&quot;)
+    public SqlSessionFactory primarySqlSessionFactory(@Qualifier(&quot;db2DataSource&quot;) DataSource datasource) throws Exception {
+        SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
+        bean.setDataSource(datasource);
+        bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(&quot;classpath*:com.business.db2/*.xml&quot;));
+        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
+        configuration.setMapUnderscoreToCamelCase(true);
+        bean.setConfiguration(configuration);
+        return bean.getObject();
+    }
+    @Bean(&quot;db2SqlSessionTemplate&quot;)
+    public SqlSessionTemplate primarySqlSessionTemplate(
+            @Qualifier(&quot;db2SqlSessionFactory&quot;) SqlSessionFactory sessionFactory) {
+        return new SqlSessionTemplate(sessionFactory);
+    }
+}
+</code></pre>
+<p>配置之后就可以。</p>
+<h2 id="heading3">新问题</h2>
+<p>我的db1数据源是用sharding做的分库分表，需要同时在一个工程里访问一个分库分表的数据源，一个普通的数据源。</p>
+<p>使用后了解sharding配置后最终也是创建一个DataSource出来，交给spring托管；那我是不是将上面的db1里的数据源换成sharding的配置就可以了呢？ 说干就干。</p>
+<pre><code>@Configuration
+@MapperScan(basePackages = &quot;com.business.db1.mapper&quot;, sqlSessionFactoryRef = &quot;db1SqlSessionFactory&quot;)
+public class Db1DataSourceConfig {
+
+    @Bean(name = &quot;db1DataSource&quot;)
+    @Primary
+    public DataSource getShardingDataSource(ShardingSliceProperties shardingSliceProperties) throws SQLException {
+
+        ShardingRuleConfiguration shardingRuleConfig = new ShardingRuleConfiguration();
+        TableRuleConfiguration tableRuleConfiguration = new TableRuleConfiguration(shardingSliceProperties.getSliceTable(),
+                shardingSliceProperties.getSliceDatabase() + &quot;_${0..15}.&quot; + shardingSliceProperties.getSliceTable() + &quot;_${0..127}&quot;);
+        // 设置表规则
+        shardingRuleConfig.getTableRuleConfigs().add(tableRuleConfiguration);
+
+        // 设置分库规则
+        shardingRuleConfig.setDefaultDatabaseShardingStrategyConfig(new StandardShardingStrategyConfiguration(
+                shardingSliceProperties.getSliceDatabaseKey(), new OrderDatabaseAlgorithm()));
+
+        // 设置分表规则
+        shardingRuleConfig.setDefaultTableShardingStrategyConfig(new StandardShardingStrategyConfiguration(
+                shardingSliceProperties.getSliceTableKey(), new OrderTableAlgorithm()));
+
+        // 配置分库数据源
+        Map&lt;String, DataSource&gt; dataSourceMap = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; 16; i++) {
+            HikariConfig hikariConfig = new HikariConfig();
+            hikariConfig.setMinimumIdle(5);
+            hikariConfig.setMaximumPoolSize(25);
+            hikariConfig.setUsername(shardingSliceProperties.getUsername());
+            hikariConfig.setPassword(shardingSliceProperties.getPassword());
+            hikariConfig.setDriverClassName(shardingSliceProperties.getDriverClassName());
+            hikariConfig.setJdbcUrl(shardingSliceProperties.getJdbcUrl()+ &quot;_&quot; + i);
+            HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
+            dataSourceMap.put(shardingSliceProperties.getSliceDatabase() + &quot;_&quot; + i, hikariDataSource);
+        }
+
+        Properties props = new Properties();
+        // 设置显示sql
+        props.put(ShardingPropertiesConstant.SQL_SHOW.getKey(), String.valueOf(Boolean.TRUE));
+
+        // 配置默认数据源
+        HikariConfig hikariConfig = new HikariConfig();
+        hikariConfig.setDriverClassName(shardingSliceProperties.getDriverClassName());
+        hikariConfig.setJdbcUrl(shardingSliceProperties.getJdbcUrl());
+        hikariConfig.setUsername(shardingSliceProperties.getUsername());
+        hikariConfig.setPassword(shardingSliceProperties.getPassword());
+        hikariConfig.setMaximumPoolSize(25);
+        hikariConfig.setMinimumIdle(5);
+        HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
+        dataSourceMap.put(shardingSliceProperties.getSliceDatabase(), hikariDataSource);
+        shardingRuleConfig.setDefaultDataSourceName(shardingSliceProperties.getSliceDatabase());
+        DataSource dataSource = ShardingDataSourceFactory.createDataSource(dataSourceMap, shardingRuleConfig, props);
+        return dataSource;
+    }
+
+    @Bean(name = &quot;db1SqlSessionFactory&quot;)
+    @Primary
+    public SqlSessionFactory memberSqlSessionFactory(@Qualifier(&quot;db1DataSource&quot;) DataSource datasource)throws Exception {
+
+        SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
+        bean.setDataSource(datasource);
+        bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(&quot;classpath*:com.business.db1/*.xml&quot;));
+
+        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
+        configuration.setMapUnderscoreToCamelCase(true);
+        bean.setConfiguration(configuration);
+        return bean.getObject();
+    }
+
+    @Bean(&quot;db1SqlSessionTemplate&quot;)
+    @Primary
+    public SqlSessionTemplate memberSqlSessionTemplate(@Qualifier(&quot;db1SqlSessionFactory&quot;) SqlSessionFactory sessionFactory) {
+        return new SqlSessionTemplate(sessionFactory);
+    }
+}
+</code></pre>
+<p>启动报错，DataSouce NullPointException。 debug运行了一下，发现执行了org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration这个自动配置，在启动类exclude这个自动配置类搞定。</p>
+<p>启动测试没问题。搞定。</p>
+
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://cens7.github.io/2020/05/springboot%E9%85%8D%E7%BD%AE%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90/" title="SpringBoot配置多数据源" target="_blank" rel="external">https://cens7.github.io/2020/05/springboot%E9%85%8D%E7%BD%AE%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/cens7/" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://cens7.github.io/5_avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/cens7/" target="_blank"><span class="text-dark">mavic</span><small class="ml-1x"></small></a></h3>
+        <div>记录我的成长</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://cens7.github.io/2020/03/netty-socketio%E4%BD%BF%E7%94%A8/" title="Netty Socketio使用"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
         </div>
-        <h3 class="article-title" itemprop="name">
-            <a class="article-link" href="https://cens7.github.io/2016/02/java%E4%BD%8D%E8%BF%90%E7%AE%972_%E4%BD%8D%E8%BF%90%E7%AE%97/">Java位运算2_位运算</a>
-        </h3>
     </div>
-    <div class="panel-footer">
-        <a href="https://cens7.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" class="label label-default mb">数据结构</a>
-    </div>
-</article>
-            </div>
-            <div class="col-md-6"><article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-    <div class="panel-body">
-        <div class="article-meta">
-            <time datetime="2016-02-12 21:35:10 &#43;0800 CST"
-                itemprop="datePublished">2016-02-12</time>
-        </div>
-        <h3 class="article-title" itemprop="name">
-            <a class="article-link" href="https://cens7.github.io/2016/02/java%E4%BD%8D%E8%BF%90%E7%AE%971_%E5%B7%A6%E7%A7%BB%E5%8F%B3%E7%A7%BB/">Java位运算1_左移、右移</a>
-        </h3>
-    </div>
-    <div class="panel-footer">
-        <a href="https://cens7.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" class="label label-default mb">数据结构</a>
-    </div>
-</article>
-            </div>
-            <div class="col-md-6"><article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-    <div class="panel-body">
-        <div class="article-meta">
-            <time datetime="2015-11-30 17:39:39 &#43;0800 CST"
-                itemprop="datePublished">2015-11-30</time>
-        </div>
-        <h3 class="article-title" itemprop="name">
-            <a class="article-link" href="https://cens7.github.io/2015/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_1/">数据结构学习笔记_1</a>
-        </h3>
-    </div>
-    <div class="panel-footer">
-        <a href="https://cens7.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" class="label label-default mb">数据结构</a>
-    </div>
-</article>
-            </div>
-        </div>
-    </article>
+</nav>
+
 </main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
 <ul class="social-links">
     <li><a href="https://github.com/cens7/" target="_blank" title="github" data-toggle=tooltip data-placement=top >
@@ -445,6 +621,7 @@
         hasInnerContainers: true,
     });
 </script>
+
 
   </body>
 </html>

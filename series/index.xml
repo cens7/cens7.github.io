@@ -10,12 +10,12 @@
     
     
     <item>
-      <title>ProjectLoom学习心得</title>
-      <link>https://cens7.github.io/2020/03/projectloom%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/</link>
-      <pubDate>Tue, 31 Mar 2020 20:59:39 +0800</pubDate>
+      <title>SpringBoot配置多数据源</title>
+      <link>https://cens7.github.io/2020/05/springboot%E9%85%8D%E7%BD%AE%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90/</link>
+      <pubDate>Mon, 11 May 2020 19:18:49 +0800</pubDate>
       
-      <guid>https://cens7.github.io/2020/03/projectloom%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/</guid>
-      <description></description>
+      <guid>https://cens7.github.io/2020/05/springboot%E9%85%8D%E7%BD%AE%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90/</guid>
+      <description>背景 随着业务的发展，在开发过程中，需要在一个工程里连接多个数据库，并兼容springBoot原本的与mybatis整合。 思路 看源码，过程大体</description>
     </item>
     
     <item>
