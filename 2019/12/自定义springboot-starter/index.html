@@ -4,7 +4,8 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>
-        mavic&#39;s blog</title>
+        自定义springboot starter - mavic&#39;s blog
+      </title>
     <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -22,25 +23,32 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  
+  <meta name="description" content="背景 项目里使用一些自定义的配置，在bootstrap.yaml里，这些配置会带着黄色的背景色；所以我在想，有没有一种合理的方式可以弄掉背景色" />
   <meta name="generator" content="Hugo 0.60.1 with theme pure" />
-  <title>mavic&#39;s blog</title>
+  <title>自定义springboot starter - mavic&#39;s blog</title>
   
-  <link rel="alternate" type="application/rss+xml" href="https://cens7.github.io/index.xml" title="mavic's blog" />
   
   <link rel="stylesheet" href="https://cens7.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
   
   <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
-  <meta property="og:title" content="mavic&#39;s blog" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://cens7.github.io/" />
-<meta property="og:updated_time" content="2020-05-18T20:38:27+08:00" />
-<meta itemprop="name" content="mavic&#39;s blog">
-<meta itemprop="description" content=""><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="mavic&#39;s blog"/>
-<meta name="twitter:description" content=""/>
+  <meta property="og:title" content="自定义springboot starter" />
+<meta property="og:description" content="背景 项目里使用一些自定义的配置，在bootstrap.yaml里，这些配置会带着黄色的背景色；所以我在想，有没有一种合理的方式可以弄掉背景色" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://cens7.github.io/2019/12/%E8%87%AA%E5%AE%9A%E4%B9%89springboot-starter/" />
+<meta property="article:published_time" content="2019-12-18T19:47:41+08:00" />
+<meta property="article:modified_time" content="2019-12-18T19:47:41+08:00" />
+<meta itemprop="name" content="自定义springboot starter">
+<meta itemprop="description" content="背景 项目里使用一些自定义的配置，在bootstrap.yaml里，这些配置会带着黄色的背景色；所以我在想，有没有一种合理的方式可以弄掉背景色">
+<meta itemprop="datePublished" content="2019-12-18T19:47:41&#43;08:00" />
+<meta itemprop="dateModified" content="2019-12-18T19:47:41&#43;08:00" />
+<meta itemprop="wordCount" content="565">
+
+
+
+<meta itemprop="keywords" content="Java,springboot," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="自定义springboot starter"/>
+<meta name="twitter:description" content="背景 项目里使用一些自定义的配置，在bootstrap.yaml里，这些配置会带着黄色的背景色；所以我在想，有没有一种合理的方式可以弄掉背景色"/>
 
   <!--[if lte IE 9]>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -57,7 +65,7 @@
   
   
 
-  <body class="main-center theme-black main-center theme-black main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
     <div class="slimContent">
       <div class="navbar-header">
         <div class="profile-block text-center">
@@ -296,198 +304,181 @@
 
     
     
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
 
-<main class="main" role="main">
-  
-  <div class="content article-list">
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
     
-    
-    
-    <article
-      class="article article-type-page"
-      itemscope
-      itemtype="http://schema.org/BlogPosting"
-    >
-      <div class="article-header">
-        <h1 itemprop="name">
+    <div class="article-header">
+      <h1 itemprop="name">
   <a
     class="article-title"
-    href="https://cens7.github.io/2017/04/lambda%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"
-    >Lambda基本使用</a
+    href="https://cens7.github.io/2019/12/%E8%87%AA%E5%AE%9A%E4%B9%89springboot-starter/"
+    >自定义springboot starter</a
   >
 </h1>
 
-      </div>
-      <div class="article-entry text-muted" itemprop="description">lambda基本使用 1.将List转成Map&lt;Id,Person&gt; Map&lt;Id,Person&gt; map = list.parallelStream(). collect(Collectors.toMap(Person::getId, p -&gt; p)); 2.将List按照sex分组 Map&lt;String,Person&gt; map = list.parallelStream(). collect(Collectors.groupingBy(Person::getSex)); 3.取出</div>
-      <p class="article-meta">
+      <div class="article-meta">
+        
 <span class="article-date">
   <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://cens7.github.io/2017/04/lambda%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" class="">
-  <time datetime="2017-04-30 10:18:58 &#43;0800 CST" itemprop="datePublished">2017-04-30</time>
+<a href="https://cens7.github.io/2019/12/%E8%87%AA%E5%AE%9A%E4%B9%89springboot-starter/" class="article-date">
+  <time datetime="2019-12-18 19:47:41 &#43;0800 CST" itemprop="datePublished">2019-12-18</time>
 </a>
 </span>
   
   <span class="article-tag">
     <i class="icon icon-tags"></i>&nbsp;
     <a class="article-tag-link" href="https://cens7.github.io/tags/java/"> Java </a>
-    <a class="article-tag-link" href="https://cens7.github.io/tags/lambda/"> lambda </a>
+    <a class="article-tag-link" href="https://cens7.github.io/tags/springboot/"> springboot </a>
   </span>
 
-        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="https://cens7.github.io/2017/04/lambda%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/#comments" class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 506字</span>
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="https://cens7.github.io/2019/12/%E8%87%AA%E5%AE%9A%E4%B9%89springboot-starter/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 565字</span>
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2分 </span>
-      </p>
-    </article>
-    <article
-      class="article article-type-page"
-      itemscope
-      itemtype="http://schema.org/BlogPosting"
-    >
-      <div class="article-header">
-        <h1 itemprop="name">
-  <a
-    class="article-title"
-    href="https://cens7.github.io/2016/12/idea%E5%9F%BA%E6%9C%AC%E8%AE%BE%E7%BD%AE/"
-    >idea基本设置</a
-  >
-</h1>
-
       </div>
-      <div class="article-entry text-muted" itemprop="description">基本设置 关闭默认打开工程：关闭大小写敏感：换行显示10个文件选项卡：常用插件 lombok 注解 mybatis plugin maven helper String Manipulation 字符串处理 Translation 翻译</div>
-      <p class="article-meta">
-<span class="article-date">
-  <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://cens7.github.io/2016/12/idea%E5%9F%BA%E6%9C%AC%E8%AE%BE%E7%BD%AE/" class="">
-  <time datetime="2016-12-01 09:51:02 &#43;0800 CST" itemprop="datePublished">2016-12-01</time>
-</a>
-</span>
-  
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>&nbsp;
-    <a class="article-tag-link" href="https://cens7.github.io/tags/idea/"> idea </a>
-  </span>
-
-        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="https://cens7.github.io/2016/12/idea%E5%9F%BA%E6%9C%AC%E8%AE%BE%E7%BD%AE/#comments" class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 55字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1分 </span>
-      </p>
-    </article>
-    <article
-      class="article article-type-page"
-      itemscope
-      itemtype="http://schema.org/BlogPosting"
-    >
-      <div class="article-header">
-        <h1 itemprop="name">
-  <a
-    class="article-title"
-    href="https://cens7.github.io/2016/02/java%E4%BD%8D%E8%BF%90%E7%AE%972_%E4%BD%8D%E8%BF%90%E7%AE%97/"
-    >Java位运算2_位运算</a
-  >
-</h1>
-
-      </div>
-      <div class="article-entry text-muted" itemprop="description">位逻辑运算符 与运算（&amp;） 与运算：两个运算数比较位都是 1，则结果为 1，否则为 0。例如：5 &amp; 3 = 1 0000 0000 0000 0000 0000 0000 0000 0101 5 转换为二进制 0000 0000 0000 0000</div>
-      <p class="article-meta">
-<span class="article-date">
-  <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://cens7.github.io/2016/02/java%E4%BD%8D%E8%BF%90%E7%AE%972_%E4%BD%8D%E8%BF%90%E7%AE%97/" class="">
-  <time datetime="2016-02-13 18:18:52 &#43;0800 CST" itemprop="datePublished">2016-02-13</time>
-</a>
-</span>
-  
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>&nbsp;
-    <a class="article-tag-link" href="https://cens7.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"> 数据结构 </a>
-  </span>
-
-        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="https://cens7.github.io/2016/02/java%E4%BD%8D%E8%BF%90%E7%AE%972_%E4%BD%8D%E8%BF%90%E7%AE%97/#comments" class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 780字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2分 </span>
-      </p>
-    </article>
-    <article
-      class="article article-type-page"
-      itemscope
-      itemtype="http://schema.org/BlogPosting"
-    >
-      <div class="article-header">
-        <h1 itemprop="name">
-  <a
-    class="article-title"
-    href="https://cens7.github.io/2016/02/java%E4%BD%8D%E8%BF%90%E7%AE%971_%E5%B7%A6%E7%A7%BB%E5%8F%B3%E7%A7%BB/"
-    >Java位运算1_左移、右移</a
-  >
-</h1>
-
-      </div>
-      <div class="article-entry text-muted" itemprop="description">左移运算（&laquo;） value &lt;&lt; num num 指定要移位值；value 移动的位数。 将左操作数（value）转为二进制数后向左边移动 num 位，并且在低位补 0，</div>
-      <p class="article-meta">
-<span class="article-date">
-  <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://cens7.github.io/2016/02/java%E4%BD%8D%E8%BF%90%E7%AE%971_%E5%B7%A6%E7%A7%BB%E5%8F%B3%E7%A7%BB/" class="">
-  <time datetime="2016-02-12 21:35:10 &#43;0800 CST" itemprop="datePublished">2016-02-12</time>
-</a>
-</span>
-  
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>&nbsp;
-    <a class="article-tag-link" href="https://cens7.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"> 数据结构 </a>
-  </span>
-
-        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="https://cens7.github.io/2016/02/java%E4%BD%8D%E8%BF%90%E7%AE%971_%E5%B7%A6%E7%A7%BB%E5%8F%B3%E7%A7%BB/#comments" class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1196字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3分 </span>
-      </p>
-    </article>
-    <article
-      class="article article-type-page"
-      itemscope
-      itemtype="http://schema.org/BlogPosting"
-    >
-      <div class="article-header">
-        <h1 itemprop="name">
-  <a
-    class="article-title"
-    href="https://cens7.github.io/2015/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_1/"
-    >数据结构学习笔记_1</a
-  >
-</h1>
-
-      </div>
-      <div class="article-entry text-muted" itemprop="description">广义表： L=(a,b) L长度为2，深度为1 L=(x,(a,b)）长度为2，深度为2 L=(x,(a,b,c),y) 长度为3，深度为6 L=(a,a,a,(a,&hellip;))长度为</div>
-      <p class="article-meta">
-<span class="article-date">
-  <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://cens7.github.io/2015/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_1/" class="">
-  <time datetime="2015-11-30 17:39:39 &#43;0800 CST" itemprop="datePublished">2015-11-30</time>
-</a>
-</span>
-  
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>&nbsp;
-    <a class="article-tag-link" href="https://cens7.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"> 数据结构 </a>
-  </span>
-
-        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="https://cens7.github.io/2015/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_1/#comments" class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1057字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3分 </span>
-      </p>
-    </article></div>
-  
-<nav class="bar bar-footer clearfix" data-stick-bottom>
-  <div class="bar-inner">
-    <ul class="pager pull-left"><li class="prev">
-        <a href="https://cens7.github.io/page/2/">
-          <i class="icon icon-angle-left"></i>
-          
-        </a>
-      </li>
-    </ul>
-    <div class="total-article bar-right">
-      Page:3/3
     </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <p>背景</p>
+<blockquote>
+<p>项目里使用一些自定义的配置，在bootstrap.yaml里，这些配置会带着黄色的背景色；所以我在想，有没有一种合理的方式可以弄掉背景色。然后发现了springboot-starter。</p>
+</blockquote>
+<p>根据<a href="https://docs.spring.io/spring-boot/docs/2.1.1.RELEASE/reference/htmlsingle/#configuration-metadata-annotation-processor">官方文档</a>的说明：</p>
+<blockquote>
+<p>You can easily generate your own configuration metadata file from items annotated with @ConfigurationProperties by using the spring-boot-configuration-processor jar. The jar includes a Java annotation processor which is invoked as your project is compiled. To use the processor, include a dependency on spring-boot-configuration-processor.</p>
+<p>您可以使用spring-boot-configuration-processor jar从带有@ConfigurationProperties注释的项目中轻松生成自己的配置元数据文件。 该jar包含一个Java注释处理器，在您的项目被编译时会被调用。 要使用处理器，请包括对spring-boot-configuration-processor的依赖。</p>
+</blockquote>
+<p>明白以上机制后接下来just do it！</p>
+<p>1.添加依赖</p>
+<pre><code>&lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-configuration-processor&lt;/artifactId&gt;
+&lt;/dependency&gt;
+    
+&lt;dependency&gt;
+       &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+       &lt;artifactId&gt;spring-boot-autoconfigure&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>2.添加配置元数据类</p>
+<pre><code>@ConfigurationProperties(prefix = &quot;my&quot;)
+public class MyProperties {
+ 
+    private String property;
+ 
+    private StandardCopyOption copyOption;
+ 
+    public String getProperty() {
+        return property;
+    }
+ 
+    public void setProperty(String property) {
+        this.property = property;
+    }
+ 
+    public StandardCopyOption getCopyOption() {
+        return copyOption;
+    }
+ 
+    public void setCopyOption(StandardCopyOption copyOption) {
+        this.copyOption = copyOption;
+    }
+    
+}
+</code></pre>
+<p>3.添加配置类</p>
+<pre><code>@Configuration
+@EnableConfigurationProperties({MyProperties.class})
+public class ApplicationConfiguration {
+ 
+    public MyProperties getMyProperties(MyProperties myProperties) {
+        return myProperties;
+    }
+ 
+    public void setMyProperties(MyProperties myProperties) {
+        this.myProperties = myProperties;
+    }
+}
+
+</code></pre>
+<p>在 META-INF 目录下创建 spring.factories，springboot 自动化配置最终就是要扫描 META-INF/spring.factories 来加载项目的自动化配置类。</p>
+<p>spring.factories配置文件内容:</p>
+<blockquote>
+<p>org.springframework.boot.autoconfigure.EnableAutoConfiguration= ApplicationConfiguration</p>
+</blockquote>
+<p>运行 mvn:install 打包，一个springboot-starter就弄好了。</p>
+<p>测试并通过。以上。</p>
+
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://cens7.github.io/2019/12/%E8%87%AA%E5%AE%9A%E4%B9%89springboot-starter/" title="自定义springboot starter" target="_blank" rel="external">https://cens7.github.io/2019/12/%E8%87%AA%E5%AE%9A%E4%B9%89springboot-starter/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/cens7/" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://cens7.github.io/5_avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/cens7/" target="_blank"><span class="text-dark">mavic</span><small class="ml-1x"></small></a></h3>
+        <div>记录我的成长</div>
+      </div>
+    </figure>
   </div>
+</div>
+    </div>
+  </article>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://cens7.github.io/2019/12/docker%E4%BD%BF%E7%94%A8/" title="docker使用"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://cens7.github.io/2020/01/%E4%BD%BF%E7%94%A8kotlin%E5%86%99springboot%E7%9A%84%E5%9D%91/"
+                    title="使用Kotlin写SpringBoot的坑"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
 </nav>
 
 </main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -564,6 +555,7 @@
         hasInnerContainers: true,
     });
 </script>
+
 
   </body>
 </html>
