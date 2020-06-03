@@ -19,15 +19,6 @@
     </item>
     
     <item>
-      <title>B树、B&#43;树、B*树、红黑树、LSM复习</title>
-      <link>https://cens7.github.io/2020/05/b%E6%A0%91b-%E6%A0%91b%E6%A0%91%E7%BA%A2%E9%BB%91%E6%A0%91lsm%E5%A4%8D%E4%B9%A0/</link>
-      <pubDate>Sat, 30 May 2020 14:05:25 +0800</pubDate>
-      
-      <guid>https://cens7.github.io/2020/05/b%E6%A0%91b-%E6%A0%91b%E6%A0%91%E7%BA%A2%E9%BB%91%E6%A0%91lsm%E5%A4%8D%E4%B9%A0/</guid>
-      <description>很多数据库都使用了 LSM Tree 的存储模型，包括 LevelDB，HBase，Google BigTable，Cassandra，InfluxDB 等。所以</description>
-    </item>
-    
-    <item>
       <title>CompletableFuture二三事</title>
       <link>https://cens7.github.io/2020/05/completablefuture%E4%BA%8C%E4%B8%89%E4%BA%8B/</link>
       <pubDate>Mon, 18 May 2020 20:38:27 +0800</pubDate>
@@ -187,6 +178,15 @@
       
       <guid>https://cens7.github.io/2016/02/java%E4%BD%8D%E8%BF%90%E7%AE%972_%E4%BD%8D%E8%BF%90%E7%AE%97/</guid>
       <description>位逻辑运算符 与运算（&amp;amp;） 与运算：两个运算数比较位都是 1，则结果为 1，否则为 0。例如：5 &amp;amp; 3 = 1 0000 0000 0000 0000 0000 0000 0000 0101 5 转换为二进制 0000 0000 0000 0000</description>
+    </item>
+    
+    <item>
+      <title>Java位运算1_左移、右移</title>
+      <link>https://cens7.github.io/2016/02/java%E4%BD%8D%E8%BF%90%E7%AE%971_%E5%B7%A6%E7%A7%BB%E5%8F%B3%E7%A7%BB/</link>
+      <pubDate>Fri, 12 Feb 2016 21:35:10 +0800</pubDate>
+      
+      <guid>https://cens7.github.io/2016/02/java%E4%BD%8D%E8%BF%90%E7%AE%971_%E5%B7%A6%E7%A7%BB%E5%8F%B3%E7%A7%BB/</guid>
+      <description>左移运算（&amp;laquo;） value &amp;lt;&amp;lt; num num 指定要移位值；value 移动的位数。 将左操作数（value）转为二进制数后向左边移动 num 位，并且在低位补 0，</description>
     </item>
     
   </channel>
