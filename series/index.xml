@@ -10,6 +10,24 @@
     
     
     <item>
+      <title>SpringBoot配置多数据源二</title>
+      <link>https://cens7.github.io/2020/06/springboot%E9%85%8D%E7%BD%AE%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%902/</link>
+      <pubDate>Wed, 03 Jun 2020 10:40:06 +0800</pubDate>
+      
+      <guid>https://cens7.github.io/2020/06/springboot%E9%85%8D%E7%BD%AE%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%902/</guid>
+      <description>背景 前面我配置了同应用多数据源的。但是在实际开发中，我们需要使用事务，保障业务与数据的可用性。那当配置了多数据源时，默认的事务管理器实际时失</description>
+    </item>
+    
+    <item>
+      <title>B树、B&#43;树、B*树、红黑树、LSM复习</title>
+      <link>https://cens7.github.io/2020/05/b%E6%A0%91b-%E6%A0%91b%E6%A0%91%E7%BA%A2%E9%BB%91%E6%A0%91lsm%E5%A4%8D%E4%B9%A0/</link>
+      <pubDate>Sat, 30 May 2020 14:05:25 +0800</pubDate>
+      
+      <guid>https://cens7.github.io/2020/05/b%E6%A0%91b-%E6%A0%91b%E6%A0%91%E7%BA%A2%E9%BB%91%E6%A0%91lsm%E5%A4%8D%E4%B9%A0/</guid>
+      <description>很多数据库都使用了 LSM Tree 的存储模型，包括 LevelDB，HBase，Google BigTable，Cassandra，InfluxDB 等。所以</description>
+    </item>
+    
+    <item>
       <title>CompletableFuture二三事</title>
       <link>https://cens7.github.io/2020/05/completablefuture%E4%BA%8C%E4%B8%89%E4%BA%8B/</link>
       <pubDate>Mon, 18 May 2020 20:38:27 +0800</pubDate>
@@ -19,11 +37,11 @@
     </item>
     
     <item>
-      <title>SpringBoot配置多数据源</title>
-      <link>https://cens7.github.io/2020/05/springboot%E9%85%8D%E7%BD%AE%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90/</link>
+      <title>SpringBoot配置多数据源一</title>
+      <link>https://cens7.github.io/2020/05/springboot%E9%85%8D%E7%BD%AE%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%901/</link>
       <pubDate>Mon, 11 May 2020 19:18:49 +0800</pubDate>
       
-      <guid>https://cens7.github.io/2020/05/springboot%E9%85%8D%E7%BD%AE%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90/</guid>
+      <guid>https://cens7.github.io/2020/05/springboot%E9%85%8D%E7%BD%AE%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%901/</guid>
       <description>背景 随着业务的发展，在开发过程中，需要在一个工程里连接多个数据库，并兼容springBoot原本的与mybatis整合。 思路 看源码，过程大体</description>
     </item>
     
@@ -132,7 +150,7 @@
       <pubDate>Tue, 12 Jun 2018 00:00:00 +0000</pubDate>
       
       <guid>https://cens7.github.io/2018/06/springcloud%E4%B8%ADrabbitmq%E8%A2%AB%E6%B6%88%E8%B4%B9%E5%A4%9A%E6%AC%A1/</guid>
-      <description>问题 pringCloud整合的rabbitmq， 在消费端设置了group，通常情况消费端只消费了一次，偶尔碰到一次 mq被消费两次。 解决 添加g</description>
+      <description>问题 springCloud整合的rabbitmq， 在消费端设置了group，通常情况消费端只消费了一次，偶尔碰到一次 mq被消费两次。 解决 添加</description>
     </item>
     
     <item>
@@ -169,24 +187,6 @@
       
       <guid>https://cens7.github.io/2016/02/java%E4%BD%8D%E8%BF%90%E7%AE%972_%E4%BD%8D%E8%BF%90%E7%AE%97/</guid>
       <description>位逻辑运算符 与运算（&amp;amp;） 与运算：两个运算数比较位都是 1，则结果为 1，否则为 0。例如：5 &amp;amp; 3 = 1 0000 0000 0000 0000 0000 0000 0000 0101 5 转换为二进制 0000 0000 0000 0000</description>
-    </item>
-    
-    <item>
-      <title>Java位运算1_左移、右移</title>
-      <link>https://cens7.github.io/2016/02/java%E4%BD%8D%E8%BF%90%E7%AE%971_%E5%B7%A6%E7%A7%BB%E5%8F%B3%E7%A7%BB/</link>
-      <pubDate>Fri, 12 Feb 2016 21:35:10 +0800</pubDate>
-      
-      <guid>https://cens7.github.io/2016/02/java%E4%BD%8D%E8%BF%90%E7%AE%971_%E5%B7%A6%E7%A7%BB%E5%8F%B3%E7%A7%BB/</guid>
-      <description>左移运算（&amp;laquo;） value &amp;lt;&amp;lt; num num 指定要移位值；value 移动的位数。 将左操作数（value）转为二进制数后向左边移动 num 位，并且在低位补 0，</description>
-    </item>
-    
-    <item>
-      <title>数据结构学习笔记_1</title>
-      <link>https://cens7.github.io/2015/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_1/</link>
-      <pubDate>Mon, 30 Nov 2015 17:39:39 +0800</pubDate>
-      
-      <guid>https://cens7.github.io/2015/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0_1/</guid>
-      <description>广义表： L=(a,b) L长度为2，深度为1 L=(x,(a,b)）长度为2，深度为2 L=(x,(a,b,c),y) 长度为3，深度为6 L=(a,a,a,(a,&amp;hellip;))长度为</description>
     </item>
     
   </channel>
