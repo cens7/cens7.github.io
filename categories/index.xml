@@ -10,6 +10,15 @@
     
     
     <item>
+      <title>Springboot接入acm动态配置</title>
+      <link>https://cens7.github.io/2020/08/springboot%E6%8E%A5%E5%85%A5acm%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Wed, 05 Aug 2020 16:20:49 +0800</pubDate>
+      
+      <guid>https://cens7.github.io/2020/08/springboot%E6%8E%A5%E5%85%A5acm%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE/</guid>
+      <description>一、背景 当前项目基于springBoot, 且配置中心使用的阿里云acm，但是配置中心暂未接入动态配置。我将接入动态配置。 二、思路 首先整理了以</description>
+    </item>
+    
+    <item>
       <title>SpringBoot配置多数据源二</title>
       <link>https://cens7.github.io/2020/06/springboot%E9%85%8D%E7%BD%AE%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%902/</link>
       <pubDate>Wed, 03 Jun 2020 10:40:06 +0800</pubDate>
@@ -178,15 +187,6 @@
       
       <guid>https://cens7.github.io/2016/02/java%E4%BD%8D%E8%BF%90%E7%AE%972_%E4%BD%8D%E8%BF%90%E7%AE%97/</guid>
       <description>位逻辑运算符 与运算（&amp;amp;） 与运算：两个运算数比较位都是 1，则结果为 1，否则为 0。例如：5 &amp;amp; 3 = 1 0000 0000 0000 0000 0000 0000 0000 0101 5 转换为二进制 0000 0000 0000 0000</description>
-    </item>
-    
-    <item>
-      <title>Java位运算1_左移、右移</title>
-      <link>https://cens7.github.io/2016/02/java%E4%BD%8D%E8%BF%90%E7%AE%971_%E5%B7%A6%E7%A7%BB%E5%8F%B3%E7%A7%BB/</link>
-      <pubDate>Fri, 12 Feb 2016 21:35:10 +0800</pubDate>
-      
-      <guid>https://cens7.github.io/2016/02/java%E4%BD%8D%E8%BF%90%E7%AE%971_%E5%B7%A6%E7%A7%BB%E5%8F%B3%E7%A7%BB/</guid>
-      <description>左移运算（&amp;laquo;） value &amp;lt;&amp;lt; num num 指定要移位值；value 移动的位数。 将左操作数（value）转为二进制数后向左边移动 num 位，并且在低位补 0，</description>
     </item>
     
   </channel>

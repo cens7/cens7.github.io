@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+        Springboot接入acm动态配置 - mavic&#39;s blog
+      </title>
+    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  
+  <meta name="theme-color" content="#000000" />
+  
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <meta name="description" content="一、背景 当前项目基于springBoot, 且配置中心使用的阿里云acm，但是配置中心暂未接入动态配置。我将接入动态配置。 二、思路 首先整理了以" />
+  <meta name="generator" content="Hugo 0.60.1 with theme pure" />
+  <title>Springboot接入acm动态配置 - mavic&#39;s blog</title>
+  
+  
+  <link rel="stylesheet" href="https://cens7.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
+  
+  <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+  <meta property="og:title" content="Springboot接入acm动态配置" />
+<meta property="og:description" content="一、背景 当前项目基于springBoot, 且配置中心使用的阿里云acm，但是配置中心暂未接入动态配置。我将接入动态配置。 二、思路 首先整理了以" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://cens7.github.io/2020/08/springboot%E6%8E%A5%E5%85%A5acm%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE/" />
+<meta property="article:published_time" content="2020-08-05T16:20:49+08:00" />
+<meta property="article:modified_time" content="2020-08-05T16:20:49+08:00" />
+<meta itemprop="name" content="Springboot接入acm动态配置">
+<meta itemprop="description" content="一、背景 当前项目基于springBoot, 且配置中心使用的阿里云acm，但是配置中心暂未接入动态配置。我将接入动态配置。 二、思路 首先整理了以">
+<meta itemprop="datePublished" content="2020-08-05T16:20:49&#43;08:00" />
+<meta itemprop="dateModified" content="2020-08-05T16:20:49&#43;08:00" />
+<meta itemprop="wordCount" content="1881">
+
+
+
+<meta itemprop="keywords" content="springBoot,acm,配置中心," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Springboot接入acm动态配置"/>
+<meta name="twitter:description" content="一、背景 当前项目基于springBoot, 且配置中心使用的阿里云acm，但是配置中心暂未接入动态配置。我将接入动态配置。 二、思路 首先整理了以"/>
+
+  <!--[if lte IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+    <![endif]-->
+
+  <!--[if lt IE 9]>
+      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/cens7/" target="_blank">
+            <img class="img-circle img-rotate" src="https://cens7.github.io/5_avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">mavic</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>HangZhou, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="https://cens7.github.io/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">Home</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="https://cens7.github.io/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">Archives</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="https://cens7.github.io/tags/">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">Tags</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p><font>我们仰望头顶的星辰,并脚踏实地</font></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/acm/" class="tag-list-link">acm</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/docker/" class="tag-list-link">docker</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/dubbo/" class="tag-list-link">dubbo</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/idea/" class="tag-list-link">idea</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/java/" class="tag-list-link">java</a><span
+                    class="tag-list-count">12</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/kotlin/" class="tag-list-link">kotlin</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/lambda/" class="tag-list-link">lambda</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/redis/" class="tag-list-link">redis</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/springboot/" class="tag-list-link">springboot</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/springcloud/" class="tag-list-link">springcloud</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/websocket/" class="tag-list-link">websocket</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/xss/" class="tag-list-link">xss</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/" class="tag-list-link">分库分表</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="tag-list-link">多线程</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E5%AE%89%E5%85%A8/" class="tag-list-link">安全</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E5%B7%A5%E5%85%B7/" class="tag-list-link">工具</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="tag-list-link">数据库</a><span
+                    class="tag-list-count">3</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="tag-list-link">数据结构</a><span
+                    class="tag-list-count">3</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E6%9E%B6%E6%9E%84/" class="tag-list-link">架构</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E6%B5%8B%E8%AF%95/" class="tag-list-link">测试</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/" class="tag-list-link">配置中心</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E9%97%AE%E9%A2%98/" class="tag-list-link">问题</a><span
+                    class="tag-list-count">2</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://cens7.github.io/2020/08/springboot%E6%8E%A5%E5%85%A5acm%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE/" class="title">Springboot接入acm动态配置</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-08-05 16:20:49 &#43;0800 CST" itemprop="datePublished">2020-08-05</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://cens7.github.io/2020/06/springboot%E9%85%8D%E7%BD%AE%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%902/" class="title">SpringBoot配置多数据源二</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-06-03 10:40:06 &#43;0800 CST" itemprop="datePublished">2020-06-03</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://cens7.github.io/2020/05/completablefuture%E4%BA%8C%E4%B8%89%E4%BA%8B/" class="title">CompletableFuture二三事</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-05-18 20:38:27 &#43;0800 CST" itemprop="datePublished">2020-05-18</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://cens7.github.io/2020/05/springboot%E9%85%8D%E7%BD%AE%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%901/" class="title">SpringBoot配置多数据源一</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-05-11 19:18:49 &#43;0800 CST" itemprop="datePublished">2020-05-11</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://cens7.github.io/2020/03/netty-socketio%E4%BD%BF%E7%94%A8/" class="title">Netty Socketio使用</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-03-26 16:28:21 &#43;0800 CST" itemprop="datePublished">2020-03-26</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="https://cens7.github.io/2020/08/springboot%E6%8E%A5%E5%85%A5acm%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE/"
+    >Springboot接入acm动态配置</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://cens7.github.io/2020/08/springboot%E6%8E%A5%E5%85%A5acm%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE/" class="article-date">
+  <time datetime="2020-08-05 16:20:49 &#43;0800 CST" itemprop="datePublished">2020-08-05</time>
+</a>
+</span>
+  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="https://cens7.github.io/tags/springboot/"> springBoot </a>
+    <a class="article-tag-link" href="https://cens7.github.io/tags/acm/"> acm </a>
+    <a class="article-tag-link" href="https://cens7.github.io/tags/%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/"> 配置中心 </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="https://cens7.github.io/2020/08/springboot%E6%8E%A5%E5%85%A5acm%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1881字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 4分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h1 id="heading">一、背景</h1>
+<p>当前项目基于springBoot, 且配置中心使用的阿里云acm，但是配置中心暂未接入动态配置。我将接入动态配置。</p>
+<h1 id="heading1">二、思路</h1>
+<p>首先整理了以下几点切入点:</p>
+<ol>
+<li><a href="https://spring.io/guides/gs/centralized-configuration/">spring framework</a>有一个@RefreshScope注解，用来做配置刷新。</li>
+<li>阿里acm官方有<a href="https://help.aliyun.com/product/59604.html">文档</a>帮助接入。</li>
+<li>看看acm控制台都有哪些功能。</li>
+<li>了解spring-actuator。</li>
+</ol>
+<p>根据以上几个切入点，我将接入acm动态配置。</p>
+<h1 id="heading2">三、接入过程</h1>
+<h2 id="1-">1. 问题</h2>
+<p>我是java语言，按照<a href="https://help.aliyun.com/document_detail/60369.html?spm=a2c4g.11186623.6.588.4cdc7a1cVanbOP">文档</a> 我添加maven依赖，然后直接使用@RefreshScope就可以了。实际这样存在问题。</p>
+<p>问题1: 在acm控制后台，只能查到推送轨迹，而没有监听查询记录。
+<img src="https://cens7.github.io/images/2020-08-05/p1.png" alt=""><!-- raw HTML omitted -->
+<img src="https://cens7.github.io/images/2020-08-05/p2.png" alt=""><!-- raw HTML omitted -->
+问题2: 在acm控制后台修改后，client端配置并没有更新。</p>
+<p>❓推测1: 我的应用部署在容器里，之后暴露端口到机器上，机器上有一层nginx代理，再上面还有一层LBS。会不会是acm server推过来压根就失败了，只是推送轨迹显示推送成功。</p>
+<p>❓推测2:会不会是我的监听器注册失败，所以在acm server上没有监听查询记录。</p>
+<h2 id="2-">2. 解决过程</h2>
+<p>1⃣️首先看一下spring-cloud-starter-acm里都有什么。</p>
+<p><img src="https://cens7.github.io/images/2020-08-05/p3.png" alt="">
+<!-- raw HTML omitted --></p>
+<p>2⃣️里面直接就是starter相关的类。找到AcmAutoConfiguration类，看看里面都有什么。</p>
+<p><img src="https://cens7.github.io/images/2020-08-05/p4.png" alt="">
+<!-- raw HTML omitted --></p>
+<p>3⃣️看一下这几个类的源码，果然在AcmContextRefresher类里看到了registerDiamondListener()方法，这个就是注册监听器的核心逻辑了。</p>
+<p>4⃣️debug AcmContextRefresher类，看到当registerDiamondListenersForApplications里的acmPropertySourceRepository.getAll() size为0时，不会去调用registerDiamondListener()
+<img src="https://cens7.github.io/images/2020-08-05/p5.png" alt=""><!-- raw HTML omitted --></p>
+<p>5⃣️点进去debug一下，可以看到这里的逻辑是找到一个AcmPropertySource类型的源参数类后放到list，之后根据这个list来迭代，注册listener。现在的问题是找不到AcmPropertySource类型的类。<!-- raw HTML omitted -->
+<img src="https://cens7.github.io/images/2020-08-05/p6.png" alt=""><!-- raw HTML omitted --></p>
+<p>6⃣️acm官网文档有说：</p>
+<blockquote>
+<p>访问 ip+端口/actuator/acm 访问acm的Endpoint。</p>
+</blockquote>
+<pre><code>{
+    &quot;runtime&quot;: {
+        &quot;sources&quot;: [
+            {
+                &quot;lastSynced&quot;: &quot;&quot;,
+                &quot;dataId&quot;: &quot;&quot;
+            }
+        ],
+        &quot;refreshHistory&quot;: [
+        ]
+    },
+    &quot;config&quot;: {
+        &quot;group&quot;: &quot;group&quot;,
+        &quot;timeOut&quot;: 3000,
+        &quot;endpoint&quot;: &quot;acm.aliyun.com&quot;,
+        &quot;namespace&quot;: &quot;xxxxx&quot;,
+        &quot;accessKey&quot;: &quot;xxx&quot;,
+        &quot;secretKey&quot;: &quot;xxxx&quot;,
+        &quot;ramRoleName&quot;: null,
+        &quot;fileExtension&quot;: &quot;yaml&quot;
+    }
+}
+
+</code></pre>
+<p>我的访问结果dataId、lastSynced、refreshHistory都没有值，而acm官网是有值的。</p>
+<p>acm官网的acm长这样：</p>
+<pre><code>{
+  &quot;runtime&quot;: {
+    &quot;sources&quot;: [
+      {
+        &quot;dataId&quot;: &quot;com.alibaba.cloud.acm:sample-app.properties&quot;,
+        &quot;lastSynced&quot;: &quot;2017-10-10 10:46:27&quot;
+      }
+    ],
+    &quot;refreshHistory&quot;: [
+      {
+        &quot;timestamp&quot;: &quot;2017-10-10 10:46:24&quot;,
+        &quot;dataId&quot;: &quot;com.alibaba.cloud.acm:sample-app.properties&quot;,
+        &quot;md5&quot;: &quot;8692ae986ec7bc345b3f0f4de602ff13&quot;
+      }
+    ]
+  },
+  &quot;config&quot;: {
+    &quot;group&quot;: &quot;DEFAULT_GROUP&quot;,
+    &quot;timeOut&quot;: 3000,
+    &quot;endpoint&quot;: &quot;xxx&quot;,
+    &quot;namespace&quot;: &quot;xxx&quot;,
+    &quot;accessKey&quot;: &quot;xxx&quot;,
+    &quot;secretKey&quot;: &quot;xxx&quot;
+  }
+}
+</code></pre>
+<p>仔细观察官方的结构，发现dataId跟我在acm控制台设置的dataId长的比较类似。脑瓜子一闪，<!-- raw HTML omitted -->这里的dataId是不是就是acm控制台配置的dataId。<!-- raw HTML omitted -->
+<img src="https://cens7.github.io/images/2020-08-05/p7.png" alt=""><!-- raw HTML omitted --></p>
+<p>7⃣️再次debug刚刚的acmPropertySourceRepository.getAll()，仔细看结果发现了dataId。<!-- raw HTML omitted -->
+<img src="https://cens7.github.io/images/2020-08-05/p8.png" alt=""><!-- raw HTML omitted -->
+此时的PropertySource并不是CompositePropertySource，而是BootstrapPropertySource,所以这个result为空.
+<!-- raw HTML omitted -->
+<img src="https://cens7.github.io/images/2020-08-05/p9.png" alt=""><!-- raw HTML omitted --></p>
+<p>8⃣️明白以上之后，我直接重写掉这部分逻辑是不是就可以了。</p>
+<h2 id="3">3.重写方案</h2>
+<p>1⃣️重写AcmPropertySourceRepository</p>
+<pre><code>public class AcmCustomPropertySourceRepository extends AcmPropertySourceRepository {
+
+    private final ApplicationContext applicationContext;
+
+    public AcmCustomPropertySourceRepository(ApplicationContext applicationContext) {
+        super(applicationContext);
+        this.applicationContext = applicationContext;
+    }
+
+    public List&lt;AcmPropertySource&gt; getAll() {
+        List&lt;AcmPropertySource&gt; result = new ArrayList&lt;&gt;();
+        ConfigurableApplicationContext ctx = (ConfigurableApplicationContext)applicationContext;
+        for (PropertySource p : ctx.getEnvironment().getPropertySources()) {
+            if (p instanceof AcmPropertySource) {
+                result.add((AcmPropertySource)p);
+            } else if (p instanceof BootstrapPropertySource) {
+                BootstrapPropertySource bps = (BootstrapPropertySource)p;
+                PropertySource propertySource = bps.getDelegate();
+                if (propertySource instanceof AcmPropertySource) {
+                    result.add((AcmPropertySource)propertySource);
+                }
+
+            }
+        }
+        return result;
+    }
+
+}
+
+</code></pre>
+<p>2⃣️配置类</p>
+<pre><code>@Configuration
+public class AcmCustomConfiguration implements ApplicationContextAware {
+
+    private ApplicationContext applicationContext;
+
+    @Bean(&quot;acmCustomPropertySourceRepository&quot;)
+    @Primary
+    public AcmPropertySourceRepository acmPropertySourceRepository() {
+        return new AcmCustomPropertySourceRepository(applicationContext);
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
+    }
+
+}
+</code></pre>
+<p>debug看一下，这时候的result有值，并且listner成功注册。
+<!-- raw HTML omitted --><img src="https://cens7.github.io/images/2020-08-05/p8.png" alt=""><!-- raw HTML omitted --></p>
+<h4 id="heading3">校验：</h4>
+<p>1.再次访问: ip+端口/actuator/acm</p>
+<pre><code>{
+    &quot;runtime&quot;: {
+        &quot;sources&quot;: [
+            {
+                &quot;lastSynced&quot;: &quot;2020-08-05 17:35:02&quot;,
+                &quot;dataId&quot;: &quot;com.xxxxtest2.yaml&quot;
+            }
+        ],
+        &quot;refreshHistory&quot;: [
+            {
+                &quot;timestamp&quot;: &quot;2020-08-05 17:39:38&quot;,
+                &quot;dataId&quot;: &quot;com.xxxxxtest2.yaml&quot;,
+                &quot;md5&quot;: &quot;20f6572e9f097d8cbf075f83eabe958e&quot;
+            }
+        ]
+    },
+    &quot;config&quot;: {
+        &quot;group&quot;: &quot;group&quot;,
+        &quot;timeOut&quot;: 3000,
+        &quot;endpoint&quot;: &quot;acm.aliyun.com&quot;,
+        &quot;namespace&quot;: &quot;xxxx&quot;,
+        &quot;accessKey&quot;: &quot;xxxx&quot;,
+        &quot;secretKey&quot;: &quot;xxxx&quot;,
+        &quot;ramRoleName&quot;: null,
+        &quot;fileExtension&quot;: &quot;yaml&quot;
+    }
+}
+
+</code></pre>
+<p>2.在acm控制台修改配置, 已经看到了正确的监听记录。
+<!-- raw HTML omitted --><img src="https://cens7.github.io/images/2020-08-05/p8.png" alt=""><!-- raw HTML omitted --></p>
+<h1 id="heading4">四、使用</h1>
+<h2 id="1-value">1. 使用@Value()</h2>
+<p>当使用@Value读取配置文件，且需要配置文件热更新时，需要在类上添加@RefreshScope注解。</p>
+<p>例如：</p>
+<pre><code>@RequestMapping(&quot;/test&quot;)
+@RestController
+@RefreshScope
+public class TestController {
+   @Value(&quot;${shareLink.joinUrl}&quot;)
+    private String str;
+    @GetMapping(&quot;/test&quot;)
+    public String test(){
+        return str;
+    }
+}
+</code></pre>
+<h2 id="2bean">2.使用@Bean</h2>
+<p>当使用@Bean读取一个配置的properties class，且需要配置的properties class热更新时，需要在@Bean的注解下面添加@RefreshScope注解。</p>
+<p>例如：</p>
+<pre><code>@Getter
+@Setter
+@ConfigurationProperties(prefix = &quot;aliyun.oss&quot;)
+public class OssProperties {
+    private String endpoint;
+    private String regionId;
+    private String region;
+    private String accessKeyId;
+    private String accessKeySecret;
+    private String stsRoleArn;
+    private String bucket;
+    private String userId;
+}
+</code></pre>
+<pre><code>@Configuration
+@EnableConfigurationProperties(OssProperties.class)
+public class OssAutoConfiguration {
+
+    @Bean
+    @RefreshScope
+    public OSSClient ossClient(OssProperties ossProperties) {
+        CredentialsProvider credentialsProvider = new DefaultCredentialProvider(ossProperties.getAccessKeyId(),
+                ossProperties.getAccessKeySecret());
+        ClientConfiguration config = new ClientConfiguration();
+        return new OSSClient(ossProperties.getEndpoint(), credentialsProvider, config);
+    }
+}
+
+</code></pre>
+<p>以上，搞定。</p>
+
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://cens7.github.io/2020/08/springboot%E6%8E%A5%E5%85%A5acm%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE/" title="Springboot接入acm动态配置" target="_blank" rel="external">https://cens7.github.io/2020/08/springboot%E6%8E%A5%E5%85%A5acm%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/cens7/" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://cens7.github.io/5_avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/cens7/" target="_blank"><span class="text-dark">mavic</span><small class="ml-1x"></small></a></h3>
+        <div>记录我的成长</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://cens7.github.io/2020/06/springboot%E9%85%8D%E7%BD%AE%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%902/" title="SpringBoot配置多数据源二"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/cens7/" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2016  -
+    2020
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/java.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/golang.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://cens7.github.io/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://cens7.github.io/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/cens7.github.io\/',
+            CONTENT_URL: 'https:\/\/cens7.github.io\/\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://cens7.github.io/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+  </body>
+</html>
