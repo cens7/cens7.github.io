@@ -4,7 +4,8 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>
-        mavic&#39;s blog</title>
+        单元测试Mockito使用心得2 - mavic&#39;s blog
+      </title>
     <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -22,25 +23,32 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  
+  <meta name="description" content="背景 在前面，我们已经接入了mockito，但是上个版本的单元测试需要接入的测试中间件太多了，本次做了一次缩减，删掉其他测试中间件，只保留最原" />
   <meta name="generator" content="Hugo 0.60.1 with theme pure" />
-  <title>mavic&#39;s blog</title>
+  <title>单元测试Mockito使用心得2 - mavic&#39;s blog</title>
   
-  <link rel="alternate" type="application/rss+xml" href="https://cens7.github.io/tags/%E5%AE%89%E5%85%A8/index.xml" title="mavic's blog" />
   
   <link rel="stylesheet" href="https://cens7.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
   
   <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
-  <meta property="og:title" content="安全" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://cens7.github.io/tags/%E5%AE%89%E5%85%A8/" />
-<meta property="og:updated_time" content="2019-11-22T00:00:00+00:00" />
-<meta itemprop="name" content="安全">
-<meta itemprop="description" content=""><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="安全"/>
-<meta name="twitter:description" content=""/>
+  <meta property="og:title" content="单元测试Mockito使用心得2" />
+<meta property="og:description" content="背景 在前面，我们已经接入了mockito，但是上个版本的单元测试需要接入的测试中间件太多了，本次做了一次缩减，删掉其他测试中间件，只保留最原" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://cens7.github.io/2020/07/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95mockito%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%972/" />
+<meta property="article:published_time" content="2020-07-18T13:53:13+08:00" />
+<meta property="article:modified_time" content="2020-07-18T13:53:13+08:00" />
+<meta itemprop="name" content="单元测试Mockito使用心得2">
+<meta itemprop="description" content="背景 在前面，我们已经接入了mockito，但是上个版本的单元测试需要接入的测试中间件太多了，本次做了一次缩减，删掉其他测试中间件，只保留最原">
+<meta itemprop="datePublished" content="2020-07-18T13:53:13&#43;08:00" />
+<meta itemprop="dateModified" content="2020-07-18T13:53:13&#43;08:00" />
+<meta itemprop="wordCount" content="474">
+
+
+
+<meta itemprop="keywords" content="Java,测试," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="单元测试Mockito使用心得2"/>
+<meta name="twitter:description" content="背景 在前面，我们已经接入了mockito，但是上个版本的单元测试需要接入的测试中间件太多了，本次做了一次缩减，删掉其他测试中间件，只保留最原"/>
 
   <!--[if lte IE 9]>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -304,60 +312,195 @@
 
     
     
-<main class="main" role="main">
-    <article class="content article article-tags post-type-list" itemscope="">
-        <header class="article-header">
-            <h1 itemprop="name" class="hidden-xs">安全</h1>
-            <p class="text-muted hidden-xs">共 22 个标签</p>
-            <nav role="navigation" id="nav-main" class="okayNav">
-                <ul>
-                    <li><a href="https://cens7.github.io/tags">All</a></li>
-                    <li><a href="https://cens7.github.io/tags/acm/">acm</a></li>
-                    <li><a href="https://cens7.github.io/tags/docker/">docker</a></li>
-                    <li><a href="https://cens7.github.io/tags/dubbo/">Dubbo</a></li>
-                    <li><a href="https://cens7.github.io/tags/idea/">idea</a></li>
-                    <li><a href="https://cens7.github.io/tags/java/">Java</a></li>
-                    <li><a href="https://cens7.github.io/tags/kotlin/">Kotlin</a></li>
-                    <li><a href="https://cens7.github.io/tags/lambda/">lambda</a></li>
-                    <li><a href="https://cens7.github.io/tags/redis/">redis</a></li>
-                    <li><a href="https://cens7.github.io/tags/springboot/">springboot</a></li>
-                    <li><a href="https://cens7.github.io/tags/springcloud/">SpringCloud</a></li>
-                    <li><a href="https://cens7.github.io/tags/websocket/">webSocket</a></li>
-                    <li><a href="https://cens7.github.io/tags/xss/">xss</a></li>
-                    <li><a href="https://cens7.github.io/tags/%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/">分库分表</a></li>
-                    <li><a href="https://cens7.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a></li>
-                    <li><a href="https://cens7.github.io/tags/%E5%AE%89%E5%85%A8/">安全</a></li>
-                    <li><a href="https://cens7.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a></li>
-                    <li><a href="https://cens7.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li>
-                    <li><a href="https://cens7.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></li>
-                    <li><a href="https://cens7.github.io/tags/%E6%9E%B6%E6%9E%84/">架构</a></li>
-                    <li><a href="https://cens7.github.io/tags/%E6%B5%8B%E8%AF%95/">测试</a></li>
-                    <li><a href="https://cens7.github.io/tags/%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/">配置中心</a></li>
-                    <li><a href="https://cens7.github.io/tags/%E9%97%AE%E9%A2%98/">问题</a></li>
-                </ul>
-            </nav>
-        </header>
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="https://cens7.github.io/2020/07/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95mockito%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%972/"
+    >单元测试Mockito使用心得2</a
+  >
+</h1>
+
+      <div class="article-meta">
         
-        <div class="article-body">
-            <div class="col-md-6"><article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-    <div class="panel-body">
-        <div class="article-meta">
-            <time datetime="2019-11-22 00:00:00 &#43;0000 UTC"
-                itemprop="datePublished">2019-11-22</time>
-        </div>
-        <h3 class="article-title" itemprop="name">
-            <a class="article-link" href="https://cens7.github.io/2019/11/%E9%98%B2xss%E6%94%BB%E5%87%BB/">防xss攻击</a>
-        </h3>
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://cens7.github.io/2020/07/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95mockito%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%972/" class="article-date">
+  <time datetime="2020-07-18 13:53:13 &#43;0800 CST" itemprop="datePublished">2020-07-18</time>
+</a>
+</span>
+  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="https://cens7.github.io/tags/java/"> Java </a>
+    <a class="article-tag-link" href="https://cens7.github.io/tags/%E6%B5%8B%E8%AF%95/"> 测试 </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="https://cens7.github.io/2020/07/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95mockito%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%972/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 474字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1分 </span>
+      </div>
     </div>
-    <div class="panel-footer">
-        <a href="https://cens7.github.io/tags/java" class="label label-default mb">Java</a>
-        <a href="https://cens7.github.io/tags/%E5%AE%89%E5%85%A8" class="label label-default mb">安全</a>
-        <a href="https://cens7.github.io/tags/xss" class="label label-default mb">xss</a>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h3 id="heading">背景</h3>
+<p>在<a href="https://cens7.github.io/2020/02/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95mockito%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97/">前面</a>，我们已经接入了mockito，但是上个版本的单元测试需要接入的测试中间件太多了，本次做了一次缩减，删掉其他测试中间件，只保留最原始的mockito与springframework Test。</p>
+<h3 id="heading1">使用</h3>
+<h4 id="1-">1. 添加依赖</h4>
+<pre><code>&lt;dependency&gt;
+      &lt;groupId&gt;org.mockito&lt;/groupId&gt;
+      &lt;artifactId&gt;mockito-core&lt;/artifactId&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;
+ &lt;dependency&gt;
+      &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+      &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+   &lt;/dependency&gt;
+</code></pre>
+<h3 id="2-">2. 具体使用</h3>
+<ol>
+<li>@MockBean修饰需要测试的类</li>
+<li>声明调用特定方法时，传入指定参数，返回指定指
+<ul>
+<li>when(xxx.yyy(zzz)).thenReturn(aaa); // 当调用xxx.yyy()方法且入参是zzz时，返回aaa；如果入参不是zzz，则返回null。</li>
+<li>when(xxx.yyy()).thenAnswer(t -&gt; {});// 当调用xxx.yyy()方法时，没有返回值，执行一个自定义的函数体。</li>
+</ul>
+</li>
+<li>test原本需要测试的方法</li>
+</ol>
+<p>例：</p>
+<p>service调用链：</p>
+<pre><code>@Service
+@AllArgsConstructor
+public class MockService {
+    
+    private final UserReferenceService userReferenceService;
+
+    public long testMockMethod(Long userId) {
+        if (userId &lt; 0) {
+            return -1;
+        }
+        return userReferenceService.getUserByUserId(userId).getUserId();
+    }
+
+}
+
+</code></pre>
+<p>单元测试使用：</p>
+<pre><code>@ActiveProfiles(&quot;dev&quot;)
+@SpringBootTest
+class MockServiceTest {
+
+    // 需要测试的类
+    @Autowired
+    private MockService mockService;
+
+    // 需要mock的类
+    @MockBean
+    private UserReferenceService userReferenceService;
+
+
+    @Test
+    void testMockMethod() {
+
+        // 当传入-1, 返回100
+         Mockito.when(userReferenceService.getUserByUserId(-1L))
+                 .thenReturn(UserBaseInfoVO.builder().userId(100L).build());
+
+        // 当传入-2, 返回200
+         Mockito.when(userReferenceService.getUserByUserId(-2L))
+                 .thenReturn(UserBaseInfoVO.builder().userId(200L).build());
+
+        long o1 = mockService.testMockMethod(-1L);
+        Assert.assertEquals(&quot;比较错误&quot;, 100L, o1);
+
+        long o2 = mockService.testMockMethod(-2L);
+        Assert.assertEquals(&quot;比较错误&quot;, 200L, o2);
+
+    }
+}
+ 
+</code></pre>
+<p>使用起来比之前集成的更加简单。</p>
+<p>以上。</p>
+
+
     </div>
-</article>
-            </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://cens7.github.io/2020/07/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95mockito%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%972/" title="单元测试Mockito使用心得2" target="_blank" rel="external">https://cens7.github.io/2020/07/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95mockito%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%972/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/cens7/" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://cens7.github.io/5_avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/cens7/" target="_blank"><span class="text-dark">mavic</span><small class="ml-1x"></small></a></h3>
+        <div>记录我的成长</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://cens7.github.io/2020/06/springboot%E9%85%8D%E7%BD%AE%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%902/" title="SpringBoot配置多数据源二"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://cens7.github.io/2020/08/springboot%E6%8E%A5%E5%85%A5acm%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE/"
+                    title="Springboot接入acm动态配置"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
         </div>
-    </article>
+    </div>
+</nav>
+
 </main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
 <ul class="social-links">
     <li><a href="https://github.com/cens7/" target="_blank" title="github" data-toggle=tooltip data-placement=top >
@@ -432,6 +575,7 @@
         hasInnerContainers: true,
     });
 </script>
+
 
   </body>
 </html>
