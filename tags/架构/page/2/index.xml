@@ -11,6 +11,15 @@
     
     
     <item>
+      <title>idea基本设置</title>
+      <link>https://cens7.github.io/2016/12/idea%E5%9F%BA%E6%9C%AC%E8%AE%BE%E7%BD%AE/</link>
+      <pubDate>Thu, 01 Dec 2016 09:51:02 +0800</pubDate>
+      
+      <guid>https://cens7.github.io/2016/12/idea%E5%9F%BA%E6%9C%AC%E8%AE%BE%E7%BD%AE/</guid>
+      <description>基本设置 关闭默认打开工程：关闭大小写敏感：换行显示10个文件选项卡：常用插件 lombok 注解 mybatis plugin maven helper String Manipulation 字符串处理 Translation 翻译</description>
+    </item>
+    
+    <item>
       <title>Java位运算2_位运算</title>
       <link>https://cens7.github.io/2016/02/java%E4%BD%8D%E8%BF%90%E7%AE%972_%E4%BD%8D%E8%BF%90%E7%AE%97/</link>
       <pubDate>Sat, 13 Feb 2016 18:18:52 +0800</pubDate>
