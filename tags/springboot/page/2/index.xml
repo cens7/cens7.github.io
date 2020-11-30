@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>springboot on mavic&#39;s blog</title>
+    <title>SpringBoot on mavic&#39;s blog</title>
     <link>https://cens7.github.io/tags/springboot/</link>
-    <description>Recent content in springboot on mavic&#39;s blog</description>
+    <description>Recent content in SpringBoot on mavic&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Wed, 05 Aug 2020 16:20:49 +0800</lastBuildDate>
     
         <atom:link href="https://cens7.github.io/tags/springboot/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>关于我</title>
+      <link>https://cens7.github.io/about/</link>
+      <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://cens7.github.io/about/</guid>
+      <description>Hello world</description>
+    </item>
     
     <item>
       <title>idea基本设置</title>
