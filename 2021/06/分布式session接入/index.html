@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+        分布式session接入 - mavic&#39;s blog
+      </title>
+    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  
+  <meta name="theme-color" content="#000000" />
+  
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <meta name="description" content="一、背景 随着业务发展，需要跨应用调用其他组维护的服务。且其他组使用session存储用户登陆信息。我的应用调用时也需要甄别用户信息。 二、实施" />
+  <meta name="generator" content="Hugo 0.60.1 with theme pure" />
+  <title>分布式session接入 - mavic&#39;s blog</title>
+  
+  
+  <link rel="stylesheet" href="https://cens7.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
+  
+  <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+  <meta property="og:title" content="分布式session接入" />
+<meta property="og:description" content="一、背景 随着业务发展，需要跨应用调用其他组维护的服务。且其他组使用session存储用户登陆信息。我的应用调用时也需要甄别用户信息。 二、实施" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://cens7.github.io/2021/06/%E5%88%86%E5%B8%83%E5%BC%8Fsession%E6%8E%A5%E5%85%A5/" />
+<meta property="article:published_time" content="2021-06-15T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-06-15T00:00:00+00:00" />
+<meta itemprop="name" content="分布式session接入">
+<meta itemprop="description" content="一、背景 随着业务发展，需要跨应用调用其他组维护的服务。且其他组使用session存储用户登陆信息。我的应用调用时也需要甄别用户信息。 二、实施">
+<meta itemprop="datePublished" content="2021-06-15T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2021-06-15T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1387">
+
+
+
+<meta itemprop="keywords" content="Java,分布式,session," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="分布式session接入"/>
+<meta name="twitter:description" content="一、背景 随着业务发展，需要跨应用调用其他组维护的服务。且其他组使用session存储用户登陆信息。我的应用调用时也需要甄别用户信息。 二、实施"/>
+
+  <!--[if lte IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+    <![endif]-->
+
+  <!--[if lt IE 9]>
+      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/cens7/" target="_blank">
+            <img class="img-circle img-rotate" src="https://cens7.github.io/5_avatar.png" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">mavic</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>HangZhou, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="https://cens7.github.io/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">Home</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="https://cens7.github.io/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">Archives</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="https://cens7.github.io/tags/">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">Tags</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p><font>我们仰望头顶的星辰,并脚踏实地</font></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/acm/" class="tag-list-link">acm</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/docker/" class="tag-list-link">docker</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/dubbo/" class="tag-list-link">dubbo</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/feign/" class="tag-list-link">feign</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/idea/" class="tag-list-link">idea</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/java/" class="tag-list-link">java</a><span
+                    class="tag-list-count">14</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/kotlin/" class="tag-list-link">kotlin</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/lambda/" class="tag-list-link">lambda</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/mybatis/" class="tag-list-link">mybatis</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/redis/" class="tag-list-link">redis</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/session/" class="tag-list-link">session</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/springboot/" class="tag-list-link">springboot</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/springcloud/" class="tag-list-link">springcloud</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/websocket/" class="tag-list-link">websocket</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/xss/" class="tag-list-link">xss</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" class="tag-list-link">分布式</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/" class="tag-list-link">分库分表</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="tag-list-link">多线程</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E5%AE%89%E5%85%A8/" class="tag-list-link">安全</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E5%B7%A5%E5%85%B7/" class="tag-list-link">工具</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="tag-list-link">微服务</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="tag-list-link">数据库</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="tag-list-link">数据结构</a><span
+                    class="tag-list-count">3</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E6%9E%B6%E6%9E%84/" class="tag-list-link">架构</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E6%B5%8B%E8%AF%95/" class="tag-list-link">测试</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/" class="tag-list-link">配置中心</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://cens7.github.io/tags/%E9%97%AE%E9%A2%98/" class="tag-list-link">问题</a><span
+                    class="tag-list-count">2</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://cens7.github.io/2021/06/%E5%88%86%E5%B8%83%E5%BC%8Fsession%E6%8E%A5%E5%85%A5/" class="title">分布式session接入</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-06-15 00:00:00 &#43;0000 UTC" itemprop="datePublished">2021-06-15</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://cens7.github.io/2020/11/%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BD%BF%E7%94%A8feign%E6%9B%BF%E4%BB%A3httpclient/" class="title">在项目中使用Feign替代HttpClient</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-11-30 16:25:17 &#43;0800 CST" itemprop="datePublished">2020-11-30</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://cens7.github.io/2020/09/mybatis%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%A7%A3%E5%AF%86/" class="title">Mybatis自动加解密</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-09-24 20:09:55 &#43;0800 CST" itemprop="datePublished">2020-09-24</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://cens7.github.io/2020/08/springboot%E6%95%B4%E5%90%88acm%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE/" class="title">Springboot整合acm动态配置</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-08-05 16:20:49 &#43;0800 CST" itemprop="datePublished">2020-08-05</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://cens7.github.io/2020/07/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95mockito%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%972/" class="title">单元测试Mockito使用心得2</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-07-18 13:53:13 &#43;0800 CST" itemprop="datePublished">2020-07-18</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="https://cens7.github.io/2021/06/%E5%88%86%E5%B8%83%E5%BC%8Fsession%E6%8E%A5%E5%85%A5/"
+    >分布式session接入</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://cens7.github.io/2021/06/%E5%88%86%E5%B8%83%E5%BC%8Fsession%E6%8E%A5%E5%85%A5/" class="article-date">
+  <time datetime="2021-06-15 00:00:00 &#43;0000 UTC" itemprop="datePublished">2021-06-15</time>
+</a>
+</span>
+  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="https://cens7.github.io/tags/java/"> Java </a>
+    <a class="article-tag-link" href="https://cens7.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"> 分布式 </a>
+    <a class="article-tag-link" href="https://cens7.github.io/tags/session/"> session </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="https://cens7.github.io/2021/06/%E5%88%86%E5%B8%83%E5%BC%8Fsession%E6%8E%A5%E5%85%A5/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1387字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h1 id="heading">一、背景</h1>
+<p>随着业务发展，需要跨应用调用其他组维护的服务。且其他组使用session存储用户登陆信息。我的应用调用时也需要甄别用户信息。</p>
+<h1 id="heading1">二、实施</h1>
+<ol>
+<li>分析其他组应用session的存储方式。</li>
+<li>采用一种通用的方式统一去存储/读写session信息。</li>
+</ol>
+<p>经过分析发现其他组的session已经使用<a href="https://spring.io/projects/spring-session">spring-session</a>存储到了redis里，那我只需要去读他们存在redis里的session信息就可。</p>
+<p>注意点：</p>
+<ol>
+<li>尽量不修改其他组应用存在session里的信息。</li>
+<li>使用同一种序列化/反序列化方式去解析redis里的session信息。(极度不推荐使用jdk自带的序列化)</li>
+<li>尽量保持同一个数据对象。</li>
+<li>自己的应用配置对方spring-session redis时要考虑到自己项目里的redis配置不要收到影响。</li>
+<li>确保对方的redis在自己应用的各个(测试、预发、生产)环境都能访问。</li>
+</ol>
+<h2 id="1-redis">1. 配置redis</h2>
+<p><img src="https://cens7.github.io/images/2021-06-15/p1.png" alt=""><!-- raw HTML omitted --></p>
+<h2 id="2-bean">2. 配置bean</h2>
+<pre><code>@Slf4j
+@Configuration
+public class BossSessionConfiguration {
+    public BossSessionConfiguration() {
+        log.info(&quot;Initializing  BossSessionConfiguration&quot;);
+    }
+
+    @Bean
+    public SessionRepositoryCustomizer&lt;RedisIndexedSessionRepository&gt; sessionRepositoryCustomizer() {
+        return sessionRepository -&gt; {
+            // 默认值为SaveMode.ON_SET_ATTRIBUTE，无法从session中获取attr
+            sessionRepository.setSaveMode(SaveMode.ALWAYS);
+            RedisOperations&lt;Object, Object&gt; redisOperations = sessionRepository.getSessionRedisOperations();
+            RedisTemplate&lt;Object, Object&gt; redisTemplate = (RedisTemplate&lt;Object, Object&gt;)redisOperations;
+            redisTemplate.setHashKeySerializer(new JdkSerializationRedisSerializer());
+        };
+    }
+
+    @ConfigurationProperties(prefix = &quot;spring.boss-session-redis&quot;)
+    @Bean(&quot;sessionRedisProperties&quot;)
+    public RedisProperties sessionRedisProperties() {
+        return RedisAutoConfiguration.createRedisProperties();
+    }
+
+    @Bean(&quot;sessionRedisConnectionFactory&quot;)
+    @SpringSessionRedisConnectionFactory
+    public JedisConnectionFactory sessionConnectionFactory(
+            @Qualifier(&quot;sessionRedisProperties&quot;) RedisProperties properties) {
+        log.info(&quot;BossSessionConfiguration properties,{}&quot;, Jackson.build().writeValueAsString(properties));
+        return RedisAutoConfiguration.createJedisConnectionFactory(properties);
+    }
+
+    @Bean(&quot;sessionRedisTemplate&quot;)
+    public RedisTemplate&lt;String, Object&gt; redisTemplate(
+            @Qualifier(&quot;sessionRedisConnectionFactory&quot;) RedisConnectionFactory redisConnectionFactory) {
+        RedisTemplate&lt;String, Object&gt; template = new RedisTemplate&lt;&gt;();
+        template.setConnectionFactory(redisConnectionFactory);
+
+        StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
+        template.setKeySerializer(stringRedisSerializer);
+        template.setHashKeySerializer(stringRedisSerializer);
+
+        Jackson2JsonRedisSerializer&lt;Object&gt; jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer&lt;Object&gt;(
+                Object.class);
+        jackson2JsonRedisSerializer.setObjectMapper(createObjectMapper());
+        template.setValueSerializer(jackson2JsonRedisSerializer);
+        template.setHashValueSerializer(jackson2JsonRedisSerializer);
+        template.setEnableDefaultSerializer(false);
+        template.setDefaultSerializer(stringRedisSerializer);
+        template.afterPropertiesSet();
+        return template;
+    }
+
+    @Bean(&quot;sessionStringRedisTemplate&quot;)
+    public StringRedisTemplate stringRedisTemplate(
+            @Qualifier(&quot;sessionRedisConnectionFactory&quot;) RedisConnectionFactory redisConnectionFactory) {
+        StringRedisTemplate template = new StringRedisTemplate();
+        template.setConnectionFactory(redisConnectionFactory);
+        //自定义redis的key和value序列化方式
+        template.setKeySerializer(new StringRedisSerializer());
+        template.setHashKeySerializer(new StringRedisSerializer());
+        template.setValueSerializer(new StringRedisSerializer());
+        template.setHashValueSerializer(new StringRedisSerializer());
+        return template;
+    }
+
+    private ObjectMapper createObjectMapper() {
+        ObjectMapper om = new ObjectMapper();
+        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        om.activateDefaultTyping(om.getPolymorphicTypeValidator(), ObjectMapper.DefaultTyping.NON_FINAL);
+        om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        return om;
+    }
+
+    @Bean
+    public HttpSessionIdResolver httpSessionIdResolver() {
+        return new SmartHttpSessionIdResolver();
+    }
+
+    static class SmartHttpSessionIdResolver implements HttpSessionIdResolver {
+        private static final String HEADER_X_AUTH_TOKEN = &quot;X-Auth-Token&quot;;
+        private final HttpSessionIdResolver browserSessionStrategy = new CookieHttpSessionIdResolver();
+        private final HttpSessionIdResolver restfulSessionStrategy = new HeaderHttpSessionIdResolver(&quot;X-Auth-Token&quot;);
+
+        SmartHttpSessionIdResolver() {
+        }
+
+        public List&lt;String&gt; resolveSessionIds(HttpServletRequest request) {
+            HttpSessionIdResolver idResolver = this.getHttpSessionIdResolver(request);
+            if (idResolver instanceof CookieHttpSessionIdResolver) {
+                return idResolver.resolveSessionIds(request);
+            } else {
+                String headerValue = request.getHeader(&quot;X-Auth-Token&quot;);
+                if (headerValue == null) {
+                    headerValue = request.getParameter(&quot;X-Auth-Token&quot;);
+                }
+
+                return headerValue != null ? Collections.singletonList(headerValue) : Collections.emptyList();
+            }
+        }
+
+        public void setSessionId(HttpServletRequest request, HttpServletResponse response, String sessionId) {
+            this.getHttpSessionIdResolver(request).setSessionId(request, response, sessionId);
+        }
+
+        public void expireSession(HttpServletRequest request, HttpServletResponse response) {
+            this.getHttpSessionIdResolver(request).expireSession(request, response);
+        }
+
+        private HttpSessionIdResolver getHttpSessionIdResolver(HttpServletRequest request) {
+            String headerValue = request.getHeader(&quot;X-Auth-Token&quot;);
+            if (headerValue == null) {
+                headerValue = request.getParameter(&quot;X-Auth-Token&quot;);
+            }
+
+            return StringUtils.isNotBlank(headerValue) ? this.restfulSessionStrategy : this.browserSessionStrategy;
+        }
+    }
+}
+</code></pre>
+<pre><code>public class RedisAutoConfiguration{
+	
+	public static RedisProperties createRedisProperties() {
+        return new RedisProperties();
+    }
+
+    public static JedisPoolConfig createJedisPoolConfig(Pool pool) {
+        JedisPoolConfig config = new JedisPoolConfig();
+        config.setMaxTotal(pool.getMaxActive());
+        config.setMaxIdle(pool.getMaxIdle());
+        config.setMinIdle(pool.getMinIdle());
+        config.setMaxWaitMillis(100000L);
+        if (pool.getTimeBetweenEvictionRuns() != null) {
+            config.setTimeBetweenEvictionRunsMillis(pool.getTimeBetweenEvictionRuns().toMillis());
+        }
+        if (pool.getMaxWait() != null) {
+            config.setMaxWaitMillis(pool.getMaxWait().toMillis());
+        }
+        return config;
+    }
+
+    /**
+     * @param redisProperties redis参数
+     *
+     * @return redis配置
+     */
+    public static RedisConfiguration getRedisConfiguration(RedisProperties redisProperties) {
+        if (redisProperties.getCluster() != null) {
+            return getClusterConfiguration(redisProperties);
+        } else {
+            return getStandaloneConfiguration(redisProperties);
+        }
+    }
+
+    /**
+     * 单机redis
+     */
+    private static RedisStandaloneConfiguration getStandaloneConfiguration(RedisProperties redisProperties) {
+
+        RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
+        configuration.setDatabase(redisProperties.getDatabase());
+        configuration.setHostName(redisProperties.getHost());
+        configuration.setPort(redisProperties.getPort());
+        if (redisProperties.getPassword() != null) {
+            configuration.setPassword(redisProperties.getPassword());
+        }
+        return configuration;
+    }
+
+    /**
+     * 集群redis
+     */
+    private static RedisClusterConfiguration getClusterConfiguration(RedisProperties redisProperties) {
+
+        RedisProperties.Cluster clusterProperties = redisProperties.getCluster();
+        RedisClusterConfiguration config = new RedisClusterConfiguration(clusterProperties.getNodes());
+        if (clusterProperties.getMaxRedirects() != null) {
+            config.setMaxRedirects(clusterProperties.getMaxRedirects());
+        }
+        if (redisProperties.getPassword() != null) {
+            config.setPassword(RedisPassword.of(redisProperties.getPassword()));
+        }
+        return config;
+    }
+
+	
+}
+</code></pre>
+<h2 id="3-">3. 设置用户信息</h2>
+<h4 id="1-br">1. 添加与其他应用一样的用户对象<!-- raw HTML omitted --></h4>
+<pre><code>@Data
+@NoArgsConstructor
+public class BotBossUser {
+
+    private Long userId;
+    private String nickName;
+    private String fullName;
+    private String realName;
+    private String mobile;
+    private String email;
+    private String pin;
+    private Byte pinType;
+    private String city;
+    private String iconUrl;
+    private Long deptId;
+    private Byte type;
+    private Byte sex;
+
+
+    public BotBossUser(Long userId, String fullName, String mobile) {
+        this.userId = userId;
+        this.fullName = fullName;
+        this.nickName = fullName;
+        this.mobile = mobile;
+    }
+
+    public BotBossUser(Long userId) {
+        this.userId = userId;
+    }
+}
+
+</code></pre>
+<h4 id="2-threadlocal">2. 用户信息持有变量ThreadLocal</h4>
+<pre><code>public class BotBossUserInfoHolder {
+
+    private static final ThreadLocal&lt;BotBossUser&gt; userThreadLocal = ThreadLocal.withInitial(BotBossUser::new);
+
+    public static BotBossUser getUser() {
+        return userThreadLocal.get();
+    }
+
+    public static void setUser(BotBossUser user) {
+        userThreadLocal.set(user);
+    }
+
+    public static void clear() {
+        userThreadLocal.remove();
+    }
+
+    public static Long getUserId() {
+        return getUser().getUserId();
+    }
+
+}
+
+</code></pre>
+<h4 id="3-1">3. 添加拦截器，在接口是添加/获取用户信息</h4>
+<pre><code>@Component
+public class BossUserInfoInterceptor extends HandlerInterceptorAdapter {
+
+    @Value(&quot;${loginUrl}&quot;)
+    private String forbiddenUrl;
+
+
+    @Override
+    public final boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+        if (SessionUtil.isLogin()) {
+            // 从session获取用户信息
+            BotSessionUser botUser = SessionUtil.getBotSessionUser();
+            // 检测用户权限
+            checkUserRight(handler, botUser);
+            setUserInfo(botUser);
+        }
+        return true;
+    }
+
+    /**
+     * 如果需要登录，且用户找不到，则认为无权限
+     *
+     * @param handler 调用接口方法
+     * @param user session用户信息
+     */
+    private void checkUserRight(Object handler, BotSessionUser user) {
+        if (handler instanceof HandlerMethod) {
+            HandlerMethod method = (HandlerMethod)handler;
+            NoLoginRequired noLoginRequired = method.getMethodAnnotation(NoLoginRequired.class);
+            if (noLoginRequired == null &amp;&amp; BotBossUserInfoHolder.getUser() == null) {
+                throw new BossUserNotFoundException(forbiddenUrl);
+            }
+        }
+        // 校验用户信息是否完整
+        if (StringUtils.isBlank(user.getFullName()) || StringUtils.isBlank(user.getMobile())) {
+            throw new BossException(100402, &quot;当前用户信息不完整,请补全用户名和手机号&quot;);
+        }
+        if (!user.isBotBossUser()) {
+            // 当前用户无权访问运营平台
+            throw new BossUserNotFoundException(forbiddenUrl);
+        }
+    }
+
+    /**
+     * 设置用户信息到当前ThreadLocal
+     *
+     */
+    private void setUserInfo(BotSessionUser userInfo) {
+        if (NullUtil.isNotNull(userInfo)) {
+            BotBossUser user = new BotBossUser(userInfo.getUserId(), userInfo.getFullName(), userInfo.getMobile());
+            BotBossUserInfoHolder.setUser(user);
+        }
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+            throws Exception {
+        BotBossUserInfoHolder.clear();
+        super.afterCompletion(request, response, handler, ex);
+    }
+
+}
+
+</code></pre>
+<h4 id="4-">4. 注册拦截器</h4>
+<pre><code>public void addInterceptors(InterceptorRegistry registry) {
+     registry.addInterceptor(BossUserInfoInterceptor).addPathPatterns(&quot;/boss/**&quot;);
+    } 
+</code></pre>
+<h4 id="5--">5.  代码里使用用户信息</h4>
+<pre><code>BotBossUser user = BotBossUserInfoHolder.getUser();
+</code></pre>
+<p>以上。</p>
+
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://cens7.github.io/2021/06/%E5%88%86%E5%B8%83%E5%BC%8Fsession%E6%8E%A5%E5%85%A5/" title="分布式session接入" target="_blank" rel="external">https://cens7.github.io/2021/06/%E5%88%86%E5%B8%83%E5%BC%8Fsession%E6%8E%A5%E5%85%A5/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/cens7/" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://cens7.github.io/5_avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/cens7/" target="_blank"><span class="text-dark">mavic</span><small class="ml-1x"></small></a></h3>
+        <div>记录我的成长</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://cens7.github.io/2020/11/%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BD%BF%E7%94%A8feign%E6%9B%BF%E4%BB%A3httpclient/" title="在项目中使用Feign替代HttpClient"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/cens7/" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2016  -
+    2021
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/java.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/golang.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://cens7.github.io/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://cens7.github.io/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/cens7.github.io\/',
+            CONTENT_URL: 'https:\/\/cens7.github.io\/\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://cens7.github.io/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+  </body>
+</html>
