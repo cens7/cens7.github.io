@@ -5,10 +5,19 @@
     <link>https://cens7.github.io/tags/java/</link>
     <description>Recent content in Java on mavic&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 12 Aug 2021 14:53:47 +0800</lastBuildDate>
     
         <atom:link href="https://cens7.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>SpringCloud中rabbitmq被消费多次</title>
+      <link>https://cens7.github.io/2018/06/springcloud%E4%B8%ADrabbitmq%E8%A2%AB%E6%B6%88%E8%B4%B9%E5%A4%9A%E6%AC%A1/</link>
+      <pubDate>Tue, 12 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://cens7.github.io/2018/06/springcloud%E4%B8%ADrabbitmq%E8%A2%AB%E6%B6%88%E8%B4%B9%E5%A4%9A%E6%AC%A1/</guid>
+      <description>问题 springCloud整合的rabbitmq， 在消费端设置了group，通常情况消费端只消费了一次，偶尔碰到一次 mq被消费两次。 解决 添加</description>
+    </item>
     
     <item>
       <title>Lambda基本使用</title>

@@ -5,10 +5,19 @@
     <link>https://cens7.github.io/tags/</link>
     <description>Recent content in Tags on mavic&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 12 Aug 2021 14:53:47 +0800</lastBuildDate>
     
         <atom:link href="https://cens7.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>SpringBoot升级为springCloud 阿里云acm升级问题记录</title>
+      <link>https://cens7.github.io/2021/08/%E9%98%BF%E9%87%8C%E4%BA%91acm%E5%8D%87%E7%BA%A7%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Thu, 12 Aug 2021 14:53:47 +0800</pubDate>
+      
+      <guid>https://cens7.github.io/2021/08/%E9%98%BF%E9%87%8C%E4%BA%91acm%E5%8D%87%E7%BA%A7%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/</guid>
+      <description>阿里云acm升级问题记录 背景 公司的项目之前是SpringBoot, 并使用阿里云acm管理应用配置文件，当项目启动时，从acm上读取对应的配置</description>
+    </item>
     
     <item>
       <title>分布式session接入</title>
@@ -179,15 +188,6 @@
       
       <guid>https://cens7.github.io/2019/05/nio_aio_bio%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%80%BB%E7%BB%93/</guid>
       <description>IO,NIO,AIO 学习与总结 Java 中的 BIO、NIO和 AIO 理解为是 Java 语言对操作系统的各种 IO 模型的封装。程序员在使用这些 API 的时候，不需要关心操作系统层面的知识，也不</description>
-    </item>
-    
-    <item>
-      <title>SpringCloud中rabbitmq被消费多次</title>
-      <link>https://cens7.github.io/2018/06/springcloud%E4%B8%ADrabbitmq%E8%A2%AB%E6%B6%88%E8%B4%B9%E5%A4%9A%E6%AC%A1/</link>
-      <pubDate>Tue, 12 Jun 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://cens7.github.io/2018/06/springcloud%E4%B8%ADrabbitmq%E8%A2%AB%E6%B6%88%E8%B4%B9%E5%A4%9A%E6%AC%A1/</guid>
-      <description>问题 springCloud整合的rabbitmq， 在消费端设置了group，通常情况消费端只消费了一次，偶尔碰到一次 mq被消费两次。 解决 添加</description>
     </item>
     
   </channel>
