@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>mybatis on mavic&#39;s blog</title>
+    <title>MyBatis on mavic&#39;s blog</title>
     <link>https://cens7.github.io/tags/mybatis/</link>
-    <description>Recent content in mybatis on mavic&#39;s blog</description>
+    <description>Recent content in MyBatis on mavic&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 24 Sep 2020 20:09:55 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 23 Sep 2021 10:33:56 +0800</lastBuildDate>
     
         <atom:link href="https://cens7.github.io/tags/mybatis/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>NIO_AIO_BIO学习与总结</title>
+      <link>https://cens7.github.io/2019/05/nio_aio_bio%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Sun, 05 May 2019 13:52:26 +0800</pubDate>
+      
+      <guid>https://cens7.github.io/2019/05/nio_aio_bio%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%80%BB%E7%BB%93/</guid>
+      <description>IO,NIO,AIO 学习与总结 Java 中的 BIO、NIO和 AIO 理解为是 Java 语言对操作系统的各种 IO 模型的封装。程序员在使用这些 API 的时候，不需要关心操作系统层面的知识，也不</description>
+    </item>
     
     <item>
       <title>SpringCloud中rabbitmq被消费多次</title>

@@ -5,10 +5,19 @@
     <link>https://cens7.github.io/</link>
     <description>Recent content on mavic&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 12 Aug 2021 14:53:47 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 23 Sep 2021 10:33:56 +0800</lastBuildDate>
     
         <atom:link href="https://cens7.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用TypeHandler对数据库敏感信息加解密</title>
+      <link>https://cens7.github.io/2021/09/%E4%BD%BF%E7%94%A8typehandler%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E5%8A%A0%E8%A7%A3%E5%AF%86/</link>
+      <pubDate>Thu, 23 Sep 2021 10:33:56 +0800</pubDate>
+      
+      <guid>https://cens7.github.io/2021/09/%E4%BD%BF%E7%94%A8typehandler%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E5%8A%A0%E8%A7%A3%E5%AF%86/</guid>
+      <description>MyBatis TypeHandler 背景 在开发中，我们针对敏感信息需要做加密存储。比如：密码、手机号、邮箱、地址等。在程序里还需要对这些加密过的信息做处理(查询、更新等)，</description>
+    </item>
     
     <item>
       <title>SpringBoot升级为springCloud 阿里云acm升级问题记录</title>
@@ -179,15 +188,6 @@
       
       <guid>https://cens7.github.io/2019/07/shardingsphere%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97/</guid>
       <description>背景 随着业务发展，订单线上数据已到达每日200万+，需要提前对订单做分库分表。结合市面上解决方案，决定采用sharding。sharding</description>
-    </item>
-    
-    <item>
-      <title>NIO_AIO_BIO学习与总结</title>
-      <link>https://cens7.github.io/2019/05/nio_aio_bio%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%80%BB%E7%BB%93/</link>
-      <pubDate>Sun, 05 May 2019 13:52:26 +0800</pubDate>
-      
-      <guid>https://cens7.github.io/2019/05/nio_aio_bio%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%80%BB%E7%BB%93/</guid>
-      <description>IO,NIO,AIO 学习与总结 Java 中的 BIO、NIO和 AIO 理解为是 Java 语言对操作系统的各种 IO 模型的封装。程序员在使用这些 API 的时候，不需要关心操作系统层面的知识，也不</description>
     </item>
     
   </channel>

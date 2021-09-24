@@ -4,7 +4,8 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>
-        mavic&#39;s blog</title>
+        使用TypeHandler对数据库敏感信息加解密 - mavic&#39;s blog
+      </title>
     <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -22,25 +23,32 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  
+  <meta name="description" content="MyBatis TypeHandler 背景 在开发中，我们针对敏感信息需要做加密存储。比如：密码、手机号、邮箱、地址等。在程序里还需要对这些加密过的信息做处理(查询、更新等)，" />
   <meta name="generator" content="Hugo 0.60.1 with theme pure" />
-  <title>mavic&#39;s blog</title>
+  <title>使用TypeHandler对数据库敏感信息加解密 - mavic&#39;s blog</title>
   
-  <link rel="alternate" type="application/rss+xml" href="https://cens7.github.io/tags/xss/index.xml" title="mavic's blog" />
   
   <link rel="stylesheet" href="https://cens7.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
   
   <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
-  <meta property="og:title" content="xss" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://cens7.github.io/tags/xss/" />
-<meta property="og:updated_time" content="2019-11-22T00:00:00+00:00" />
-<meta itemprop="name" content="xss">
-<meta itemprop="description" content=""><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="xss"/>
-<meta name="twitter:description" content=""/>
+  <meta property="og:title" content="使用TypeHandler对数据库敏感信息加解密" />
+<meta property="og:description" content="MyBatis TypeHandler 背景 在开发中，我们针对敏感信息需要做加密存储。比如：密码、手机号、邮箱、地址等。在程序里还需要对这些加密过的信息做处理(查询、更新等)，" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://cens7.github.io/2021/09/%E4%BD%BF%E7%94%A8typehandler%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E5%8A%A0%E8%A7%A3%E5%AF%86/" />
+<meta property="article:published_time" content="2021-09-23T10:33:56+08:00" />
+<meta property="article:modified_time" content="2021-09-23T10:33:56+08:00" />
+<meta itemprop="name" content="使用TypeHandler对数据库敏感信息加解密">
+<meta itemprop="description" content="MyBatis TypeHandler 背景 在开发中，我们针对敏感信息需要做加密存储。比如：密码、手机号、邮箱、地址等。在程序里还需要对这些加密过的信息做处理(查询、更新等)，">
+<meta itemprop="datePublished" content="2021-09-23T10:33:56&#43;08:00" />
+<meta itemprop="dateModified" content="2021-09-23T10:33:56&#43;08:00" />
+<meta itemprop="wordCount" content="845">
+
+
+
+<meta itemprop="keywords" content="Java,MyBatis," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用TypeHandler对数据库敏感信息加解密"/>
+<meta name="twitter:description" content="MyBatis TypeHandler 背景 在开发中，我们针对敏感信息需要做加密存储。比如：密码、手机号、邮箱、地址等。在程序里还需要对这些加密过的信息做处理(查询、更新等)，"/>
 
   <!--[if lte IE 9]>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -328,66 +336,148 @@
 
     
     
-<main class="main" role="main">
-    <article class="content article article-tags post-type-list" itemscope="">
-        <header class="article-header">
-            <h1 itemprop="name" class="hidden-xs">xss</h1>
-            <p class="text-muted hidden-xs">共 28 个标签</p>
-            <nav role="navigation" id="nav-main" class="okayNav">
-                <ul>
-                    <li><a href="https://cens7.github.io/tags">All</a></li>
-                    <li><a href="https://cens7.github.io/tags/acm/">acm</a></li>
-                    <li><a href="https://cens7.github.io/tags/aliyun/">aliyun</a></li>
-                    <li><a href="https://cens7.github.io/tags/docker/">docker</a></li>
-                    <li><a href="https://cens7.github.io/tags/dubbo/">Dubbo</a></li>
-                    <li><a href="https://cens7.github.io/tags/feign/">feign</a></li>
-                    <li><a href="https://cens7.github.io/tags/idea/">idea</a></li>
-                    <li><a href="https://cens7.github.io/tags/java/">Java</a></li>
-                    <li><a href="https://cens7.github.io/tags/kotlin/">Kotlin</a></li>
-                    <li><a href="https://cens7.github.io/tags/lambda/">lambda</a></li>
-                    <li><a href="https://cens7.github.io/tags/mybatis/">MyBatis</a></li>
-                    <li><a href="https://cens7.github.io/tags/redis/">redis</a></li>
-                    <li><a href="https://cens7.github.io/tags/session/">session</a></li>
-                    <li><a href="https://cens7.github.io/tags/springboot/">springboot</a></li>
-                    <li><a href="https://cens7.github.io/tags/springcloud/">SpringCloud</a></li>
-                    <li><a href="https://cens7.github.io/tags/websocket/">webSocket</a></li>
-                    <li><a href="https://cens7.github.io/tags/xss/">xss</a></li>
-                    <li><a href="https://cens7.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a></li>
-                    <li><a href="https://cens7.github.io/tags/%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/">分库分表</a></li>
-                    <li><a href="https://cens7.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a></li>
-                    <li><a href="https://cens7.github.io/tags/%E5%AE%89%E5%85%A8/">安全</a></li>
-                    <li><a href="https://cens7.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a></li>
-                    <li><a href="https://cens7.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a></li>
-                    <li><a href="https://cens7.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li>
-                    <li><a href="https://cens7.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></li>
-                    <li><a href="https://cens7.github.io/tags/%E6%9E%B6%E6%9E%84/">架构</a></li>
-                    <li><a href="https://cens7.github.io/tags/%E6%B5%8B%E8%AF%95/">测试</a></li>
-                    <li><a href="https://cens7.github.io/tags/%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/">配置中心</a></li>
-                    <li><a href="https://cens7.github.io/tags/%E9%97%AE%E9%A2%98/">问题</a></li>
-                </ul>
-            </nav>
-        </header>
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class=""
+    href="https://cens7.github.io/2021/09/%E4%BD%BF%E7%94%A8typehandler%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E5%8A%A0%E8%A7%A3%E5%AF%86/"
+    >使用TypeHandler对数据库敏感信息加解密</a
+  >
+</h1>
+
+      <div class="article-meta">
         
-        <div class="article-body">
-            <div class="col-md-6"><article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-    <div class="panel-body">
-        <div class="article-meta">
-            <time datetime="2019-11-22 00:00:00 &#43;0000 UTC"
-                itemprop="datePublished">2019-11-22</time>
-        </div>
-        <h3 class="article-title" itemprop="name">
-            <a class="article-link" href="https://cens7.github.io/2019/11/%E9%98%B2xss%E6%94%BB%E5%87%BB/">防xss攻击</a>
-        </h3>
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://cens7.github.io/2021/09/%E4%BD%BF%E7%94%A8typehandler%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E5%8A%A0%E8%A7%A3%E5%AF%86/" class="article-date">
+  <time datetime="2021-09-23 10:33:56 &#43;0800 CST" itemprop="datePublished">2021-09-23</time>
+</a>
+</span>
+  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="https://cens7.github.io/tags/java/"> Java </a>
+    <a class="article-tag-link" href="https://cens7.github.io/tags/mybatis/"> MyBatis </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="https://cens7.github.io/2021/09/%E4%BD%BF%E7%94%A8typehandler%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E5%8A%A0%E8%A7%A3%E5%AF%86/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 845字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2分 </span>
+      </div>
     </div>
-    <div class="panel-footer">
-        <a href="https://cens7.github.io/tags/java" class="label label-default mb">Java</a>
-        <a href="https://cens7.github.io/tags/%E5%AE%89%E5%85%A8" class="label label-default mb">安全</a>
-        <a href="https://cens7.github.io/tags/xss" class="label label-default mb">xss</a>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h1 id="mybatis-typehandler">MyBatis TypeHandler</h1>
+<h2 id="heading">背景</h2>
+<p>在开发中，我们针对敏感信息需要做加密存储。比如：密码、手机号、邮箱、地址等。在程序里还需要对这些加密过的信息做处理(查询、更新等)，所以需要一种很便捷的方式。</p>
+<h2 id="heading1">思路</h2>
+<p>在使用MyBatis时，LocalDateTime/String等类型会被自动转换为数据库对应的datetime/timestamp/varchar类型；并且使用的是TypeHandler。官网对TypeHandler的定义如下：</p>
+<blockquote>
+<p>Whenever MyBatis sets a parameter on a PreparedStatement or retrieves a value from a ResultSet, a TypeHandler is used to retrieve the value in a means appropriate to the Java type. The following table describes the default TypeHandlers.</p>
+</blockquote>
+<p>那我们是否也可以拓展TypeHandler完成敏感信息的加解密。</p>
+<p>整理清楚上面关系，我们接下来要完成以下步骤：<!-- raw HTML omitted --></p>
+<ul>
+<li>编写加解密类</li>
+<li>编写加密TypeHandler，并使用加解密类</li>
+<li>注册TypeHandler</li>
+<li>针对需要加密的字段使用TypeHandler</li>
+</ul>
+<h2 id="heading2">实现</h2>
+<h3 id="1-">1. 编写加解密类</h3>
+<p>略。可以针对不同的场景写不同的加解密类（手机号:数字加解密; 密码:字符串加解密; 地址: 带搜索的字符串加解密等）。</p>
+<h3 id="2-typehandler">2. 编写TypeHandler</h3>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h3 id="3typehandler">3.注册TypeHandler</h3>
+<p>在mybatis里，注册TypeHandler有2种方式，一种根据class注册，另一种是根据package扫描。这里我使用第二种。</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h3 id="4typehandler">4.使用TypeHandler</h3>
+<h4 id="41-mybatistypehandler">4.1 MyBatis使用加密TypeHandler</h4>
+<p>在xxx.xml文件里，指定typeHandler。例如：</p>
+<pre><code>    &lt;result column=&quot;NAME&quot; jdbcType=&quot;VARCHAR&quot; property=&quot;name&quot; typeHandler=&quot;com.demo.mybatis.type.CryptSimpleStringTypeHandler&quot; /&gt;
+</code></pre>
+<h4 id="42-mybatis-plustypehandler">4.2 MyBatis Plus使用加密TypeHandler</h4>
+<p>在entity class类里的字段添加typeHandler注解属性。例如：</p>
+<pre><code>@TableField(value = &quot;NAME&quot;, typeHandler = com.demo.mybatis.type.CryptSimpleStringTypeHandler.class)
+private String name;
+</code></pre>
+<h2 id="heading3">拓展</h2>
+<p>启动单元测试跑一下，通过此种方法就可以完成数据库敏感字段的自动加解密了。如果对加密算法有特殊要求，比如：对数字的加解密、对数字加解密之后要支持搜索、对字符串的加解密、对字符串加解密要支持搜索、要控制加密后的最大长度、撒盐等等，都可以在加解密算法上做拓展，这里不展开讲述。</p>
+<p><strong>总结：遇到问题多思考，多看看别人是怎么做的，了解框架的实现原理，说不定其中就有某些可以让我们借助使用。</strong></p>
+
+
     </div>
-</article>
-            </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://cens7.github.io/2021/09/%E4%BD%BF%E7%94%A8typehandler%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E5%8A%A0%E8%A7%A3%E5%AF%86/" title="使用TypeHandler对数据库敏感信息加解密" target="_blank" rel="external">https://cens7.github.io/2021/09/%E4%BD%BF%E7%94%A8typehandler%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E5%8A%A0%E8%A7%A3%E5%AF%86/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/cens7/" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://cens7.github.io/5_avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/cens7/" target="_blank"><span class="text-dark">mavic</span><small class="ml-1x"></small></a></h3>
+        <div>记录我的成长</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://cens7.github.io/2021/08/%E9%98%BF%E9%87%8C%E4%BA%91acm%E5%8D%87%E7%BA%A7%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" title="SpringBoot升级为springCloud 阿里云acm升级问题记录"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
         </div>
-    </article>
+    </div>
+</nav>
+
 </main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
 <ul class="social-links">
     <li><a href="https://github.com/cens7/" target="_blank" title="github" data-toggle=tooltip data-placement=top >
@@ -462,6 +552,7 @@
         hasInnerContainers: true,
     });
 </script>
+
 
   </body>
 </html>

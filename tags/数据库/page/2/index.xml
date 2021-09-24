@@ -11,6 +11,15 @@
     
     
     <item>
+      <title>NIO_AIO_BIO学习与总结</title>
+      <link>https://cens7.github.io/2019/05/nio_aio_bio%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Sun, 05 May 2019 13:52:26 +0800</pubDate>
+      
+      <guid>https://cens7.github.io/2019/05/nio_aio_bio%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%80%BB%E7%BB%93/</guid>
+      <description>IO,NIO,AIO 学习与总结 Java 中的 BIO、NIO和 AIO 理解为是 Java 语言对操作系统的各种 IO 模型的封装。程序员在使用这些 API 的时候，不需要关心操作系统层面的知识，也不</description>
+    </item>
+    
+    <item>
       <title>SpringCloud中rabbitmq被消费多次</title>
       <link>https://cens7.github.io/2018/06/springcloud%E4%B8%ADrabbitmq%E8%A2%AB%E6%B6%88%E8%B4%B9%E5%A4%9A%E6%AC%A1/</link>
       <pubDate>Tue, 12 Jun 2018 00:00:00 +0000</pubDate>
