@@ -15,7 +15,7 @@
       <pubDate>Thu, 23 Sep 2021 10:33:56 +0800</pubDate>
       
       <guid>https://cens7.github.io/2021/09/%E4%BD%BF%E7%94%A8typehandler%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E5%8A%A0%E8%A7%A3%E5%AF%86/</guid>
-      <description>MyBatis TypeHandler 背景 在开发中，我们针对敏感信息需要做加密存储。比如：密码、手机号、邮箱、地址等。在程序里还需要对这些加密过的信息做处理(查询、更新等)，</description>
+      <description>MyBatis TypeHandler 本篇文章是对这篇文章的补充与归纳总结 背景 在开发中，我们针对敏感信息需要做加密存储。比如：密码、手机号、邮箱、地址等。在程序里还需要对这些</description>
     </item>
     
     <item>
