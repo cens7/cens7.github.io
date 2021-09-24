@@ -42,7 +42,7 @@
 <meta itemprop="description" content="MyBatis TypeHandler 本篇文章是对这篇文章的补充与归纳总结 背景 在开发中，我们针对敏感信息需要做加密存储。比如：密码、手机号、邮箱、地址等。在程序里还需要对这些">
 <meta itemprop="datePublished" content="2021-09-23T10:33:56&#43;08:00" />
 <meta itemprop="dateModified" content="2021-09-23T10:33:56&#43;08:00" />
-<meta itemprop="wordCount" content="863">
+<meta itemprop="wordCount" content="950">
 
 
 
@@ -374,7 +374,7 @@
 
         <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="https://cens7.github.io/2021/09/%E4%BD%BF%E7%94%A8typehandler%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E5%8A%A0%E8%A7%A3%E5%AF%86/#comments"
             class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 863字</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 950字</span>
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2分 </span>
       </div>
     </div>
@@ -402,8 +402,44 @@
 <h3 id="1-">1. 编写加解密类</h3>
 <p>略。可以针对不同的场景写不同的加解密类（手机号:数字加解密; 密码:字符串加解密; 地址: 带搜索的字符串加解密等）。</p>
 <h3 id="2-typehandler">2. 编写TypeHandler</h3>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<pre><code>import java.sql.CallableStatement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import org.apache.ibatis.type.BaseTypeHandler;
+import org.apache.ibatis.type.JdbcType;
+
+
+public class CryptFullStringTypeHandler extends BaseTypeHandler&lt;String&gt; {
+	private final CryptField&lt;String&gt; cryptField;
+
+	public CryptFullStringTypeHandler() {
+		cryptField = new CryptFull();
+	}
+
+	@Override
+	public void setNonNullParameter(PreparedStatement ps, int i, String parameter, JdbcType jdbcType) throws SQLException {
+		ps.setString(i, cryptField.encrypt(parameter));
+	}
+
+	@Override
+	public String getNullableResult(ResultSet rs, String columnName) throws SQLException {
+		return cryptField.decrypt(rs.getString(columnName));
+	}
+
+	@Override
+	public String getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
+		return cryptField.decrypt(rs.getString(columnIndex));
+	}
+
+	@Override
+	public String getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
+		return cryptField.decrypt(cs.getString(columnIndex));
+	}
+
+}
+</code></pre>
 <h3 id="3typehandler">3.注册TypeHandler</h3>
 <p>在mybatis里，注册TypeHandler有2种方式，一种根据class注册，另一种是根据package扫描。这里我使用第二种。</p>
 <!-- raw HTML omitted -->
@@ -427,10 +463,7 @@ private String name;
     <div class="article-footer">
 <blockquote class="mt-2x">
   <ul class="post-copyright list-unstyled">
-    <li class="post-copyright-link hidden-xs">
-      <strong>本文链接: </strong>
-      <a href="https://cens7.github.io/2021/09/%E4%BD%BF%E7%94%A8typehandler%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E5%8A%A0%E8%A7%A3%E5%AF%86/" title="使用TypeHandler对数据库敏感信息加解密" target="_blank" rel="external">https://cens7.github.io/2021/09/%E4%BD%BF%E7%94%A8typehandler%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E5%8A%A0%E8%A7%A3%E5%AF%86/</a>
-    </li>
+    
     <li class="post-copyright-license">
       <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
     </li>
@@ -490,7 +523,7 @@ private String name;
     &copy;2016  -
     2021
     <div class="publishby">
-        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+        Theme by <a href="https://github.com/cens7" target="_blank"> cens7 </a>base onpure</a>.
     </div>
   </div>
 </footer>
