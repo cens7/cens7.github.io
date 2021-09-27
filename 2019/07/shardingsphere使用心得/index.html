@@ -30,7 +30,8 @@
   
   <link rel="stylesheet" href="https://cens7.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
   
-  <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" async>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
   <meta property="og:title" content="ShardingSphere使用心得" />
 <meta property="og:description" content="背景 随着业务发展，订单线上数据已到达每日200万&#43;，需要提前对订单做分库分表。结合市面上解决方案，决定采用sharding。sharding" />
@@ -621,6 +622,8 @@ sql.show: 'true'
 </div>
     </div>
   </article>
+<section id="comments">
+</section>
 
 </div><nav class="bar bar-footer clearfix" data-stick-bottom>
     <div class="bar-inner">
@@ -779,6 +782,21 @@ sql.show: 'true'
     });
 </script>
 
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '98ec76f31866492178d5',
+        clientSecret: 'd3734c97fa3c609b99626b7a39c1a4decf0539de',
+        repo: 'cens7.github.io',
+        owner: 'cens7',
+        admin: ['cens7'],
+        id: md5(location.pathname),
+        distractionFreeMode: true
+    });
+    gitalk.render('comments');
+</script>
 
   </body>
 </html>
